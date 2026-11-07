@@ -1,0 +1,44 @@
+/* 색·글꼴·애니메이션 값은 이 파일 한 곳에서만 관리한다. */
+:root {
+  /* 색 — 대비(배경 #0B100E 기준): text 10.8:1 · title 6.3:1 · text-dim 5.5:1 · brand 3.4:1(비텍스트 전용) */
+  --bg:        #0B100E; /* 녹색이 살짝 감도는 딥 블랙 */
+  --bg-raise:  #121A17; /* 카드·관리자 패널·모달 */
+  --line:      #24302C; /* 얇은 구분선 */
+  --title:     #3A9BDA; /* 제목·'작품 둘러보기' */
+  --brand:     #0C6CA4; /* 로고 원색 — 작은 표식·포커스 링·선택 상태 (글자색으로 쓰지 않음) */
+  --text:      #B8C4D1; /* 본문·메뉴 */
+  --text-dim:  #7E8B98; /* 캡션·날짜 */
+
+  /* 글꼴 */
+  --font-display: 'Paperlogy', system-ui, sans-serif;   /* 큰 제목·큰 글자 */
+  --font-ui:      'Paperlogy', system-ui, sans-serif;   /* 메뉴·버튼·라벨·번호·관리자 입력 */
+  --font-hand:    'HeoBujang', 'Paperlogy', sans-serif; /* 세부 내용(손글씨) */
+  --hand-scale:   1.12; /* 손글씨는 같은 크기에서 작아 보여 살짝 키움 */
+
+  /* 글자 크기 (모바일 본문 16px 이상) */
+  --fs-hero:    clamp(2.6rem, 1.6rem + 5vw, 5.75rem);
+  --fs-h1:      clamp(2rem, 1.4rem + 2.6vw, 3.5rem);
+  --fs-h2:      clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+  --fs-body:    clamp(1rem, .96rem + .2vw, 1.0625rem);
+  --fs-caption: .875rem;
+
+  /* 여백·레이아웃 */
+  --gutter:  clamp(16px, 4vw, 48px);
+  --max-w:   1440px;
+  --measure: 38ch; /* 긴 글 한 줄 35~40자 */
+  --header-h: 64px;
+
+  /* 애니메이션 */
+  --dur-fast: 200ms; --dur-base: 500ms; --dur-slow: 700ms;
+  --dur-hover: 300ms; --dur-line: 600ms; --dur-page: 220ms; --dur-hero-zoom: 10s;
+  --stagger-hero: 100ms; --stagger-list: 75ms;
+  --rise: 14px;
+  --ease-out: cubic-bezier(.2,.7,.2,1);
+
+  /* 인트로 (흰 화면 + 캐릭터 영상) — --intro-bg는 index.html 인라인 스타일과 같은 값 유지 */
+  --intro-bg:       #FDFBFB; /* 영상 배경색을 실측해 맞춤 → 영상 테두리가 보이지 않음 */
+  --intro-fg:       #5A6470; /* '건너뛰기' 글자, 인트로 배경 대비 5.8:1 */
+  --intro-video-w:  min(96vw, 760px);
+  --dur-intro-fade: 1800ms;
+  --ease-intro:     cubic-bezier(.33,0,.15,1);
+}

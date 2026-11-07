@@ -1,0 +1,8 @@
+/* Paperlogy — 큰 제목·큰 글자·메뉴/버튼 등 UI. 실제로 쓰는 굵기만 선언(브라우저는 쓰인 굵기만 내려받음). */
+@font-face { font-family: 'Paperlogy'; src: url('/fonts/Paperlogy-3Light.ttf') format('truetype'); font-weight: 300; font-display: swap; }
+@font-face { font-family: 'Paperlogy'; src: url('/fonts/Paperlogy-4Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Paperlogy'; src: url('/fonts/Paperlogy-6SemiBold.ttf') format('truetype'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'Paperlogy'; src: url('/fonts/Paperlogy-7Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+
+/* 온글잎 허부장동생인체 — 손글씨. 세부 내용(설명·캡션·본문 문단)에 사용 */
+@font-face { font-family: 'HeoBujang'; src: url('/fonts/OnGeulip-HeoBujangDongsaeng.ttf') format('truetype'); font-weight: 400; font-display: swap; }

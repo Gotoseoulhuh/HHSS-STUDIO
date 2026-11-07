@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+
+# 영화 소개서(대용량·비공개) — 저장소에 올리지 않음
+/assets/HHSS 영화 소개서.html

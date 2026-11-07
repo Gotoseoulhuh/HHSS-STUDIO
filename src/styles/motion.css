@@ -1,0 +1,52 @@
+/*
+ * 원칙: 기본은 "보이는 상태". JS가 준비되면 <html class="motion-ready">를 붙이고,
+ * 그때부터만 [data-reveal] 요소를 숨겼다가 화면에 들어오면 .is-in으로 등장시킨다.
+ * transform·opacity만 움직인다. 반복 애니메이션은 없다.
+ */
+
+/* 홈 첫 화면: 줄 단위 순차 등장 */
+@keyframes rise-in { from { opacity: 0; transform: translateY(var(--rise)); } to { opacity: 1; transform: none; } }
+.motion-ready .hero-line { animation: rise-in var(--dur-slow) var(--ease-out) both; animation-delay: calc(var(--i, 0) * var(--stagger-hero)); }
+
+/* 홈 대표 이미지: 아주 느린 줌인 1회 */
+@keyframes slow-zoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+.motion-ready .hero-zoom > * { animation: slow-zoom var(--dur-hero-zoom) var(--ease-out) both; }
+
+/* 스크롤 등장: 페이드 + 상승, 순차 */
+.motion-ready [data-reveal] { opacity: 0; transform: translateY(var(--rise)); transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); transition-delay: calc(var(--i, 0) * var(--stagger-list)); }
+.motion-ready [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* 구분선이 왼쪽에서 그려짐 */
+.motion-ready .rule[data-reveal] { opacity: 1; transform: scaleX(0); transition: transform var(--dur-line) var(--ease-out); }
+.motion-ready .rule[data-reveal].is-in { transform: scaleX(1); }
+
+/* 페이지 전환 (View Transitions API 지원 브라우저만 적용됨) */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--dur-page); animation-timing-function: var(--ease-out); }
+
+/* 사진 확대 보기 */
+@keyframes lb-in { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.lightbox { animation: fade-in 220ms var(--ease-out) both; }
+.lightbox__stage { animation: lb-in 240ms var(--ease-out) both; }
+
+/* 인트로: 흰 화면 한가운데 영상 → 천천히 사라짐 */
+.intro { position: fixed; inset: 0; z-index: 1000; background: var(--intro-bg); display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity var(--dur-intro-fade) var(--ease-intro); }
+.intro--leaving { opacity: 0; pointer-events: none; }
+.intro__video { width: var(--intro-video-w); height: auto; aspect-ratio: 16 / 9; background: var(--intro-bg);
+  /* 영상 가장자리를 흐려 압축 노이즈로 생기는 희미한 테두리를 없앰 */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent), linear-gradient(to bottom, transparent, #000 3%, #000 98.5%, transparent);
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+          mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent), linear-gradient(to bottom, transparent, #000 3%, #000 98.5%, transparent); }
+.intro__skip { position: absolute; right: var(--gutter); bottom: calc(var(--gutter) + env(safe-area-inset-bottom, 0px)); min-height: 44px; padding: 8px 4px; font-family: var(--font-ui); font-size: var(--fs-caption); letter-spacing: .08em; color: var(--intro-fg); }
+.intro__skip:hover { text-decoration: underline; text-underline-offset: 4px; }
+/* 인트로가 끝날 때까지 홈 첫 화면 애니메이션 대기 → 사라지는 동안 시작 */
+.is-intro .hero-line, .is-intro .hero-zoom > * { animation-play-state: paused; }
+
+/* 움직임 줄이기: 이동·줌을 끄고 즉시 표시 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; transition-delay: 0ms !important; scroll-behavior: auto !important; }
+  .motion-ready [data-reveal] { opacity: 1; transform: none; }
+  .motion-ready .rule[data-reveal] { transform: none; }
+  .motion-ready .hero-zoom > * { animation: none; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
