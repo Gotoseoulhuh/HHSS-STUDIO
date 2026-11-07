@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { getSettings } from '../lib/content'
 import { useReveal } from '../lib/useReveal'
+import { Footer } from './Footer'
 import { Header } from './Header'
 
 export function Layout() {
@@ -22,12 +22,7 @@ export function Layout() {
       <main id="main" tabIndex={-1}>
         <Outlet />
       </main>
-      <footer className="site-footer">
-        <div className="container site-footer__inner">
-          <span className="meta">© {new Date().getFullYear()} {getSettings().footerName}</span>
-          <span className="hand site-footer__slogan">{getSettings().slogan}</span>
-        </div>
-      </footer>
+      <Footer />
     </>
   )
 }

@@ -14,26 +14,45 @@ export function Home() {
 
   return (
     <>
-      <section className="hero container" aria-label="소개">
-        <h1>
-          <span className="hero-line" style={{ ['--i' as string]: 0 }}>
-            <img className="hero-logo" src={asset('brand/hhss-logo.png')} alt={settings.heroLines[0]} />
-          </span>
-        </h1>
-        {settings.heroLines.slice(1).map((line, i) => (
-          <p key={i} className="hero-line hand" style={{ ['--i' as string]: i + 1 }}>{line}</p>
-        ))}
+      {/* 첫 화면: 들어오자마자 보이는 한 화면 안에 HHSS 소개만 — 잘리는 사진·글 없이 */}
+      <section className="home-hero" aria-labelledby="home-hero-title">
+        <div className="container home-hero__inner">
+          <img className="home-hero__avatar hero-line" style={{ ['--i' as string]: 0 }} src={asset('brand/hhss-character.jpg')} alt="" width="480" height="480" />
+          <h1 id="home-hero-title" className="home-hero__title hero-line" style={{ ['--i' as string]: 1 }}>
+            <img src={asset('brand/hhss-logo.png')} alt="HHSS" />
+            <span className="home-hero__studio">STUDIO</span>
+          </h1>
+          <p className="home-hero__lead hero-line" style={{ ['--i' as string]: 2 }}>
+            {settings.heroIntro}
+            <br />
+            <strong>{settings.heroEmphasis}</strong>
+          </p>
+          <div className="home-hero__actions hero-line" style={{ ['--i' as string]: 3 }}>
+            <Link to="/works" className="pill pill--solid" viewTransition>작품 보기 <span aria-hidden="true">→</span></Link>
+            <Link to="/photography" className="pill pill--solid" viewTransition>촬영 기록 <span aria-hidden="true">→</span></Link>
+            <Link to="/about" className="pill" viewTransition>소개 <span aria-hidden="true">→</span></Link>
+            {settings.social.youtube && (
+              <a href={settings.social.youtube} className="pill" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true">↗</span></a>
+            )}
+          </div>
+        </div>
+        <a href="#home-works-start" className="home-hero__scroll meta" aria-label="대표 작품으로 내려가기">SCROLL <span aria-hidden="true">↓</span></a>
       </section>
+      <span id="home-works-start" />
 
       {!lead ? (
         <p className="container empty hand">아직 공개된 작품이 없습니다.</p>
       ) : (
-        <section className="container card" aria-label="대표 작품">
+        <section className="section container card" aria-labelledby="home-lead">
+          <hr className="rule" data-reveal />
+          <div className="section__head">
+            <h2 id="home-lead" data-reveal>대표 작품</h2>
+          </div>
           <Link to={`/works/${lead.slug}`} viewTransition>
-            <MediaFrame media={lead.cover} className="hero-zoom" eager />
+            <MediaFrame media={lead.cover} />
             <div className="card__head">
               <span className="card__no">{pad2(1)}</span>
-              <h2 className="card__title">{lead.title}</h2>
+              <h3 className="card__title">{lead.title}</h3>
             </div>
             <p className="caption">{lead.summary}</p>
             <p className="meta">{[lead.workType, lead.genre, lead.runtime, lead.release].filter(Boolean).join(' · ')}</p>

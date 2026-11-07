@@ -367,7 +367,10 @@ export const profile: Profile = {
 export const settings: SiteSettings = {
   siteName: 'HHSS',
   tagline: 'HHSS Filmography',
-  heroLines: ['HHSS', 'HHSS Filmography', '연출 허상경 · 제작 내포스튜디오'],
+  heroIntro: '학생들과 함께 만든 단편영화와 뮤직비디오,',
+  heroEmphasis: '특별한 것을 공유하다.',
+  // 주소를 넣으면 하단·첫 화면에 자동으로 나타남
+  social: { youtube: '', instagram: '', email: '' },
   footerName: 'HHSS STUDIO',
   slogan: '특별한 것을 공유하다',
 }

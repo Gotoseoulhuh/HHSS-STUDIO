@@ -90,10 +90,29 @@ Cloudflare 대시보드 → `hhss.studio` → **DNS → Records → Add record**
 
 > 위 IP는 GitHub 공식 문서 값입니다. 설정하기 전에 [GitHub Docs — Managing a custom domain](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site)에서 한 번 더 확인하세요.
 
-## Supabase 설정
+## Supabase 설정 (방문자 수)
 
-다음 단계에서 추가합니다. 연결 값은 `.env.example`의 이름대로 `.env.local`에만 넣고 커밋하지 않습니다.
-`service_role` 키는 저장소 어디에도 넣지 않습니다.
+하단의 "오늘 · 전체" 방문자 수는 Supabase(무료)에 저장합니다. 연결 전에는 숫자 칸이 숨겨져 있습니다.
+
+1. [supabase.com](https://supabase.com) → **Sign in with GitHub** → **New project**
+   - Name: `hhss-studio`, Region: **Northeast Asia (Seoul)**, Plan: **Free**
+   - Database Password는 따로 안전하게 보관(사이트에는 쓰지 않음)
+   - 영상 검수 앱과 섞지 않도록 **이 사이트 전용 새 프로젝트**로 만듭니다.
+2. 왼쪽 **SQL Editor → New query**에 `supabase/migrations/0001_visit_counter.sql` 내용을 모두 붙여 넣고 **Run**
+3. 화면 위 **Connect** 버튼(또는 **Project Settings → API Keys / Data API**)에서 두 값을 복사
+   - **Project URL** (`https://xxxx.supabase.co`)
+   - **Publishable key** 또는 **anon public** 키 — ⚠ `service_role`·`secret` 키는 절대 쓰지 않음
+4. GitHub 저장소 **Settings → Secrets and variables → Actions → Variables 탭 → New repository variable**
+   - `SUPABASE_URL` = Project URL
+   - `SUPABASE_ANON_KEY` = Publishable(anon) 키
+5. **Actions → Deploy to GitHub Pages → Run workflow** — 배포가 끝나면 하단에 방문자 수가 나타납니다.
+
+- 같은 브라우저는 하루(한국 시간)에 한 번만 셉니다. 브라우저 기록을 지우거나 다른 기기로 오면 새로 셉니다.
+- 매일 예약 빌드가 Supabase를 한 번 읽어, 무료 프로젝트가 일시 정지되지 않게 합니다.
+
+## 하단·첫 화면 링크 (YouTube · Instagram · 이메일)
+
+`src/data/site.ts`의 `social`에 주소를 넣으면 하단 오른쪽 아이콘과 첫 화면 버튼(YouTube)이 자동으로 나타납니다. 비어 있으면 숨겨집니다.
 
 ## 카톡·메신저 공유 미리보기
 

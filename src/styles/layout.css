@@ -33,7 +33,6 @@
 /* ── 본문·푸터 ── */
 main { min-height: calc(100vh - var(--header-h) - 160px); }
 .site-footer { border-top: 1px solid var(--line); padding: 32px 0 40px; margin-top: 96px; }
-.site-footer__inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
 /* ── 페이지 머리 ── */
 .page-head { padding-block: clamp(48px, 8vw, 112px) clamp(32px, 4vw, 56px); display: grid; gap: 16px; }
@@ -231,5 +230,44 @@ main { min-height: calc(100vh - var(--header-h) - 160px); }
 .gate--compact .gate__form { grid-row: 3; padding-top: 16px; }
 @keyframes gate-shake { 0%, 100% { transform: none; } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 .site-header.is-menu-open::before { background: var(--bg); }
-.site-footer__inner { align-items: baseline; }
-.site-footer__slogan { color: var(--text-dim); }
+
+/* ═════ 하단: 왼쪽 저작권 · 가운데 슬로건 · 오른쪽 방문자 수·링크 ═════ */
+.site-footer__inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+.site-footer__copy { justify-self: start; }
+.site-footer__slogan { justify-self: center; color: var(--text); }
+.site-footer__end { justify-self: end; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 767px) {
+  .site-footer__inner { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 14px; }
+  .site-footer__slogan { order: 1; }
+  .site-footer__end { order: 2; justify-self: center; justify-content: center; }
+  .site-footer__copy { order: 3; justify-self: center; }
+}
+.visit-stats { display: inline-flex; gap: 12px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; white-space: nowrap; }
+.visit-stats b { color: var(--title); font-weight: 600; margin-left: 4px; }
+.social { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; }
+.social a { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 999px; color: var(--text-dim); transition: color var(--dur-fast), border-color var(--dur-fast); }
+.social--label a { padding: 0 14px; }
+.social a:hover, .social a:active { color: var(--title); border-color: var(--brand); }
+.social svg { width: 18px; height: 18px; }
+
+/* ═════ 홈 첫 화면: 한 화면 안에 HHSS 소개 ═════ */
+.home-hero { position: relative; min-height: calc(100svh - var(--header-h)); display: grid; align-items: center; padding-block: 32px 72px; }
+.home-hero__inner { display: grid; justify-items: start; gap: clamp(16px, 2.6vh, 28px); }
+.home-hero__avatar { width: clamp(76px, 7vw + 40px, 116px); height: auto; aspect-ratio: 1; border-radius: 50%; background: var(--intro-bg); object-fit: cover; }
+.home-hero__title { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 4px 18px; margin: 0; line-height: 1; }
+.home-hero__title img { height: clamp(84px, 9vw + 40px, 200px); width: auto; aspect-ratio: 1.7; object-fit: cover; margin-left: -1.2%; }
+.home-hero__studio { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.2rem, .8rem + 1.6vw, 2.4rem); letter-spacing: .38em; color: var(--title); padding-bottom: .5em; }
+.home-hero__lead { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.15rem, .9rem + 1.3vw, 2rem); line-height: 1.5; color: var(--text); }
+.home-hero__lead strong { color: var(--title); font-weight: 700; }
+.home-hero__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.home-hero__scroll { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); letter-spacing: .3em; padding: 8px; }
+.home-hero__scroll:hover { color: var(--title); }
+@media (max-height: 620px) { .home-hero__scroll { display: none; } }
+
+.pill { display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 24px; border-radius: 999px; border: 1px solid var(--line);
+  font-family: var(--font-ui); font-size: 1rem; color: var(--text); transition: background var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast); }
+.pill:hover { border-color: var(--brand); color: var(--title); }
+.pill--solid { background: var(--brand); border-color: var(--brand); color: #FFFFFF; font-weight: 600; } /* 흰 글자 대비 5.6:1 */
+.pill--solid:hover { background: color-mix(in srgb, var(--brand) 85%, #FFFFFF); color: #FFFFFF; }
+.pill:active { transform: scale(.97); }
+@media (max-width: 767px) { .pill { height: 46px; padding: 0 18px; font-size: .95rem; } }

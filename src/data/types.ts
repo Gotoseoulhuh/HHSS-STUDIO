@@ -126,7 +126,11 @@ export interface Profile {
 export interface SiteSettings {
   siteName: string
   tagline: string
-  heroLines: string[]
+  /** 첫 화면 소개 두 줄: 보통 글자 한 줄 + 강조 한 줄 */
+  heroIntro: string
+  heroEmphasis: string
+  /** 하단·첫 화면 외부 링크. 비어 있으면 화면에 나오지 않음 */
+  social: { youtube?: string; instagram?: string; email?: string }
   /** 하단 왼쪽 저작권 표기 이름 (예: 'HHSS STUDIO') */
   footerName: string
   /** 하단 오른쪽 슬로건 */
