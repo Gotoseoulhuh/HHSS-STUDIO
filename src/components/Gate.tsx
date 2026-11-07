@@ -27,8 +27,25 @@ export function Gate({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<'idle' | 'checking' | 'wrong'>('idle')
   const inputRef = useRef<HTMLInputElement>(null)
 
+  // 휴대폰 키보드가 올라오면 '실제로 보이는 영역' 기준으로 다시 배치 (visualViewport)
+  const [view, setView] = useState<{ top?: number; height?: number; compact: boolean }>({ compact: false })
   useEffect(() => {
-    if (!unlocked) inputRef.current?.focus()
+    if (unlocked) return
+    const vv = window.visualViewport
+    if (!vv) return
+    const update = () => setView({ top: vv.offsetTop, height: vv.height, compact: vv.height < 480 })
+    update()
+    vv.addEventListener('resize', update)
+    vv.addEventListener('scroll', update)
+    return () => {
+      vv.removeEventListener('resize', update)
+      vv.removeEventListener('scroll', update)
+    }
+  }, [unlocked])
+
+  // 자동 포커스는 마우스 기기에서만 — 휴대폰은 들어오자마자 키보드가 화면을 가리지 않게
+  useEffect(() => {
+    if (!unlocked && matchMedia('(pointer: fine)').matches) inputRef.current?.focus()
   }, [unlocked])
 
   if (unlocked) return <>{children}</>
@@ -51,11 +68,12 @@ export function Gate({ children }: { children: ReactNode }) {
   }
 
   return (
-    <main className="gate">
+    <main className={`gate${view.compact ? ' gate--compact' : ''}`} style={{ top: view.top, height: view.height }}>
+      {/* 로고는 보이는 화면의 정중앙(가운데 줄), 입력은 그 아래 줄 */}
+      <h1 className="gate__logo">
+        <img src={asset('brand/hhss-logo.png')} alt="HHSS" />
+      </h1>
       <form className="gate__form" onSubmit={onSubmit}>
-        <h1 className="gate__logo">
-          <img src={asset('brand/hhss-logo.png')} alt="HHSS" />
-        </h1>
         <label htmlFor="gate-pw" className="visually-hidden">비밀번호</label>
         <div className="gate__row">
           <input
@@ -64,13 +82,14 @@ export function Gate({ children }: { children: ReactNode }) {
             className="gate__input"
             type="password"
             autoComplete="current-password"
+            enterKeyHint="go"
             placeholder="비밀번호"
             value={value}
             onChange={(e) => { setValue(e.target.value); if (status === 'wrong') setStatus('idle') }}
             aria-invalid={status === 'wrong'}
             aria-describedby="gate-msg"
           />
-          <button className="gate__btn" type="submit" disabled={status === 'checking'} aria-label="입장">→</button>
+          <button className="gate__btn" type="submit" disabled={status === 'checking'}>확인</button>
         </div>
         <p id="gate-msg" className="gate__msg" role="status" aria-live="polite">
           {status === 'wrong' ? '비밀번호가 맞지 않습니다.' : ' '}
