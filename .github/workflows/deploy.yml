@@ -32,14 +32,13 @@ jobs:
       - run: npm run build
         env:
           BASE_PATH: ${{ steps.pages.outputs.base_path }}
-          # 공개 값(프로젝트 URL·anon/publishable 키). 저장소 Settings → Secrets and variables → Actions → Variables
-          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
       # 무료 Supabase 프로젝트는 요청이 오래 없으면 일시 정지됨 → 매일 예약 빌드 때 한 번 읽어 활동 유지
+      # 연결 값은 .env.production(공개용 URL·publishable 키)에서 읽음
       - name: Supabase 활동 유지
-        if: ${{ vars.SUPABASE_URL != '' }}
         run: |
-          curl -fsS -X POST "${{ vars.SUPABASE_URL }}/rest/v1/rpc/visit_stats" -H "apikey: ${{ vars.SUPABASE_ANON_KEY }}" -H "Content-Type: application/json" -d '{}' > /dev/null || echo "::warning::Supabase 응답 없음 — 대시보드에서 프로젝트 상태를 확인하세요"
+          set -a; . ./.env.production; set +a
+          if [ -z "$VITE_SUPABASE_URL" ]; then echo '연결 값 없음 — 건너뜀'; exit 0; fi
+          curl -fsS -X POST "$VITE_SUPABASE_URL/rest/v1/rpc/visit_stats" -H "apikey: $VITE_SUPABASE_ANON_KEY" -H "Content-Type: application/json" -d '{}' > /dev/null || echo "::warning::Supabase 응답 없음 — 대시보드에서 프로젝트 상태를 확인하세요"
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

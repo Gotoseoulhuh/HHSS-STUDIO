@@ -102,10 +102,10 @@ Cloudflare 대시보드 → `hhss.studio` → **DNS → Records → Add record**
 3. 화면 위 **Connect** 버튼(또는 **Project Settings → API Keys / Data API**)에서 두 값을 복사
    - **Project URL** (`https://xxxx.supabase.co`)
    - **Publishable key** 또는 **anon public** 키 — ⚠ `service_role`·`secret` 키는 절대 쓰지 않음
-4. GitHub 저장소 **Settings → Secrets and variables → Actions → Variables 탭 → New repository variable**
-   - `SUPABASE_URL` = Project URL
-   - `SUPABASE_ANON_KEY` = Publishable(anon) 키
-5. **Actions → Deploy to GitHub Pages → Run workflow** — 배포가 끝나면 하단에 방문자 수가 나타납니다.
+4. 저장소의 `.env.production`에 두 값을 넣고 푸시(공개용 값이라 커밋해도 됨)
+   - `VITE_SUPABASE_URL` = Project URL
+   - `VITE_SUPABASE_ANON_KEY` = Publishable(anon) 키
+5. 푸시하면 자동 배포 — 배포가 끝나면 하단에 방문자 수가 나타납니다.
 
 - 같은 브라우저는 하루(한국 시간)에 한 번만 셉니다. 브라우저 기록을 지우거나 다른 기기로 오면 새로 셉니다.
 - 매일 예약 빌드가 Supabase를 한 번 읽어, 무료 프로젝트가 일시 정지되지 않게 합니다.
