@@ -26,7 +26,12 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # Pages 설정에서 배포 경로를 받음: 도메인 연결 전 '/HHSS-STUDIO', 연결 후 '' (재배포만 하면 자동 전환)
+      - id: pages
+        uses: actions/configure-pages@v6
       - run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

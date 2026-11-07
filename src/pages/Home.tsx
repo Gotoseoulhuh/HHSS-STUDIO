@@ -3,6 +3,7 @@ import { Card } from '../components/Card'
 import { MediaFrame } from '../components/MediaFrame'
 import { getSettings, listFeaturedWorks, listPosts } from '../lib/content'
 import { formatDate, pad2 } from '../lib/format'
+import { asset } from '../lib/url'
 
 export function Home() {
   const settings = getSettings()
@@ -16,7 +17,7 @@ export function Home() {
       <section className="hero container" aria-label="소개">
         <h1>
           <span className="hero-line" style={{ ['--i' as string]: 0 }}>
-            <img className="hero-logo" src="/brand/hhss-logo.png" alt={settings.heroLines[0]} />
+            <img className="hero-logo" src={asset('brand/hhss-logo.png')} alt={settings.heroLines[0]} />
           </span>
         </h1>
         {settings.heroLines.slice(1).map((line, i) => (

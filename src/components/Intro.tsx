@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import { asset } from '../lib/url'
 
 const SEEN_KEY = 'hhss-intro-seen'
-const VIDEO_SRC = '/brand/hhss-intro.mp4'
+const VIDEO_SRC = asset('brand/hhss-intro.mp4')
 /** 영상이 멈추거나 못 불러와도 이 시간 뒤에는 반드시 사이트를 보여 준다 */
 const MAX_MS = 12000
 

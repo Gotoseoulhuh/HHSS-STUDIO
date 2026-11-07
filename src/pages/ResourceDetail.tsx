@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { getResource } from '../lib/content'
 import { formatBytes } from '../lib/format'
+import { asset } from '../lib/url'
 import { NotFound } from './NotFound'
 
 export function ResourceDetail() {
@@ -17,7 +18,7 @@ export function ResourceDetail() {
         <hr className="rule" data-reveal />
       </header>
       {r.file ? (
-        <a className="btn" href={`/${r.file.path}`} download>
+        <a className="btn" href={asset(r.file.path)} download>
           내려받기 · {r.file.format.toUpperCase()} · {formatBytes(r.file.sizeBytes)}
         </a>
       ) : (
