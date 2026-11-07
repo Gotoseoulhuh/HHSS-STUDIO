@@ -31,7 +31,7 @@ export function Header() {
   }, [open])
 
   return (
-    <header className="site-header">
+    <header className={`site-header${open ? ' is-menu-open' : ''}`}>
       <div className="container site-header__inner">
         <Logo />
         <button

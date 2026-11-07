@@ -114,3 +114,13 @@ Cloudflare 대시보드 → `hhss.studio` → **DNS → Records → Add record**
 
 작품·사진·소개 내용은 `HHSS 영화 소개서`(2026)를 옮긴 것이며 `src/data/site.ts`에 있습니다.
 소개서 원본 HTML(`assets/HHSS 영화 소개서.html`)은 저장소에 올리지 않습니다.
+
+## 공개 전 비밀번호 가림막
+
+완성 전까지 사이트에 들어가면 검은 화면에 로고와 비밀번호 칸만 보입니다. 통과하면 그 브라우저에서는 다시 묻지 않습니다.
+
+- 공개할 때: `src/lib/gate.ts`의 `GATE_ENABLED`를 `false`로 바꾸고, `index.html`의 `<meta name="robots" content="noindex, nofollow" />` 줄을 지웁니다.
+- 비밀번호 변경: `src/lib/gate.ts` 위쪽 주석의 명령으로 새 해시를 만들어 `GATE_HASH`에 넣고, `GATE_KEY`·`index.html`의 `hhss-gate-v1` 숫자를 함께 올립니다.
+
+> 서버 없는 정적 사이트라 브라우저에서만 확인하는 가림막입니다. 일반 방문자는 막지만,
+> 공개 저장소에 올라간 사진·파일 주소를 직접 아는 사람까지 막지는 못합니다.

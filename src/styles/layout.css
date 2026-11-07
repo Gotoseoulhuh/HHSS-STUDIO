@@ -1,5 +1,8 @@
 /* ── 헤더 ── */
-.site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+/* 흐림 효과는 ::before에만 — 헤더 자체에 backdrop-filter를 주면 그 안의 position:fixed 메뉴가
+   화면이 아니라 64px 헤더 기준으로 배치돼 모바일 메뉴 배경이 사라진다 */
+.site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid var(--line); }
+.site-header::before { content: ""; position: absolute; inset: 0; z-index: -1; background: color-mix(in srgb, var(--bg) 88%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .site-header__inner { display: flex; align-items: center; justify-content: space-between; height: var(--header-h); }
 .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; letter-spacing: .14em; color: var(--text); display: inline-flex; align-items: center; gap: 10px; }
 .logo img { height: 30px; width: auto; aspect-ratio: 1.7; object-fit: cover; } /* 정사각 원본(800²)에서 글자 부분만 보이게 */
@@ -194,3 +197,25 @@ main { min-height: calc(100vh - var(--header-h) - 160px); }
 .activity-media .frame { background: transparent; border: 0; }
 @media (min-width: 1200px) { .block--story .editorial { grid-template-columns: 4fr 8fr; } }
 .block > .btn, p.block { justify-self: start; }
+
+/* 모바일 메뉴: 화면 전체를 덮는 불투명 배경 + 열린 동안 위로 */
+@media (max-width: 767px) {
+  .nav { z-index: 49; height: calc(100dvh - var(--header-h)); overflow-y: auto; overscroll-behavior: contain; }
+}
+
+/* ═════ 공개 전 비밀번호 가림막 ═════ */
+.gate { position: fixed; inset: 0; z-index: 2000; background: var(--bg); display: grid; place-items: center; padding: var(--gutter); }
+.gate__form { display: grid; justify-items: center; gap: 28px; width: min(100%, 320px); animation: fade-in var(--dur-slow) var(--ease-out) both; }
+.gate__logo { margin: 0; }
+.gate__logo img { height: clamp(72px, 14vw, 120px); width: auto; aspect-ratio: 1.7; object-fit: cover; }
+.gate__row { display: flex; width: 100%; border-bottom: 1px solid var(--line); transition: border-color var(--dur-fast); }
+.gate__row:focus-within { border-color: var(--brand); }
+.gate__input { flex: 1; min-width: 0; background: transparent; border: 0; padding: 12px 4px; color: var(--text); font-family: var(--font-ui); font-size: 16px; letter-spacing: .2em; text-align: center; }
+.gate__input::placeholder { color: var(--text-dim); letter-spacing: .08em; }
+.gate__input:focus { outline: none; }
+.gate__input[aria-invalid="true"] { animation: gate-shake 320ms var(--ease-out); }
+.gate__btn { width: 44px; min-height: 44px; color: var(--title); font-size: 1.1rem; }
+.gate__btn:disabled { opacity: .5; }
+.gate__msg { min-height: 1.5em; font-size: var(--fs-caption); color: var(--text-dim); }
+@keyframes gate-shake { 0%, 100% { transform: none; } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.site-header.is-menu-open::before { background: var(--bg); }

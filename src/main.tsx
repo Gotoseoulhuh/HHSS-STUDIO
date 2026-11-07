@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Gate } from './components/Gate'
 import { Intro } from './components/Intro'
 import { Layout } from './components/Layout'
 import { routerBase } from './lib/url'
@@ -24,6 +25,7 @@ import './styles/motion.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <Gate>
     <Intro />
     <BrowserRouter basename={routerBase}>
       <Routes>
@@ -43,5 +45,6 @@ createRoot(document.getElementById('root')!).render(
         </Route>
       </Routes>
     </BrowserRouter>
+    </Gate>
   </StrictMode>,
 )
