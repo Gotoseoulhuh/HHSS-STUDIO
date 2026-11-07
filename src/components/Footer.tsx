@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { getSettings } from '../lib/content'
 import { loadVisitStats, visitsConfigured, type VisitStats } from '../lib/visits'
 import { SocialLinks } from './SocialLinks'
@@ -10,6 +11,17 @@ const fmt = new Intl.NumberFormat('ko-KR')
 export function Footer() {
   const settings = getSettings()
   const [stats, setStats] = useState<VisitStats | null>(null)
+  const isHome = useLocation().pathname === '/'
+  const [tucked, setTucked] = useState(isHome && window.scrollY < 24)
+
+  // 홈 첫 화면에선 소개와 겹쳐 보이지 않게 숨겨 두고, 스크롤을 시작하면 아래에서 올라옴
+  useEffect(() => {
+    if (!isHome) { setTucked(false); return }
+    const onScroll = () => setTucked(window.scrollY < 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [isHome])
 
   useEffect(() => {
     if (!visitsConfigured) return
@@ -24,7 +36,7 @@ export function Footer() {
       <span className="hand site-footer__slogan">{settings.slogan}</span>
       <span className="meta site-footer__copy">© {new Date().getFullYear()} {settings.footerName}</span>
     </div>
-    <footer className="site-footer">
+    <footer className={`site-footer${tucked ? " is-tucked" : ""}`}>
       <div className="container site-footer__inner">
         <span className="meta site-footer__copy">© {new Date().getFullYear()} {settings.footerName}</span>
         <span className="hand site-footer__slogan">{settings.slogan}</span>

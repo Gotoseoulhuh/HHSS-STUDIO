@@ -34,7 +34,9 @@
 main { min-height: calc(100vh - var(--header-h) - var(--footer-h)); padding-bottom: 96px; }
 /* 하단 줄은 화면 아래에 고정 → 본문 끝이 가려지지 않게 그 높이만큼 비워 둠 */
 body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px)); }
-.site-footer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.site-footer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), visibility 0s; }
+/* 홈 맨 위: 숨김(본문 등장 효과와 같은 속도·곡선으로 올라옴). visibility로 숨긴 동안 링크에 초점이 가지 않게 */
+.site-footer.is-tucked { opacity: 0; transform: translateY(100%); visibility: hidden; transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out), visibility 0s linear var(--dur-base); }
 .site-footer::before { content: ""; position: absolute; inset: 0; z-index: -1; background: color-mix(in srgb, var(--bg) 88%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 
 /* ── 페이지 머리 ── */
@@ -261,7 +263,7 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 .social svg { width: 18px; height: 18px; }
 
 /* ═════ 홈 첫 화면: 한 화면 안에 HHSS 소개 ═════ */
-.home-hero { position: relative; min-height: calc(100svh - var(--header-h) - var(--footer-h)); display: grid; align-items: center; padding-block: 32px 72px; }
+.home-hero { position: relative; min-height: calc(100svh - var(--header-h)); /* 하단 줄은 첫 화면에서 숨겨 두므로 화면 끝까지 */ display: grid; align-items: center; padding-block: 32px 72px; }
 .home-hero__inner { display: grid; justify-items: start; gap: clamp(16px, 2.6vh, 28px); }
 .home-hero__avatar { width: clamp(76px, 7vw + 40px, 116px); height: auto; aspect-ratio: 1; border-radius: 50%; background: var(--intro-bg); object-fit: cover; }
 .home-hero__title { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 4px 18px; margin: 0; line-height: 1; }
