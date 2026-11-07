@@ -9,7 +9,11 @@ export function Layout() {
   useReveal()
 
   // 페이지 이동 시 맨 위로
-  useEffect(() => window.scrollTo(0, 0), [pathname])
+  // 중괄호 필수: 최신 브라우저의 scrollTo()는 Promise를 돌려주는데, 이를 effect가 반환하면
+  // React가 정리 함수로 착각해 오류가 나고 화면이 비어 버린다.
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   return (
     <>

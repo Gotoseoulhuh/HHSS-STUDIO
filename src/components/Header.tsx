@@ -9,7 +9,9 @@ export function Header() {
   const toggleRef = useRef<HTMLButtonElement>(null)
 
   // 페이지 이동 시 메뉴 닫기
-  useEffect(() => setOpen(false), [pathname])
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
   // 열린 동안 배경 스크롤 막기 + Esc로 닫고 초점 복귀
   useEffect(() => {
