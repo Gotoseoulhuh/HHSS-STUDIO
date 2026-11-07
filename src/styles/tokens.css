@@ -27,6 +27,7 @@
   --max-w:   1440px;
   --measure: 38ch; /* 긴 글 한 줄 35~40자 */
   --header-h: 64px;
+  --footer-h: 64px; /* 화면 아래 고정 하단 줄 높이(휴대폰은 layout.css에서 52px) */
 
   /* 애니메이션 */
   --dur-fast: 200ms; --dur-base: 500ms; --dur-slow: 700ms;

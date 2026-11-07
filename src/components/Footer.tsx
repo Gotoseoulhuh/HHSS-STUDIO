@@ -5,7 +5,8 @@ import { SocialLinks } from './SocialLinks'
 
 const fmt = new Intl.NumberFormat('ko-KR')
 
-/** 하단: 왼쪽 저작권 · 가운데 슬로건 · 오른쪽 방문자 수와 링크 */
+/** 하단(화면 아래 고정): 왼쪽 저작권 · 가운데 슬로건 · 오른쪽 방문자 수와 링크
+ *  휴대폰은 고정 줄에 방문자 수·링크만, 저작권·슬로건은 페이지 끝(.site-colophon)에 */
 export function Footer() {
   const settings = getSettings()
   const [stats, setStats] = useState<VisitStats | null>(null)
@@ -18,6 +19,11 @@ export function Footer() {
   }, [])
 
   return (
+    <>
+    <div className="site-colophon">
+      <span className="hand site-footer__slogan">{settings.slogan}</span>
+      <span className="meta site-footer__copy">© {new Date().getFullYear()} {settings.footerName}</span>
+    </div>
     <footer className="site-footer">
       <div className="container site-footer__inner">
         <span className="meta site-footer__copy">© {new Date().getFullYear()} {settings.footerName}</span>
@@ -33,5 +39,6 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    </>
   )
 }
