@@ -24,8 +24,8 @@ export function Layout() {
       </main>
       <footer className="site-footer">
         <div className="container site-footer__inner">
-          <span className="meta">© {new Date().getFullYear()} {getSettings().siteName}</span>
-          <span className="meta">hhss.studio</span>
+          <span className="meta">© {new Date().getFullYear()} {getSettings().footerName}</span>
+          <span className="hand site-footer__slogan">{getSettings().slogan}</span>
         </div>
       </footer>
     </>

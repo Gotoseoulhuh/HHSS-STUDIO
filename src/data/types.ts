@@ -127,4 +127,8 @@ export interface SiteSettings {
   siteName: string
   tagline: string
   heroLines: string[]
+  /** 하단 왼쪽 저작권 표기 이름 (예: 'HHSS STUDIO') */
+  footerName: string
+  /** 하단 오른쪽 슬로건 */
+  slogan: string
 }

@@ -368,4 +368,6 @@ export const settings: SiteSettings = {
   siteName: 'HHSS',
   tagline: 'HHSS Filmography',
   heroLines: ['HHSS', 'HHSS Filmography', '연출 허상경 · 제작 내포스튜디오'],
+  footerName: 'HHSS STUDIO',
+  slogan: '특별한 것을 공유하다',
 }

@@ -231,3 +231,5 @@ main { min-height: calc(100vh - var(--header-h) - 160px); }
 .gate--compact .gate__form { grid-row: 3; padding-top: 16px; }
 @keyframes gate-shake { 0%, 100% { transform: none; } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 .site-header.is-menu-open::before { background: var(--bg); }
+.site-footer__inner { align-items: baseline; }
+.site-footer__slogan { color: var(--text-dim); }
