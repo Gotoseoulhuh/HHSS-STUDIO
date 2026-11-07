@@ -130,7 +130,7 @@ export interface SiteSettings {
   heroIntro: string
   heroEmphasis: string
   /** 하단·첫 화면 외부 링크. 비어 있으면 화면에 나오지 않음 */
-  social: { youtube?: string; instagram?: string; email?: string }
+  social: { youtube?: string; youtubeName?: string; instagram?: string; instagramId?: string; email?: string }
   /** 하단 왼쪽 저작권 표기 이름 (예: 'HHSS STUDIO') */
   footerName: string
   /** 하단 오른쪽 슬로건 */

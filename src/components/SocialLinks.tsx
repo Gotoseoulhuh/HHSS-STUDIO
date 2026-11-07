@@ -14,11 +14,11 @@ const Icon = {
 
 /** 사이트 설정에 주소가 있는 링크만 아이콘으로 보여 준다 */
 export function SocialLinks({ withLabel = false }: { withLabel?: boolean }) {
-  const { youtube, instagram, email } = getSettings().social
+  const { youtube, youtubeName, instagram, instagramId, email } = getSettings().social
   const items = [
-    youtube && { key: 'youtube', href: youtube, label: 'YouTube', icon: Icon.youtube, external: true },
-    instagram && { key: 'instagram', href: instagram, label: 'Instagram', icon: Icon.instagram, external: true },
-    email && { key: 'email', href: `mailto:${email}`, label: '이메일', icon: Icon.email, external: false },
+    youtube && { key: 'youtube', href: youtube, label: youtubeName ? `YouTube · ${youtubeName}` : 'YouTube', icon: Icon.youtube, external: true },
+    instagram && { key: 'instagram', href: instagram, label: instagramId ? `Instagram · @${instagramId}` : 'Instagram', icon: Icon.instagram, external: true },
+    email && { key: 'email', href: `mailto:${email}`, label: `이메일 · ${email}`, icon: Icon.email, external: false },
   ].filter(Boolean) as { key: string; href: string; label: string; icon: React.ReactNode; external: boolean }[]
   if (items.length === 0) return null
 

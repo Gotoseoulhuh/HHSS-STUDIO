@@ -361,7 +361,11 @@ export const profile: Profile = {
     { date: '2025.09', title: '그 여름에 머무는 너에게', detail: '뮤직비디오 · 연출', workSlug: G },
     { date: '2024.12', title: '우리가 찾고 있던 별', detail: '학생단편영화 · 미스터리 · 성장 드라마 · 연출', workSlug: U },
   ],
-  links: [],
+  links: [
+    { label: 'YouTube · HHSS', url: 'https://www.youtube.com/@hhss329' },
+    { label: 'Instagram · @go_to_seoul.huh', url: 'https://www.instagram.com/go_to_seoul.huh/' },
+  ],
+  email: 'hsk4173@gmail.com',
 }
 
 export const settings: SiteSettings = {
@@ -370,7 +374,13 @@ export const settings: SiteSettings = {
   heroIntro: '학생들과 함께 만든 단편영화와 뮤직비디오,',
   heroEmphasis: '특별한 것을 공유하다.',
   // 주소를 넣으면 하단·첫 화면에 자동으로 나타남
-  social: { youtube: '', instagram: '', email: '' },
+  social: {
+    youtube: 'https://www.youtube.com/@hhss329',
+    youtubeName: 'HHSS',
+    instagram: 'https://www.instagram.com/go_to_seoul.huh/',
+    instagramId: 'go_to_seoul.huh',
+    email: 'hsk4173@gmail.com',
+  },
   footerName: 'HHSS STUDIO',
   slogan: '특별한 것을 공유하다',
 }
