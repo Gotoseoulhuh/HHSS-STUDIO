@@ -8,6 +8,8 @@ body {
   font-size: var(--fs-body);
   line-height: 1.7;
   overflow-x: hidden;
+  word-break: keep-all; /* 한글을 단어 단위로 줄바꿈 */
+  overflow-wrap: anywhere;
   -webkit-font-smoothing: antialiased;
 }
 img { max-width: 100%; height: auto; display: block; }

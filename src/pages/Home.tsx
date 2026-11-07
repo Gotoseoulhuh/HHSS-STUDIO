@@ -36,6 +36,7 @@ export function Home() {
               <h2 className="card__title">{lead.title}</h2>
             </div>
             <p className="caption">{lead.summary}</p>
+            <p className="meta">{[lead.workType, lead.genre, lead.runtime, lead.release].filter(Boolean).join(' · ')}</p>
           </Link>
         </section>
       )}
@@ -49,7 +50,7 @@ export function Home() {
           </div>
           <ul className="card-list card-list--grid">
             {rest.map((w, i) => (
-              <Card key={w.slug} to={`/works/${w.slug}`} index={i + 1} title={w.title} sub={`${w.year} · ${w.roles.join(', ')}`} media={w.cover} />
+              <Card key={w.slug} to={`/works/${w.slug}`} index={i + 1} title={w.title} sub={[w.year, w.workType, w.runtime].filter(Boolean).join(" · ")} media={w.cover} />
             ))}
           </ul>
         </section>

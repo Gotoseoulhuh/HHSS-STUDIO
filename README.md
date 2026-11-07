@@ -94,3 +94,23 @@ Cloudflare 대시보드 → `hhss.studio` → **DNS → Records → Add record**
 
 다음 단계에서 추가합니다. 연결 값은 `.env.example`의 이름대로 `.env.local`에만 넣고 커밋하지 않습니다.
 `service_role` 키는 저장소 어디에도 넣지 않습니다.
+
+## 카톡·메신저 공유 미리보기
+
+주소를 보냈을 때 나오는 제목·소개글·썸네일은 `index.html` 위쪽의 `og:` 태그로 정합니다.
+
+| 바꿀 것 | 위치 |
+|---|---|
+| 제목 | `og:title` |
+| 소개글 | `og:description`(메신저), `description`(검색 결과) |
+| 썸네일 | `public/og-image.jpg` 파일 교체 (1200×630 이상 권장, 지금은 〈크게 소리치며〉 대표 이미지) |
+
+카카오톡은 한 번 읽은 미리보기를 한동안 저장해 둡니다. 바꾼 뒤에도 예전 것이 보이면
+[카카오 개발자 공유 디버거](https://developers.kakao.com/tool/debugger/sharing)에서 `https://hhss.studio`를 입력하고 **캐시 초기화**를 누르세요.
+
+> 지금은 어느 페이지 주소를 보내도 같은 미리보기가 나옵니다. 작품별 미리보기는 3단계(미리 렌더링)에서 추가합니다.
+
+## 콘텐츠 출처
+
+작품·사진·소개 내용은 `HHSS 영화 소개서`(2026)를 옮긴 것이며 `src/data/site.ts`에 있습니다.
+소개서 원본 HTML(`assets/HHSS 영화 소개서.html`)은 저장소에 올리지 않습니다.

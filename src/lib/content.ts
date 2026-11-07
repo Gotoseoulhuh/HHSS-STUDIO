@@ -1,8 +1,8 @@
 /*
- * 콘텐츠 읽기 창구. 지금은 시드에서 읽고, Supabase 연결 시 이 파일 안쪽만 바꾼다.
+ * 콘텐츠 읽기 창구. 지금은 src/data/site.ts에서 읽고, Supabase 연결 시 이 파일 안쪽만 바꾼다.
  * (페이지 쪽 코드는 이 함수들만 사용)
  */
-import { albums, posts, profile, resources, settings, works } from '../data/seed'
+import { albums, posts, profile, resources, settings, works } from '../data/site'
 
 const byOrder = <T extends { order: number }>(a: T, b: T) => a.order - b.order
 const byDateDesc = <T extends { publishedAt: string }>(a: T, b: T) => b.publishedAt.localeCompare(a.publishedAt)

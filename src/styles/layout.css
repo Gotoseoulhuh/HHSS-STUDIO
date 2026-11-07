@@ -119,3 +119,78 @@ main { min-height: calc(100vh - var(--header-h) - 160px); }
 .section__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
 .section__head h2 { font-size: var(--fs-h2); }
 .hero-logo { height: clamp(88px, 6rem + 6vw, 200px); width: auto; aspect-ratio: 1.7; object-fit: cover; margin-left: -0.4%; }
+
+/* ═════ 작품 상세 ═════ */
+/* 첫 화면: 대표 이미지 위 제목 (아래쪽 그라데이션으로 글자 대비 확보) */
+.work-hero { position: relative; }
+.work-hero__media { border: 0; aspect-ratio: auto !important; height: min(88vh, 56.25vw + 120px); min-height: 420px; }
+.work-hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, var(--bg) 2%, rgb(11 16 14 / .55) 38%, rgb(11 16 14 / .1) 70%); }
+.work-hero__text { position: absolute; left: 0; right: 0; bottom: clamp(24px, 5vw, 64px); display: grid; gap: 12px; }
+.work-hero__title { font-size: var(--fs-hero); line-height: 1.05; }
+.work-hero__title .hero-line { display: block; }
+.work-meta { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px 32px; padding: 32px 0 8px; border-bottom: 1px solid var(--line); }
+.work-meta > div { display: grid; gap: 4px; }
+
+/* 블록 공통 */
+.block { padding-top: clamp(64px, 9vw, 128px); display: grid; gap: clamp(20px, 3vw, 36px); }
+.block__head { display: grid; gap: 14px; }
+.block__title { font-size: var(--fs-h1); white-space: pre-line; }
+.block__sub { color: var(--text); }
+
+/* 줄거리 */
+.pull-quote { margin: 32px 0 0; padding-left: 20px; border-left: 2px solid var(--brand); display: grid; gap: 10px; }
+.pull-quote p { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.15rem, 1rem + .5vw, 1.45rem); line-height: 1.5; color: var(--title); white-space: pre-line; }
+.story-media { display: grid; gap: clamp(16px, 2vw, 28px); align-items: start; }
+.story-media figure, .note__media { margin: 0; display: grid; gap: 10px; }
+@media (min-width: 768px) {
+  .story-media { grid-template-columns: 2fr 3fr; }
+  .story-media--row { grid-template-columns: 1081fr 1480fr; }
+}
+
+/* 등장인물 */
+.cast-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(40px, 5vw, 56px); }
+@media (min-width: 768px) { .cast-list { grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.5vw, 36px); } }
+.cast { display: grid; gap: 18px; align-content: start; }
+.cast__body { display: grid; gap: 8px; }
+.cast__name { font-size: var(--fs-h2); }
+.cast__quote { font-family: var(--font-display); font-weight: 300; color: var(--title); white-space: pre-line; line-height: 1.6; margin: 8px 0; }
+
+/* 사진 묶음·스토리보드 */
+.gallery-group { display: grid; gap: 16px; margin-top: clamp(16px, 2vw, 28px); }
+.gallery-group__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+.gallery-group__head h3 { font-size: 1.2rem; color: var(--text); }
+.photo-grid--storyboard { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (min-width: 768px) { .photo-grid--storyboard { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1200px) { .photo-grid--storyboard { grid-template-columns: repeat(5, 1fr); } }
+.photo-grid--storyboard .frame { background: #F4F2EE; } /* 스케치 종이색 — 잘리지 않게 담음 */
+.photo-grid--storyboard .frame { aspect-ratio: 3 / 2 !important; }
+
+/* 연출의 말 */
+.prose--note { max-width: 40ch; }
+.prose--note p + p { margin-top: 1.1em; }
+.signature { margin-top: 1.6em !important; text-align: right; }
+@media (min-width: 1200px) {
+  .block--note { grid-template-columns: 5fr 7fr; column-gap: 64px; }
+  .block--note .block__head { grid-column: 1 / -1; }
+  .block--note .note__media { grid-column: 1; position: sticky; top: calc(var(--header-h) + 32px); }
+  .block--note .prose--note { grid-column: 2; grid-row: 2; }
+}
+
+/* 감사 목록 */
+.thanks-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.thanks-list li { display: grid; grid-template-columns: 4ch 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+
+/* 다음 작품 */
+.next-work { padding-top: clamp(64px, 9vw, 128px); }
+.next-work a { padding-top: 32px; }
+.next-work__title { font-size: var(--fs-h1); }
+
+/* 소개 — 활동 */
+.activity-list { margin-top: 16px; }
+.activity-list .row { display: grid; grid-template-columns: 4ch 1fr; gap: 6px 20px; padding: 24px 0; }
+@media (min-width: 768px) { .activity-list a, .activity-list .row { grid-template-columns: 9ch 1fr; } }
+.activity-list a { grid-template-columns: 9ch 1fr; }
+.activity-media { max-width: 520px; margin-top: 8px; }
+.activity-media .frame { background: transparent; border: 0; }
+@media (min-width: 1200px) { .block--story .editorial { grid-template-columns: 4fr 8fr; } }
+.block > .btn, p.block { justify-self: start; }

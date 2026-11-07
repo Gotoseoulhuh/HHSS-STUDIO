@@ -61,7 +61,10 @@ export function Lightbox({ items, index, onChange, onClose }: Props) {
         <button ref={closeRef} className="icon-btn" onClick={onClose}>닫기 ✕</button>
       </div>
       <div className="lightbox__stage" key={index}>
-        <MediaFrame media={item} eager />
+        {/* 세로 사진도 화면 높이 안에 들어오도록 폭을 비율로 제한 */}
+        <div style={{ width: `min(100%, 1400px, calc((100dvh - 190px) * ${item.ratio}))` }}>
+          <MediaFrame media={item} fit="contain" eager />
+        </div>
       </div>
       <div className="lightbox__nav">
         <button className="icon-btn" onClick={prev} aria-label="이전 사진">←</button>
