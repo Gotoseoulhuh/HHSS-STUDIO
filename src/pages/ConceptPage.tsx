@@ -181,19 +181,24 @@ export function ConceptPage({ c }: { c: Concept }) {
         <div data-reveal style={I(1)}>
           <p className="concept-title">{c.nameKo}<small>{c.nameEn} — {c.tagline}</small></p>
         </div>
-        <div className="concept-def" data-reveal style={I(2)}>
-          {c.definition.map((p, i) => <p key={i}>{p}</p>)}
-        </div>
-        {c.hook && (
-          <div className="concept-hook" data-reveal style={I(3)}>
-            <span className="sub-label sub-label--ko">{c.hook.lead}</span>
-            <p className="concept-hook__text"><Rich text={c.hook.text} /></p>
+        {/* 넓은 화면: 왼쪽 정의·강조 문장 / 오른쪽 비유 */}
+        <div className="concept-intro">
+          <div className="concept-intro__main">
+            <div className="concept-def" data-reveal style={I(2)}>
+              {c.definition.map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+            {c.hook && (
+              <div className="concept-hook" data-reveal style={I(3)}>
+                <span className="sub-label sub-label--ko">{c.hook.lead}</span>
+                <p className="concept-hook__text"><Rich text={c.hook.text} /></p>
+              </div>
+            )}
           </div>
-        )}
-        <div className="metaphor" data-reveal style={I(4)}>
-          <span className="sub-label">Metaphor · 비유</span>
-          <p className="metaphor__name">{c.metaphor.name}</p>
-          <p className="metaphor__desc">{c.metaphor.desc}</p>
+          <div className="metaphor" data-reveal style={I(4)}>
+            <span className="sub-label">Metaphor · 비유</span>
+            <p className="metaphor__name">{c.metaphor.name}</p>
+            <p className="metaphor__desc">{c.metaphor.desc}</p>
+          </div>
         </div>
       </section>
 

@@ -1,7 +1,7 @@
 /* 영화 개념 페이지 (pages/ConceptPage.tsx). 색·글꼴·시간은 tokens.css 값만 쓴다. */
 
 /* 한 화면 = 헤더·하단 고정 줄을 뺀 높이 */
-.concept { --slide-h: calc(100svh - var(--header-h) - var(--footer-h)); }
+.concept { --content-w: 1100px; --slide-h: calc(100svh - var(--header-h) - var(--footer-h)); }
 
 /* ── 이 페이지에서만 스크롤 스냅 (ConceptPage가 <html class="snap">을 붙였다 뗌) ── */
 html.snap { scroll-snap-type: y proximity; scroll-padding-top: var(--header-h); }
@@ -41,19 +41,19 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 /* ── 개념 이름 + 정의 ── */
 .concept-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.4rem, 1.4rem + 4.6vw, 5rem); line-height: 1.05; letter-spacing: -.03em; color: var(--title); }
 .concept-title small { display: block; margin-top: 12px; font-family: var(--font-ui); font-weight: 300; font-size: clamp(.9rem, .8rem + .4vw, 1.1rem); letter-spacing: .02em; color: var(--text-dim); }
-.concept-def { max-width: 44ch; display: grid; gap: .8em; color: var(--text); line-height: 1.75; word-break: keep-all; }
-.concept-lead { max-width: 48ch; color: var(--text-dim); word-break: keep-all; }
+.concept-def { max-width: var(--content-w); display: grid; gap: .8em; color: var(--text); line-height: 1.75; word-break: keep-all; }
+.concept-lead { max-width: var(--content-w); color: var(--text-dim); word-break: keep-all; }
 
 /* ── 포인트색 소제목 라벨 ── */
 .sub-label { display: block; font-family: var(--font-ui); font-size: var(--fs-caption); letter-spacing: .2em; text-transform: uppercase; color: var(--title); }
 
 /* ── 비유 박스 (한 슬라이드에 강조 테두리는 하나만) ── */
-.metaphor { max-width: 720px; padding: clamp(24px, 3vw, 36px); border: 1px solid var(--brand); background: var(--bg-raise); display: grid; gap: 12px; }
+.metaphor { max-width: var(--content-w); padding: clamp(24px, 3vw, 36px); border: 1px solid var(--brand); background: var(--bg-raise); display: grid; gap: 12px; }
 .metaphor__name { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); color: var(--title); }
 .metaphor__desc { font-family: var(--font-hand); font-size: calc(1em * var(--hand-scale)); line-height: 1.8; color: var(--text); word-break: keep-all; }
 
 /* ── 접기/펼치기 카드 — 내용 길이와 무관하게 grid-template-rows로 열림 ── */
-.disc { display: grid; gap: 12px; max-width: 960px; align-items: start; }
+.disc { display: grid; gap: 12px; max-width: var(--content-w); align-items: start; }
 @media (min-width: 640px) { .disc { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1024px) { .disc { grid-template-columns: repeat(3, 1fr); } }
 .disc__item { display: grid; align-content: start; border: 1px solid var(--line); transition: border-color var(--dur-hover) var(--ease-out), background var(--dur-hover) var(--ease-out); }
@@ -76,7 +76,7 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 
 /* ── 예시 장면 ── */
 .scene-pair { display: grid; gap: 16px; }
-.scene-grid { display: grid; gap: 16px; max-width: 1040px; }
+.scene-grid { display: grid; gap: 16px; max-width: var(--content-w); }
 @media (min-width: 768px) { .scene-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
 .scene { margin: 0; border: 1px solid var(--line); background: var(--bg-raise); display: grid; transition: border-color var(--dur-hover) var(--ease-out); }
 @media (hover: hover) { .scene:hover { border-color: var(--brand); } }
@@ -107,7 +107,7 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 .scene__toggle:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 /* ── 영화마다 다른 색 ── */
-.palettes { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; max-width: 1200px; }
+.palettes { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; max-width: var(--content-w); }
 @media (min-width: 640px) { .palettes { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1100px) { .palettes { grid-template-columns: repeat(4, 1fr); } }
 .palette { display: grid; width: 100%; text-align: left; align-content: start; border: 1px solid var(--line); background: var(--bg-raise); height: 100%; transition: border-color var(--dur-hover) var(--ease-out); }
@@ -125,7 +125,7 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 }
 
 /* ── HHSS 촬영장에서 ── */
-.values { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; max-width: 1040px; background: var(--line); border: 1px solid var(--line); }
+.values { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; max-width: var(--content-w); background: var(--line); border: 1px solid var(--line); }
 @media (min-width: 640px) { .values { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1100px) { .values { grid-template-columns: repeat(4, 1fr); } }
 .value { display: grid; align-content: start; gap: 10px; padding: clamp(20px, 2.4vw, 28px); background: var(--bg); transition: background var(--dur-hover) var(--ease-out); }
@@ -136,11 +136,11 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 }
 .value__label { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h2); color: var(--title); }
 .value__desc { color: var(--text); word-break: keep-all; }
-.concept-quote--hand { font-family: var(--font-hand); font-weight: 400; font-size: calc(var(--fs-h2) * .8 * var(--hand-scale)); line-height: 1.6; max-width: 40ch; }
-.concept-quote { max-width: 32ch; font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.4; color: var(--text); padding-left: 20px; border-left: 2px solid var(--brand); word-break: keep-all; }
+.concept-quote--hand { font-family: var(--font-hand); font-weight: 400; font-size: calc(var(--fs-h2) * .8 * var(--hand-scale)); line-height: 1.6; }
+.concept-quote { max-width: var(--content-w); font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.4; color: var(--text); padding-left: 20px; border-left: 2px solid var(--brand); word-break: keep-all; }
 
 /* ── 자주 하는 실수 ── */
-.mistakes { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; max-width: 1040px; }
+.mistakes { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; max-width: var(--content-w); }
 @media (min-width: 900px) { .mistakes { grid-template-columns: 1fr 1fr; } }
 .mistake { display: grid; align-content: start; gap: 12px; padding: clamp(20px, 2.4vw, 28px); border: 1px solid var(--line); }
 .mistake__wrong { display: flex; gap: 12px; align-items: baseline; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--title); }
@@ -148,7 +148,7 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 .mistake__why { color: var(--text-dim); word-break: keep-all; }
 
 /* ── 직접 해 보기 ── */
-.missions { display: grid; gap: 16px; max-width: 1040px; }
+.missions { display: grid; gap: 16px; max-width: var(--content-w); }
 @media (min-width: 900px) { .missions { grid-template-columns: 1fr 1fr; } }
 .mission { display: grid; align-content: start; gap: 14px; padding: clamp(24px, 3vw, 36px); border: 1px solid var(--line); background: var(--bg-raise); }
 .mission__title { font-size: var(--fs-h2); color: var(--title); }
@@ -156,7 +156,7 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 .mission__checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
 
 /* ── 다음 개념 ── */
-.concept-next { display: grid; gap: 8px; padding-top: 24px; border-top: 1px solid var(--line); max-width: 720px; }
+.concept-next { display: grid; gap: 8px; padding-top: 24px; border-top: 1px solid var(--line); max-width: var(--content-w); }
 .concept-next__title { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h2); color: var(--text); display: inline-flex; gap: 10px; align-items: baseline; }
 .concept-next__arrow { color: var(--title); }
 
@@ -171,7 +171,7 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 .kw { color: var(--title); font-weight: 700; }
 
 /* ── 정의 아래 강조 문장 ── */
-.concept-hook { max-width: 720px; display: grid; gap: 12px; padding-left: 20px; border-left: 2px solid var(--brand); }
+.concept-hook { max-width: var(--content-w); display: grid; gap: 12px; padding-left: 20px; border-left: 2px solid var(--brand); }
 .concept-hook__text { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.15rem, 1rem + .7vw, 1.5rem); line-height: 1.6; color: var(--text); word-break: keep-all; }
 .concept-hook__text .kw { font-weight: 700; }
 
@@ -265,10 +265,16 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 .mission__check .hand { color: var(--text); transition: color var(--dur-fast) var(--ease-out); }
 
 /* ── 마무리 + 다음 개념 예고 ── */
-.concept-closing { display: grid; gap: 20px; max-width: 760px; padding-left: 20px; border-left: 2px solid var(--brand); }
+.concept-closing { display: grid; gap: 20px; max-width: var(--content-w); padding-left: 20px; border-left: 2px solid var(--brand); }
 .concept-closing__wrap { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.5; color: var(--text); word-break: keep-all; }
 .concept-closing__next { display: block; font-family: var(--font-hand); font-size: calc(1.25rem * var(--hand-scale)); line-height: 1.6; color: var(--text); word-break: keep-all; }
 
-/* 짧고 큰 문장은 줄 길이를 고르게 (한 줄에 꽉 차고 다음 줄에 한 단어만 남는 모양 방지) */
-.concept-title, .concept-hook__text, .concept-quote, .concept-closing__wrap, .concept-closing__next, .metaphor__name, .mistake__wrong, .value__desc, .scene__desc, .palette__mood, .concept-lead { text-wrap: balance; }
-.concept-hook__text { max-width: 30em; }
+/* 짧은 제목만 줄 길이를 고르게. 문단은 칸 폭을 끝까지 쓰고(pretty) 마지막 줄 외톨이만 막는다 */
+.concept-title, .metaphor__name, .mistake__wrong { text-wrap: balance; }
+
+/* 정의 슬라이드: 넓은 화면에서 왼쪽 정의·강조 문장, 오른쪽 비유 */
+.concept-intro { display: grid; gap: clamp(24px, 3vw, 40px); max-width: var(--content-w); }
+.concept-intro__main { display: grid; gap: clamp(24px, 3vw, 40px); align-content: start; }
+@media (min-width: 1024px) { .concept-intro { grid-template-columns: 1.2fr 1fr; align-items: center; } }
+/* 슬라이드 머리글도 같은 오른쪽 끝선에 맞춤 */
+.concept-slide > .bi-head { max-width: var(--content-w); }
