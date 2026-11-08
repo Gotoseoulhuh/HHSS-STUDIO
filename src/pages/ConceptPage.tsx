@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ConceptDiagram } from '../components/ConceptDiagram'
 import { ConceptToc, type TocItem } from '../components/ConceptToc'
 import { Disclosure } from '../components/Disclosure'
@@ -24,7 +24,7 @@ function Scene({ s, front }: { s: ConceptScene; front: 'diagram' | 'still' }) {
   const diagramCap = (
     <>
       <span className="scene__nm">{s.title}</span>
-      <span className="scene__desc">{s.caption}</span>
+      <span className="scene__desc"><Rich text={s.caption} /></span>
     </>
   )
   if (!s.still) {
@@ -40,7 +40,7 @@ function Scene({ s, front }: { s: ConceptScene; front: 'diagram' | 'still' }) {
   const stillCap = (
     <>
       <span className="scene__nm">{s.still.work}</span>
-      <span className="scene__desc">{s.still.note}</span>
+      <span className="scene__desc"><Rich text={s.still.note} /></span>
     </>
   )
   const [a, b] = front === 'diagram' ? [diagram, still] : [still, diagram]
@@ -76,13 +76,13 @@ function Mistake({ m, i }: { m: Concept['mistakes']['items'][number]; i: number 
   return (
     <li className="mistake" data-open={open} data-reveal style={I(i)}>
       <p className="mistake__wrong"><span className="mistake__mark" aria-hidden="true">✕</span>{m.wrong}</p>
-      <p className="mistake__why hand">{m.why}</p>
+      <p className="mistake__why hand"><Rich text={m.why} /></p>
       <button type="button" className="mistake__toggle" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)}>
         <span className="sub-label sub-label--ko">이렇게 고쳐요</span>
         <span className="mistake__icon" aria-hidden="true" />
       </button>
       <div className="mistake__fix" id={id} inert={!open}>
-        <div><p className="hand">{m.fix}</p></div>
+        <div><p className="hand"><Rich text={m.fix} /></p></div>
       </div>
     </li>
   )
@@ -114,14 +114,14 @@ function Mission({ m, i, storeKey }: { m: Concept['missions']['items'][number]; 
         <span className="mission__count meta" aria-live="polite">{all ? '완료!' : `${count} / ${m.checks.length}`}</span>
       </div>
       <h3 className="mission__title">{m.title}</h3>
-      <p className="hand">{m.desc}</p>
+      <p className="hand"><Rich text={m.desc} /></p>
       <ul className="mission__checks">
         {m.checks.map((ch, k) => (
           <li key={ch}>
             <label className="mission__check">
               <input type="checkbox" checked={done[k]} onChange={() => toggle(k)} />
               <span className="mission__box" aria-hidden="true" />
-              <span className="hand">{ch}</span>
+              <span className="hand"><Rich text={ch} /></span>
             </label>
           </li>
         ))}
@@ -142,6 +142,16 @@ export function ConceptPage({ c }: { c: Concept }) {
   const idx = conceptSeries.findIndex((s) => s.slug === c.slug)
   const next = conceptSeries[idx + 1]
   const [viewing, setViewing] = useState<PaletteFilm | null>(null)
+  // 시리즈 목차의 카드를 열고 그 카드로 이동 (다음 개념 페이지가 생기면 그 페이지로 연결)
+  const navigate = useNavigate()
+  const [seriesOpen, setSeriesOpen] = useState<{ no: string; n: number } | null>(null)
+  const openSeries = (no: string) => {
+    const target = conceptSeries.find((x) => x.no === no)
+    if (target?.slug) { navigate(`/journal/${target.slug}`); return }
+    setSeriesOpen({ no, n: Date.now() })
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+    requestAnimationFrame(() => document.getElementById(`se-item-${no}`)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }))
+  }
 
   const toc: TocItem[] = [
     { id: 's-def', label: `${c.nameKo}란?` },
@@ -185,7 +195,7 @@ export function ConceptPage({ c }: { c: Concept }) {
         <div className="concept-intro">
           <div className="concept-intro__main">
             <div className="concept-def" data-reveal style={I(2)}>
-              {c.definition.map((p, i) => <p key={i}>{p}</p>)}
+              {c.definition.map((p, i) => <p key={i}><Rich text={p} /></p>)}
             </div>
             {c.hook && (
               <div className="concept-hook" data-reveal style={I(3)}>
@@ -197,7 +207,7 @@ export function ConceptPage({ c }: { c: Concept }) {
           <div className="metaphor" data-reveal style={I(4)}>
             <span className="sub-label">Metaphor · 비유</span>
             <p className="metaphor__name">{c.metaphor.name}</p>
-            <p className="metaphor__desc">{c.metaphor.desc}</p>
+            <p className="metaphor__desc"><Rich text={c.metaphor.desc} /></p>
           </div>
         </div>
       </section>
@@ -208,7 +218,7 @@ export function ConceptPage({ c }: { c: Concept }) {
           <h2 className="bi-head__ko" id="c-el">{c.elements.heading}</h2>
           <span className="bi-head__en">{c.elements.title}</span>
         </header>
-        <p className="concept-lead hand" data-reveal style={I(1)}>{c.elements.sub}</p>
+        <p className="concept-lead hand" data-reveal style={I(1)}><Rich text={c.elements.sub} /></p>
         <Disclosure idPrefix="el" items={c.elements.items.map((e) => ({ no: e.no, label: e.label, en: e.en, body: <Rich text={e.body} /> }))} />
       </section>
 
@@ -218,7 +228,7 @@ export function ConceptPage({ c }: { c: Concept }) {
           <h2 className="bi-head__ko" id="c-ex">{c.examples.heading}</h2>
           <span className="bi-head__en">Example Scenes</span>
         </header>
-        <p className="concept-lead hand" data-reveal style={I(1)}>{c.examples.sub}</p>
+        <p className="concept-lead hand" data-reveal style={I(1)}><Rich text={c.examples.sub} /></p>
         {c.examples.pairs.map((pair, pi) => (
           <div className="scene-pair" key={pair.label} data-reveal style={I(2 + pi)}>
             <span className="sub-label sub-label--ko">{pair.label}</span>
@@ -227,7 +237,7 @@ export function ConceptPage({ c }: { c: Concept }) {
             </div>
           </div>
         ))}
-        <p className="concept-quote" data-reveal>{c.examples.note}</p>
+        <p className="concept-quote" data-reveal><Rich text={c.examples.note} /></p>
       </section>
 
       {/* 3-1. 영화마다 다른 색 */}
@@ -237,7 +247,7 @@ export function ConceptPage({ c }: { c: Concept }) {
             <h2 className="bi-head__ko" id="c-pal">{c.palette.heading}</h2>
             <span className="bi-head__en">Color · HHSS Films</span>
           </header>
-          <p className="concept-lead hand" data-reveal style={I(1)}>{c.palette.sub}</p>
+          <p className="concept-lead hand" data-reveal style={I(1)}><Rich text={c.palette.sub} /></p>
           <ul className="palettes">
             {c.palette.films.map((f, i) => (
               <li key={f.slug} data-reveal style={I(i)}>
@@ -255,7 +265,7 @@ export function ConceptPage({ c }: { c: Concept }) {
               </li>
             ))}
           </ul>
-          <p className="caption" data-reveal>{c.palette.note}</p>
+          <p className="caption" data-reveal><Rich text={c.palette.note} /></p>
         </section>
       )}
 
@@ -289,21 +299,31 @@ export function ConceptPage({ c }: { c: Concept }) {
             <span className="bi-head__en">On Set · HHSS</span>
           </header>
           <div className="concept-def" data-reveal style={I(1)}>
-            {c.onSet.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+            {c.onSet.paragraphs.map((p, i) => <p key={i}><Rich text={p} /></p>)}
           </div>
           <ul className="values">
             {c.onSet.values.map((v, i) => (
               <li key={v.label} className="value" data-reveal style={I(i)}>
                 <span className="meta">{String(i + 1).padStart(2, '0')}</span>
                 <span className="value__label">{v.label}</span>
-                <span className="value__desc hand">{v.desc}</span>
+                <span className="value__desc hand"><Rich text={v.desc} /></span>
               </li>
             ))}
           </ul>
           <div className="concept-closing" data-reveal>
             <p className="concept-closing__wrap"><Rich text={c.onSet.closing} /></p>
             {c.onSet.teaser && (
-              <p className="concept-closing__next"><Rich text={c.onSet.teaser} /></p>
+              <p className="concept-closing__next">
+                <Rich text={c.onSet.teaser} />
+                {next && (
+                  <>
+                    {' '}
+                    <a href={`#se-item-${next.no}`} className="concept-closing__link" onClick={(e) => { e.preventDefault(); openSeries(next.no) }}>
+                      다음 개념 {next.label}에 대해 알아봅시다!
+                    </a>
+                  </>
+                )}
+              </p>
             )}
           </div>
         </section>
@@ -317,13 +337,14 @@ export function ConceptPage({ c }: { c: Concept }) {
         </header>
         <Disclosure
           idPrefix="se"
+          openRequest={seriesOpen}
           items={conceptSeries.map((s) => ({
             no: s.no,
             label: s.label,
             current: s.slug === c.slug,
             body: (
               <>
-                {s.body}
+                <Rich text={s.body} />
                 <span className="disc__status meta">{s.slug === c.slug ? '지금 보고 있는 개념' : s.slug ? <Link to={`/journal/${s.slug}`} viewTransition>읽으러 가기 →</Link> : '준비 중'}</span>
               </>
             ),

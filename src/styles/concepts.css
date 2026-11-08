@@ -267,7 +267,9 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 /* ── 마무리 + 다음 개념 예고 ── */
 .concept-closing { display: grid; gap: 20px; max-width: var(--content-w); padding-left: 20px; border-left: 2px solid var(--brand); }
 .concept-closing__wrap { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.5; color: var(--text); word-break: keep-all; }
-.concept-closing__next { display: block; font-family: var(--font-hand); font-size: calc(1.25rem * var(--hand-scale)); line-height: 1.6; color: var(--text); word-break: keep-all; }
+.concept-closing__next { display: block; font-family: var(--font-display); font-weight: 300; font-size: clamp(1.05rem, .95rem + .5vw, 1.3rem); line-height: 1.7; color: var(--text); word-break: keep-all; }
+.concept-closing__link { display: inline-block; color: var(--title); font-weight: 600; text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--title) 45%, transparent); text-underline-offset: 6px; transition: text-decoration-color var(--dur-hover) var(--ease-out); }
+.concept-closing__link:hover { text-decoration-color: var(--title); }
 
 /* 짧은 제목만 줄 길이를 고르게. 문단은 칸 폭을 끝까지 쓰고(pretty) 마지막 줄 외톨이만 막는다 */
 .concept-title, .metaphor__name, .mistake__wrong { text-wrap: balance; }
@@ -278,3 +280,6 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 @media (min-width: 1024px) { .concept-intro { grid-template-columns: 1.2fr 1fr; align-items: center; } }
 /* 슬라이드 머리글도 같은 오른쪽 끝선에 맞춤 */
 .concept-slide > .bi-head { max-width: var(--content-w); }
+
+/* 한 묶음(줄을 바꾸지 않는 구절·따옴표 속 말) — components/Rich.tsx */
+.nobr { white-space: nowrap; }
