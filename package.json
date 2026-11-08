@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && node scripts/postbuild.mjs",
+    "build": "node scripts/filmography.mjs && tsc -b && vite build && node scripts/postbuild.mjs",
     "preview": "vite preview",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "filmography": "node scripts/filmography.mjs"
   },
   "dependencies": {
     "react": "^19.3.1",

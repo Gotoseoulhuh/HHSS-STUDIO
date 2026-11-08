@@ -1,0 +1,559 @@
+{
+  "meta": {
+    "updated": "2026-11-08",
+    "categories": {
+      "directing": "연출 작품",
+      "commission": "의뢰 · 기관 영상",
+      "education": "교육 · 음악 콘텐츠"
+    },
+    "status_labels": {
+      "released": "",
+      "in_progress": "진행 중",
+      "post": "후반 작업",
+      "development": "개발 중"
+    },
+    "year_notes": {
+      "2020": "",
+      "2021": "",
+      "2022": "",
+      "2023": "",
+      "2024": "",
+      "2025": "",
+      "2026": ""
+    }
+  },
+  "about": [
+    {
+      "status": "현재",
+      "text": "내포초등학교 교사 · 학생영화제작동아리 ‘내포스튜디오’ 지도",
+      "org": "내포초등학교"
+    },
+    {
+      "status": "현재",
+      "text": "HHSS 연출 · HHSS PRODUCTION 운영",
+      "org": "HHSS"
+    },
+    {
+      "status": "현재",
+      "text": "충남영화교육연구회 부회장 (2025 · 2026)",
+      "org": "충남영화교육연구회"
+    },
+    {
+      "status": null,
+      "text": "체육미디어콘텐츠연구회 회원 (2026~)",
+      "org": "체육미디어콘텐츠연구회"
+    }
+  ],
+  "works": [
+    {
+      "id": "2026-01",
+      "title": "크게 소리치며",
+      "year": 2026,
+      "month": 10,
+      "category": "directing",
+      "type": "단편영화",
+      "genre": "퓨전 사극 · 드라마",
+      "runtime": "16분 15초",
+      "credit": "연출·각본 허상경",
+      "production": "내포스튜디오",
+      "client": null,
+      "status": "released",
+      "awards": [
+        {
+          "year": 2026,
+          "name": "제8회 충남 학생단편영화제 최우수작",
+          "org": "충남교육청"
+        }
+      ],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2026-03",
+      "title": "TAKE YOUR MARK",
+      "year": 2026,
+      "month": 8,
+      "category": "directing",
+      "type": "단편영화",
+      "genre": "성장 · 가족 · 드라마 · 스포츠",
+      "runtime": "12분 8초",
+      "credit": "연출·각본 허상경",
+      "production": "내포스튜디오",
+      "client": null,
+      "status": null,
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2026-04",
+      "title": "내 이름을 기억해줘 -우리가 잘 모르는 아산의 독립운동가-",
+      "year": 2026,
+      "month": 9,
+      "category": "directing",
+      "type": null,
+      "genre": null,
+      "runtime": "4분 14초",
+      "credit": "연출 허상경",
+      "production": null,
+      "client": null,
+      "status": "released",
+      "awards": [
+        {
+          "year": 2026,
+          "name": "제5회 아산 호국보훈 청소년영상제 장려상",
+          "org": "아산시"
+        }
+      ],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2026-05",
+      "title": "화염꽃",
+      "year": 2026,
+      "month": 3,
+      "category": "directing",
+      "type": "뮤직비디오",
+      "genre": "학생 창작곡 · 실사 + AI",
+      "runtime": "4분 7초",
+      "credit": "연출 허상경",
+      "production": "내포스튜디오",
+      "client": null,
+      "status": null,
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2025-02",
+      "title": "잘못의 끝에서",
+      "year": 2025,
+      "month": null,
+      "category": "directing",
+      "type": null,
+      "genre": null,
+      "runtime": "5분 1초",
+      "credit": "연출 허상경",
+      "production": null,
+      "client": null,
+      "status": "released",
+      "awards": [
+        {
+          "year": 2025,
+          "name": "청렴공감 홍보자료 공모전 은상",
+          "org": null
+        }
+      ],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2025-03",
+      "title": "그 여름에 머무는 너에게",
+      "year": 2025,
+      "month": null,
+      "category": "directing",
+      "type": "뮤직비디오",
+      "genre": "청춘 드라마 · 감성 로맨스",
+      "runtime": null,
+      "credit": "연출·각본 허상경",
+      "production": "내포스튜디오",
+      "client": null,
+      "status": null,
+      "awards": [],
+      "screenings": [
+        {
+          "year": 2025,
+          "name": "OBS경인TV 〈꿈꾸는 U〉 방영",
+          "type": "broadcast",
+          "venue": "OBS경인TV",
+          "date": "2025-11-21"
+        }
+      ],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2024-01",
+      "title": "우리가 찾고 있던 별",
+      "year": 2024,
+      "month": null,
+      "category": "directing",
+      "type": "단편영화",
+      "genre": "드라마",
+      "runtime": null,
+      "credit": "연출·각본 허상경",
+      "production": "내포스튜디오",
+      "client": null,
+      "status": "released",
+      "awards": [
+        {
+          "year": 2024,
+          "name": "제6회 충남 학생단편영화제 최우수작(초등부)",
+          "org": "충남교육청"
+        }
+      ],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2024-02",
+      "title": "남겨진 학교",
+      "year": 2024,
+      "month": null,
+      "category": "directing",
+      "type": "단편영화",
+      "genre": "공포",
+      "runtime": null,
+      "credit": "연출·각본 허상경",
+      "production": "덕명학습장",
+      "client": null,
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2024-03",
+      "title": "학교밖에서 지진을 피하는 N가지 방법",
+      "year": 2024,
+      "month": null,
+      "category": "directing",
+      "type": "숏폼",
+      "genre": null,
+      "runtime": null,
+      "credit": "연출 허상경",
+      "production": null,
+      "client": null,
+      "status": "released",
+      "awards": [
+        {
+          "year": 2024,
+          "name": "지진안전 숏폼 영상 공모전 우수상",
+          "org": null
+        }
+      ],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2023-01",
+      "title": "수상한 도서관",
+      "year": 2023,
+      "month": null,
+      "category": "directing",
+      "type": "단편영화",
+      "genre": null,
+      "runtime": null,
+      "credit": "연출·각본 허상경",
+      "production": "내포스튜디오",
+      "client": null,
+      "status": "released",
+      "awards": [
+        {
+          "year": 2023,
+          "name": "제5회 충남 학생단편영화제 최우수작",
+          "org": "충남교육청"
+        }
+      ],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2022-01",
+      "title": "그 날의 그 밤",
+      "year": 2022,
+      "month": null,
+      "category": "directing",
+      "type": "단편영화",
+      "genre": null,
+      "runtime": null,
+      "credit": "연출 허상경",
+      "production": null,
+      "client": null,
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2021-01",
+      "title": "시간 속의 그 아이",
+      "year": 2021,
+      "month": null,
+      "category": "directing",
+      "type": "단편영화",
+      "genre": null,
+      "runtime": null,
+      "credit": "연출 허상경",
+      "production": null,
+      "client": null,
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "2020-01",
+      "title": "그리고 아무도 없었다",
+      "year": 2020,
+      "month": null,
+      "category": "directing",
+      "type": "단편영화",
+      "genre": null,
+      "runtime": null,
+      "credit": "연출 허상경",
+      "production": "내포스튜디오",
+      "client": null,
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "c2026-01",
+      "title": "충남교육청 직속기관 소개 영상",
+      "year": 2026,
+      "month": 10,
+      "category": "commission",
+      "type": "홍보영상",
+      "genre": null,
+      "runtime": null,
+      "credit": "기획·촬영·편집 허상경",
+      "production": null,
+      "client": "충청남도교육청",
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "c2026-02",
+      "title": "제2회 홍성국제음악제 기록 영상·사진",
+      "year": 2026,
+      "month": null,
+      "category": "commission",
+      "type": "기록영상",
+      "genre": null,
+      "runtime": null,
+      "credit": "촬영·편집 허상경",
+      "production": null,
+      "client": "에제르",
+      "status": "in_progress",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "c2026-03",
+      "title": "2026 학생맞춤통합지원 학술대회 기록영상",
+      "year": 2026,
+      "month": null,
+      "category": "commission",
+      "type": "기록영상",
+      "genre": null,
+      "runtime": null,
+      "credit": "기록영상 제작 위원",
+      "production": null,
+      "client": null,
+      "status": "in_progress",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "c2026-04",
+      "title": "2027 충남교육 중점사업 및 10대 공약 안내 영상",
+      "year": 2026,
+      "month": null,
+      "category": "commission",
+      "type": "안내영상",
+      "genre": null,
+      "runtime": null,
+      "credit": "제작 참여",
+      "production": null,
+      "client": "충청남도교육청",
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "c2021-01",
+      "title": "홍성교육지원청 교육채널 영상",
+      "year": 2021,
+      "month": null,
+      "category": "commission",
+      "type": "교육채널 콘텐츠",
+      "genre": null,
+      "runtime": null,
+      "credit": "영상 관리·탑재 위원",
+      "production": null,
+      "client": "홍성교육지원청",
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "c2021-02",
+      "title": "충남소프트웨어교육체험센터 AI 체험 프로그램 지원 동영상",
+      "year": 2021,
+      "month": null,
+      "category": "commission",
+      "type": "교육영상",
+      "genre": null,
+      "runtime": null,
+      "credit": "개발위원",
+      "production": null,
+      "client": "충남소프트웨어교육체험센터",
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "e2024-01",
+      "title": "HHSS PRODUCTION — 덕명학습장 방과후 ‘영상 콘텐츠 창작 활동 스튜디오’",
+      "year": 2024,
+      "month": null,
+      "year_to": 2026,
+      "category": "education",
+      "type": "교육 프로그램 · 학생 작품",
+      "genre": null,
+      "runtime": null,
+      "credit": "기획·지도 허상경",
+      "production": "HHSS PRODUCTION",
+      "client": "덕명학습장",
+      "status": "in_progress",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    },
+    {
+      "id": "e2026-01",
+      "title": "행복 그 자체",
+      "year": 2026,
+      "month": null,
+      "category": "education",
+      "type": "음악 프로젝트",
+      "genre": "K-pop (Suno AI, 6학년 학생 창작)",
+      "runtime": "약 3분",
+      "credit": "기획·지도 허상경",
+      "production": null,
+      "client": null,
+      "status": "released",
+      "awards": [],
+      "screenings": [],
+      "links": {
+        "trailer": null,
+        "full": null
+      }
+    }
+  ],
+  "events": [
+    {
+      "id": "ev2026-01",
+      "year": 2026,
+      "type": "premiere",
+      "name": "〈크게 소리치며〉 시사회",
+      "venue": "홍주문화관광재단",
+      "works": [
+        "2026-01"
+      ],
+      "note": null
+    },
+    {
+      "id": "ev2025-01",
+      "year": 2025,
+      "type": "festival",
+      "name": "제2회 HHSS 연합영화제",
+      "venue": "내포 메가박스",
+      "works": [],
+      "note": "온라인 상영회 2025.12.27.~2026.1.23. (HHSS 유튜브)",
+      "date": "2025.12.6.~7."
+    },
+    {
+      "id": "ev2024-01",
+      "year": 2024,
+      "type": "festival",
+      "name": "제1회 HHSS 연합영화제",
+      "venue": "내포 메가박스",
+      "works": [],
+      "note": "온라인 상영회 2024.12.7.~12.25. (HHSS 유튜브)",
+      "date": "2024.12.6.~7."
+    }
+  ],
+  "honors": [
+    {
+      "year": 2024,
+      "name": "학생단편영화 유공 교육감 표창",
+      "org": "충청남도교육청"
+    },
+    {
+      "year": 2023,
+      "name": "학생단편영화 유공 교육감 표창",
+      "org": "충청남도교육청"
+    }
+  ]
+}

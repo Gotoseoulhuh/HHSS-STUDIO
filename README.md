@@ -110,6 +110,15 @@ Cloudflare 대시보드 → `hhss.studio` → **DNS → Records → Add record**
 - 같은 브라우저는 하루(한국 시간)에 한 번만 셉니다. 브라우저 기록을 지우거나 다른 기기로 오면 새로 셉니다.
 - 매일 예약 빌드가 Supabase를 한 번 읽어, 무료 프로젝트가 일시 정지되지 않게 합니다.
 
+## 소개 페이지: 경력 · 필모그래피 · 수상 · 상영
+
+- 원본: `assets/hhss-filmography/assets/data/filmography.json` — **내 컴퓨터에만** 있음(.gitignore). 수정은 여기서.
+- `npm run build`(또는 `npm run filmography`)를 하면 공개 사본 `src/data/filmography.json`이 새로 만들어짐 → 이 사본을 커밋·푸시.
+- 사본에는 `public: false`·`verified: false` 항목이 빠지고, `todo`·작품 `note`(내부 메모)도 빠짐.
+- 경력 추가: 원본의 `about` 배열에 `{ "status": "현재", "text": "...", "org": "..." }` 한 줄.
+- 작품 제목이 작품 상세(`src/data/site.ts`의 works)와 같으면 자동으로 상세 페이지로 연결.
+- 행사에 붙는 설명·이미지(영화제 로고 등)는 `src/data/site.ts`의 `profile.eventExtras`.
+
 ## 하단·첫 화면 링크 (YouTube · Instagram · 이메일)
 
 `src/data/site.ts`의 `social`에 주소를 넣으면 하단 오른쪽 아이콘과 첫 화면 버튼(YouTube)이 자동으로 나타납니다. 비어 있으면 숨겨집니다.

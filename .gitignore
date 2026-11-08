@@ -10,3 +10,6 @@ Thumbs.db
 
 # 영화 소개서(대용량·비공개) — 저장소에 올리지 않음
 /assets/HHSS 영화 소개서.html
+
+# 필모그래피 원본(숨김 항목·확인 메모 포함) — 내 컴퓨터에만. 공개 사본은 src/data/filmography.json
+/assets/hhss-filmography/

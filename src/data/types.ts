@@ -104,12 +104,9 @@ export interface Resource extends ContentBase {
   file: { path: string; format: string; sizeBytes: number } | null
 }
 
-export interface Activity {
-  date: string
-  title: string
+/** 소개 페이지 '상영·방영'의 행사에 덧붙이는 설명·이미지 (필모그래피 events의 id로 연결) */
+export interface EventExtra {
   detail?: string
-  /** 작품 상세로 연결 */
-  workSlug?: string
   media?: MediaRef
 }
 
@@ -118,7 +115,8 @@ export interface Profile {
   shortBio: string
   longBio: string[]
   fields: string[]
-  activities: Activity[]
+  /** 필모그래피 행사(id)별 추가 설명·이미지 */
+  eventExtras: Record<string, EventExtra>
   links: { label: string; url: string }[]
   email?: string
 }
@@ -135,4 +133,37 @@ export interface SiteSettings {
   footerName: string
   /** 하단 오른쪽 슬로건 */
   slogan: string
+}
+
+/* ───────── 필모그래피 (src/data/filmography.json — scripts/filmography.mjs가 원본에서 공개 항목만 만듦) ───────── */
+export type FilmStatus = 'released' | 'in_progress' | 'post' | 'development'
+export interface FilmAward { year: number; name: string; org: string | null }
+export interface FilmScreening { year: number; name: string; type: string; venue?: string | null; date?: string | null; note?: string | null }
+export interface FilmWork {
+  id: string
+  title: string
+  year: number | null
+  month: number | null
+  year_to?: number | null
+  category: string
+  type: string | null
+  genre: string | null
+  runtime: string | null
+  credit: string | null
+  production: string | null
+  client: string | null
+  status: FilmStatus | null
+  awards: FilmAward[]
+  screenings: FilmScreening[]
+  links: { trailer: string | null; full: string | null }
+}
+export interface FilmEvent { id: string; year: number; type: string; name: string; venue: string | null; works: string[]; note: string | null; date?: string | null }
+export interface FilmAbout { status: string | null; text: string; org: string | null }
+export interface FilmHonor { year: number; name: string; org: string | null }
+export interface Filmography {
+  meta: { updated: string | null; categories: Record<string, string>; status_labels: Record<string, string>; year_notes: Record<string, string> }
+  about: FilmAbout[]
+  works: FilmWork[]
+  events: FilmEvent[]
+  honors: FilmHonor[]
 }

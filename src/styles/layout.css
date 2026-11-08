@@ -193,10 +193,32 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 .next-work__title { font-size: var(--fs-h1); }
 
 /* 소개 — 활동 */
-.activity-list { margin-top: 16px; }
-.activity-list .row { display: grid; grid-template-columns: 4ch 1fr; gap: 6px 20px; padding: 24px 0; }
-@media (min-width: 768px) { .activity-list a, .activity-list .row { grid-template-columns: 9ch 1fr; } }
-.activity-list a { grid-template-columns: 9ch 1fr; }
+/* ── 소개: 경력 · 필모그래피 · 수상 · 상영 (기존 '활동' 목록과 같은 줄 모양·글자 크기) ── */
+.about-section { margin-top: 72px; scroll-margin-top: calc(var(--header-h) + 24px); }
+.about-section:first-child { margin-top: 0; }
+.about-section > .row-list, .film-group__label + .row-list { margin-top: 16px; }
+.about-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.about-jump a { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; transition: color var(--dur-fast), border-color var(--dur-fast); }
+.about-jump a:hover, .about-jump a:active { color: var(--title); border-color: var(--brand); }
+.film-group { margin-top: 40px; }
+.film-group:first-of-type { margin-top: 24px; }
+.film-group__label { font-family: var(--font-ui); font-size: 1rem; font-weight: 600; color: var(--title); letter-spacing: .02em; }
+.film-list .film-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 22px 0; align-items: baseline; } /* 휴대폰: 날짜를 제목 위 한 줄로 */
+.film-list .row-sub, .film-list .film-side { grid-column: 1; }
+.film-list .film-when:empty { display: none; }
+.film-when.is-live { color: var(--title); }
+.film-arrow { color: var(--text-dim); font-size: .85em; }
+.film-year { display: flex; align-items: baseline; gap: 16px; padding: 36px 0 12px; }
+.film-year:first-child { padding-top: 8px; }
+.film-year__num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--text); letter-spacing: -.01em; line-height: 1; }
+.film-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.film-badge { font-family: var(--font-ui); font-size: .8125rem; line-height: 1.4; padding: 3px 10px; border-radius: 999px; color: var(--title); background: color-mix(in srgb, var(--title) 10%, transparent); border: 1px solid color-mix(in srgb, var(--title) 30%, transparent); }
+@media (min-width: 768px) {
+  .film-list .film-row { grid-template-columns: 9ch minmax(0, 1fr) minmax(0, 18ch); gap: 6px 20px; padding: 24px 0; }
+  .film-list .row-sub { grid-column: 2; }
+  .film-list .film-when:empty { display: block; }
+  .film-list .film-side { grid-column: 3; grid-row: 1; text-align: right; }
+}
 .activity-media { max-width: 520px; margin-top: 8px; }
 .activity-media .frame { background: transparent; border: 0; }
 @media (min-width: 1200px) { .block--story .editorial { grid-template-columns: 4fr 8fr; } }

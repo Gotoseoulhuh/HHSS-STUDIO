@@ -349,18 +349,13 @@ export const profile: Profile = {
   shortBio: '내포초등학교 교사 · 내포스튜디오 연출',
   longBio: [],
   fields: ['학생단편영화', '뮤직비디오', '연출'],
-  activities: [
-    { date: '2026', title: '크게 소리치며', detail: '학생단편영화 · 퓨전 사극 · 연출', workSlug: K },
-    { date: '2026', title: 'TAKE YOUR MARK', detail: '학생단편영화 · 성장 · 스포츠 드라마 · 연출', workSlug: T },
-    {
-      date: '2025.12',
-      title: '제2회 HHSS 연합영화제',
+  // 경력·작품·수상·상영은 필모그래피 원본(assets/hhss-filmography)에서 → src/data/filmography.json
+  eventExtras: {
+    'ev2025-01': {
       detail: '총괄 · 로고 디자인 정서윤 — 영화관 메인 화면에 띄운 워드마크, 영화제 이후 HHSS 채널 로고로 사용 중',
       media: { src: 'assets/files/festival/2nd-hhss-film-festival-logo.webp', alt: '2nd HHSS Film Festival 로고', ratio: 3331 / 464 },
     },
-    { date: '2025.09', title: '그 여름에 머무는 너에게', detail: '뮤직비디오 · 연출', workSlug: G },
-    { date: '2024.12', title: '우리가 찾고 있던 별', detail: '학생단편영화 · 미스터리 · 성장 드라마 · 연출', workSlug: U },
-  ],
+  },
   links: [
     { label: 'YouTube · HHSS', url: 'https://www.youtube.com/@hhss329' },
     { label: 'Instagram · @go_to_seoul.huh', url: 'https://www.instagram.com/go_to_seoul.huh/' },
