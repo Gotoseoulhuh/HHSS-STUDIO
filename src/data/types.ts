@@ -196,13 +196,15 @@ export interface Concept {
   headline: string
   tagline: string
   definition: string[]
+  /** 정의 아래 강조 문장 (**굵게** → 하늘색) */
+  hook?: { lead: string; text: string }
   metaphor: { name: string; desc: string }
   elements: { title: string; heading: string; sub: string; items: { no: string; label: string; en: string; body: string }[] }
   examples: { heading: string; sub: string; pairs: { label: string; scenes: [ConceptScene, ConceptScene] }[]; note: string
     /** 처음에 보일 쪽. 'diagram': 도식 → 누르면 실제 장면 / 'still': 반대 */
     front: 'diagram' | 'still' }
   /** 영화마다 다른 색 */
-  palette?: { heading: string; sub: string; films: { title: string; year: number; slug: string; media: MediaRef; colors: string[]; mood: string }[]; note: string }
+  palette?: { heading: string; sub: string; films: { title: string; year: number; slug: string; media: MediaRef; colors: { hex: string; pct: number }[]; mood: string }[]; note: string }
   /** HHSS 촬영장 이야기 (선생님 말) */
   onSet?: { heading: string; paragraphs: string[]; values: { label: string; desc: string }[]; closing: string }
   mistakes: { heading: string; items: { wrong: string; why: string; fix: string }[] }

@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ConceptDiagram } from '../components/ConceptDiagram'
+import { ConceptToc, type TocItem } from '../components/ConceptToc'
 import { Disclosure } from '../components/Disclosure'
 import { MediaFrame } from '../components/MediaFrame'
+import { PaletteViewer, type PaletteFilm } from '../components/PaletteViewer'
+import { Rich } from '../components/Rich'
 import { conceptSeries } from '../data/concepts'
 import type { Concept, ConceptScene } from '../data/types'
 
@@ -77,9 +80,23 @@ export function ConceptPage({ c }: { c: Concept }) {
 
   const idx = conceptSeries.findIndex((s) => s.slug === c.slug)
   const next = conceptSeries[idx + 1]
+  const [viewing, setViewing] = useState<PaletteFilm | null>(null)
+
+  const toc: TocItem[] = [
+    { id: 's-def', label: `${c.nameKo}란?` },
+    { id: 's-el', label: c.elements.heading },
+    { id: 's-ex', label: '예시 장면' },
+    ...(c.palette ? [{ id: 's-pal', label: '영화마다 다른 색' }] : []),
+    { id: 's-mis', label: '자주 하는 실수' },
+    { id: 's-mi', label: c.missions.heading },
+    ...(c.onSet ? [{ id: 's-on', label: 'HHSS 촬영장에서' }] : []),
+    { id: 's-se', label: '시리즈 목차' },
+  ]
 
   return (
     <article className="container concept">
+      <ConceptToc items={toc} />
+      <PaletteViewer film={viewing} onClose={() => setViewing(null)} />
       {/* 표지 */}
       <section className="concept-cover">
         <Link to="/journal?tab=concept" className="concept-back meta" viewTransition>← 글 · 개념</Link>
@@ -95,7 +112,7 @@ export function ConceptPage({ c }: { c: Concept }) {
       </section>
 
       {/* 1. 정의 + 비유 */}
-      <section className="concept-slide" aria-labelledby="c-def">
+      <section className="concept-slide" id="s-def" aria-labelledby="c-def">
         <header className="bi-head" data-reveal>
           <h2 className="bi-head__ko" id="c-def">{c.headline}</h2>
           <span className="bi-head__en">{c.no} · {c.nameEn}</span>
@@ -106,7 +123,13 @@ export function ConceptPage({ c }: { c: Concept }) {
         <div className="concept-def" data-reveal style={I(2)}>
           {c.definition.map((p, i) => <p key={i}>{p}</p>)}
         </div>
-        <div className="metaphor" data-reveal style={I(3)}>
+        {c.hook && (
+          <div className="concept-hook" data-reveal style={I(3)}>
+            <span className="sub-label">{c.hook.lead}</span>
+            <p className="concept-hook__text"><Rich text={c.hook.text} /></p>
+          </div>
+        )}
+        <div className="metaphor" data-reveal style={I(4)}>
           <span className="sub-label">Metaphor · 비유</span>
           <p className="metaphor__name">{c.metaphor.name}</p>
           <p className="metaphor__desc">{c.metaphor.desc}</p>
@@ -114,17 +137,17 @@ export function ConceptPage({ c }: { c: Concept }) {
       </section>
 
       {/* 2. 다섯 요소 */}
-      <section className="concept-slide" aria-labelledby="c-el">
+      <section className="concept-slide" id="s-el" aria-labelledby="c-el">
         <header className="bi-head" data-reveal>
           <h2 className="bi-head__ko" id="c-el">{c.elements.heading}</h2>
           <span className="bi-head__en">{c.elements.title}</span>
         </header>
         <p className="concept-lead hand" data-reveal style={I(1)}>{c.elements.sub}</p>
-        <Disclosure idPrefix="el" items={c.elements.items.map((e) => ({ no: e.no, label: e.label, en: e.en, body: e.body }))} />
+        <Disclosure idPrefix="el" items={c.elements.items.map((e) => ({ no: e.no, label: e.label, en: e.en, body: <Rich text={e.body} /> }))} />
       </section>
 
       {/* 3. 예시 장면 */}
-      <section className="concept-slide" aria-labelledby="c-ex">
+      <section className="concept-slide" id="s-ex" aria-labelledby="c-ex">
         <header className="bi-head" data-reveal>
           <h2 className="bi-head__ko" id="c-ex">{c.examples.heading}</h2>
           <span className="bi-head__en">Example Scenes</span>
@@ -143,7 +166,7 @@ export function ConceptPage({ c }: { c: Concept }) {
 
       {/* 3-1. 영화마다 다른 색 */}
       {c.palette && (
-        <section className="concept-slide" aria-labelledby="c-pal">
+        <section className="concept-slide" id="s-pal" aria-labelledby="c-pal">
           <header className="bi-head" data-reveal>
             <h2 className="bi-head__ko" id="c-pal">{c.palette.heading}</h2>
             <span className="bi-head__en">Color · HHSS Films</span>
@@ -152,17 +175,17 @@ export function ConceptPage({ c }: { c: Concept }) {
           <ul className="palettes">
             {c.palette.films.map((f, i) => (
               <li key={f.slug} data-reveal style={I(i)}>
-                <Link to={`/works/${f.slug}`} className="palette" viewTransition>
+                <button type="button" className="palette" onClick={() => setViewing(f)} aria-haspopup="dialog">
                   <MediaFrame media={f.media} className="palette__img" />
                   <span className="palette__swatches" aria-hidden="true">
-                    {f.colors.map((col) => <span key={col} style={{ background: col }} />)}
+                    {f.colors.map((col) => <span key={col.hex} style={{ background: col.hex, flexGrow: col.pct }} />)}
                   </span>
                   <span className="palette__cap">
                     <span className="palette__title">{f.title}</span>
                     <span className="meta">{f.year}</span>
                     <span className="palette__mood">{f.mood}</span>
                   </span>
-                </Link>
+                </button>
               </li>
             ))}
           </ul>
@@ -171,7 +194,7 @@ export function ConceptPage({ c }: { c: Concept }) {
       )}
 
       {/* 4. 자주 하는 실수 */}
-      <section className="concept-slide" aria-labelledby="c-mis">
+      <section className="concept-slide" id="s-mis" aria-labelledby="c-mis">
         <header className="bi-head" data-reveal>
           <h2 className="bi-head__ko" id="c-mis">{c.mistakes.heading}</h2>
           <span className="bi-head__en">Common Mistakes</span>
@@ -188,7 +211,7 @@ export function ConceptPage({ c }: { c: Concept }) {
       </section>
 
       {/* 5. 직접 해 보기 */}
-      <section className="concept-slide" aria-labelledby="c-mi">
+      <section className="concept-slide" id="s-mi" aria-labelledby="c-mi">
         <header className="bi-head" data-reveal>
           <h2 className="bi-head__ko" id="c-mi">{c.missions.heading}</h2>
           <span className="bi-head__en">Mission</span>
@@ -209,7 +232,7 @@ export function ConceptPage({ c }: { c: Concept }) {
 
       {/* 5-1. HHSS 촬영장에서 */}
       {c.onSet && (
-        <section className="concept-slide" aria-labelledby="c-on">
+        <section className="concept-slide" id="s-on" aria-labelledby="c-on">
           <header className="bi-head" data-reveal>
             <h2 className="bi-head__ko" id="c-on">{c.onSet.heading}</h2>
             <span className="bi-head__en">On Set · HHSS</span>
@@ -231,7 +254,7 @@ export function ConceptPage({ c }: { c: Concept }) {
       )}
 
       {/* 6. 시리즈 목차 */}
-      <section className="concept-slide" aria-labelledby="c-se">
+      <section className="concept-slide" id="s-se" aria-labelledby="c-se">
         <header className="bi-head" data-reveal>
           <h2 className="bi-head__ko" id="c-se">영화를 읽는 여섯 가지 눈</h2>
           <span className="bi-head__en">Series</span>
