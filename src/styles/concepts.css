@@ -268,5 +268,7 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 .concept-closing { display: grid; gap: 20px; max-width: 760px; padding-left: 20px; border-left: 2px solid var(--brand); }
 .concept-closing__wrap { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.5; color: var(--text); word-break: keep-all; }
 .concept-closing__next { display: block; font-family: var(--font-hand); font-size: calc(1.25rem * var(--hand-scale)); line-height: 1.6; color: var(--text); word-break: keep-all; }
-.concept-closing__arrow { display: inline-block; margin-left: 10px; color: var(--title); transition: transform var(--dur-hover) var(--ease-out); }
-@media (hover: hover) { .concept-closing__next:hover .concept-closing__arrow { transform: translateY(4px); } }
+
+/* 짧고 큰 문장은 줄 길이를 고르게 (한 줄에 꽉 차고 다음 줄에 한 단어만 남는 모양 방지) */
+.concept-title, .concept-hook__text, .concept-quote, .concept-closing__wrap, .concept-closing__next, .metaphor__name, .mistake__wrong, .value__desc, .scene__desc, .palette__mood, .concept-lead { text-wrap: balance; }
+.concept-hook__text { max-width: 30em; }

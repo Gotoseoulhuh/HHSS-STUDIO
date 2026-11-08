@@ -298,9 +298,7 @@ export function ConceptPage({ c }: { c: Concept }) {
           <div className="concept-closing" data-reveal>
             <p className="concept-closing__wrap"><Rich text={c.onSet.closing} /></p>
             {c.onSet.teaser && (
-              <a className="concept-closing__next" href="#s-se">
-                <Rich text={c.onSet.teaser} /><span className="concept-closing__arrow" aria-hidden="true">↓</span>
-              </a>
+              <p className="concept-closing__next"><Rich text={c.onSet.teaser} /></p>
             )}
           </div>
         </section>

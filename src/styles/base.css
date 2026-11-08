@@ -9,7 +9,7 @@ body {
   line-height: 1.7;
   overflow-x: hidden;
   word-break: keep-all; /* 한글을 단어 단위로 줄바꿈 */
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word; /* 칸보다 긴 단어(주소 등)만 끊음. anywhere는 좁은 칸에서 단어 중간을 끊어서 쓰지 않는다 */
   -webkit-font-smoothing: antialiased;
 }
 img { max-width: 100%; height: auto; display: block; }
@@ -17,6 +17,9 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 h1, h2, h3 { font-family: var(--font-display); color: var(--title); font-weight: 700; line-height: 1.2; margin: 0; letter-spacing: -0.01em; }
 p { margin: 0; }
+/* 줄 끝 정돈: 제목은 줄 길이를 고르게, 문단은 마지막 줄에 한두 글자만 남지 않게 */
+h1, h2, h3, h4 { text-wrap: balance; }
+p, li, figcaption, blockquote { text-wrap: pretty; }
 
 :focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; border-radius: 2px; }
 
