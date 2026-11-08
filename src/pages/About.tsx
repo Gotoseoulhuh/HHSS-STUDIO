@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useRef, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { MediaFrame } from '../components/MediaFrame'
 import { PageHead } from '../components/PageHead'
@@ -21,20 +21,21 @@ const fmtDate = (v?: string | null) => (!v ? '' : /^\d{4}-\d{2}-\d{2}$/.test(v) 
 const byYearDesc = <T extends { year: number | null }>(a: T, b: T) => (b.year ?? -1) - (a.year ?? -1)
 
 /** 한 줄: 왼쪽 날짜 · 가운데 제목과 설명 · 오른쪽 기관. 작품 상세가 있으면 줄 전체가 링크 */
-function Row(props: { left: string; live?: boolean; title: string; sub?: string; side?: string | null; to?: string; children?: ReactNode; i: number }) {
-  const { left, live, title, sub, side, to, children, i } = props
+function Row(props: { left?: string; live?: boolean; title: string; sub?: string; side?: string | null; to?: string; children?: ReactNode; i: number; reveal?: boolean }) {
+  const { left, live, title, sub, side, to, children, i, reveal = true } = props
   const body = (
     <>
-      <span className={`meta film-when${live ? ' is-live' : ''}`}>{left}</span>
+      {left !== undefined && <span className={`meta film-when${live ? ' is-live' : ''}`}>{left}</span>}
       <h3>{title}{to && <span className="film-arrow" aria-hidden="true"> →</span>}</h3>
       {sub && <p className="caption row-sub">{sub}</p>}
       {children}
       {side && <span className="meta film-side">{side}</span>}
     </>
   )
+  const cls = `film-row${left === undefined ? ' film-row--noleft' : ''}`
   return (
-    <li data-reveal style={{ ['--i' as string]: Math.min(i, 4) }}>
-      {to ? <Link to={to} viewTransition className="film-row">{body}</Link> : <div className="film-row">{body}</div>}
+    <li {...(reveal ? { 'data-reveal': '' } : {})} style={{ ['--i' as string]: Math.min(i, 4) }}>
+      {to ? <Link to={to} viewTransition className={cls}>{body}</Link> : <div className={cls}>{body}</div>}
     </li>
   )
 }
@@ -46,6 +47,7 @@ function Badges({ items }: { items: string[] }) {
 
 export function About() {
   const p = getProfile()
+  const pastRef = useRef<HTMLDetailsElement>(null)
   const f = getFilmography()
   const labels = f.meta.status_labels
   const workUrl = (title: string) => { const slug = findWorkSlugByTitle(title); return slug ? `/works/${slug}` : undefined }
@@ -79,6 +81,11 @@ export function About() {
   }
   screenings.sort(byYearDesc)
 
+  // 경력: status가 '현재'면 현재 경력, 그 밖('이전' 등)은 이전 경력 — 이전 경력은 접어 둠
+  const currentCareer = f.about.filter((a) => a.status === '현재')
+  const pastCareer = f.about.filter((a) => a.status !== '현재')
+  const careerSide = (a: { text: string; org: string | null }) => (a.org && !a.text.includes(a.org) ? a.org : null)
+
   const sections = [
     f.about.length > 0 && { id: 'about-career', label: '경력' },
     groups.length > 0 && { id: 'about-filmography', label: '필모그래피' },
@@ -108,7 +115,11 @@ export function About() {
           </ul>
           {sections.length > 1 && (
             <nav className="about-jump" aria-label="소개 바로가기">
-              {sections.map((s) => <a key={s.id} href={`#${s.id}`} className="meta">{s.label}</a>)}
+              {sections.map((s) => (
+                <a key={s.id} href={`#${s.id}`} className="meta"
+                  // '경력' 바로가기로 오면 이전 경력도 펼쳐서 함께 보여 줌
+                  onClick={s.id === 'about-career' ? () => { if (pastRef.current) pastRef.current.open = true } : undefined}>{s.label}</a>
+              ))}
             </nav>
           )}
         </aside>
@@ -122,11 +133,31 @@ export function About() {
           {f.about.length > 0 && (
             <section id="about-career" className="about-section" aria-labelledby="about-career-h">
               <h2 id="about-career-h" className="page-head__index" data-reveal>경력</h2>
-              <ul className="row-list film-list">
-                {f.about.map((a, i) => (
-                  <Row key={a.text} i={i} left={a.status ?? ''} live={!!a.status} title={a.text} side={a.org && !a.text.includes(a.org) ? a.org : null} />
-                ))}
-              </ul>
+              {currentCareer.length > 0 && (
+                <div className="film-group">
+                  <h3 className="film-group__label" data-reveal>현재</h3>
+                  <ul className="row-list film-list">
+                    {currentCareer.map((a, i) => <Row key={a.text} i={i} title={a.text} side={careerSide(a)} />)}
+                  </ul>
+                </div>
+              )}
+              {pastCareer.length > 0 && (
+                // 접기·펼치기(아코디언): 브라우저 기본 <details>라 키보드·화면낭독기도 그대로 동작
+                <details ref={pastRef} className="career-past">
+                  <summary className="career-past__toggle meta">
+                    <span className="career-past__open">이전 경력 살펴보기</span>
+                    <span className="career-past__close">이전 경력 접기</span>
+                    <span className="career-past__count">{pastCareer.length}</span>
+                    <span className="career-past__chev" aria-hidden="true">↓</span>
+                  </summary>
+                  <div className="film-group career-past__body">
+                    <h3 className="film-group__label film-group__label--dim">이전</h3>
+                    <ul className="row-list film-list">
+                      {pastCareer.map((a, i) => <Row key={a.text} i={i} reveal={false} title={a.text} side={careerSide(a)} />)}
+                    </ul>
+                  </div>
+                </details>
+              )}
             </section>
           )}
 

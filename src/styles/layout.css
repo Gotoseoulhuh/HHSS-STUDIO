@@ -223,6 +223,25 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
   .film-list .film-when:empty { display: block; }
   .film-list .film-side { grid-column: 3; grid-row: 1; text-align: right; }
 }
+/* 날짜 칸 없는 줄(경력) */
+.film-list .film-row--noleft .row-sub, .film-list .film-row--noleft .film-side { grid-column: 1; }
+@media (min-width: 768px) {
+  .film-list .film-row--noleft { grid-template-columns: minmax(0, 1fr) minmax(0, 18ch); }
+  .film-list .film-row--noleft .row-sub { grid-column: 1; }
+  .film-list .film-row--noleft .film-side { grid-column: 2; }
+}
+.film-group__label--dim { color: var(--text-dim); }
+/* 이전 경력: 접기·펼치기(아코디언) */
+.career-past { margin-top: 24px; }
+.career-past__toggle { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 18px; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; list-style: none; user-select: none; transition: color var(--dur-fast), border-color var(--dur-fast); }
+.career-past__toggle::-webkit-details-marker { display: none; }
+.career-past__toggle:hover, .career-past__toggle:active { color: var(--title); border-color: var(--brand); }
+.career-past__count { min-width: 1.6em; padding: 0 6px; border-radius: 999px; background: var(--bg-raise); color: var(--text); text-align: center; }
+.career-past__chev { transition: transform var(--dur-base) var(--ease-out); }
+.career-past[open] .career-past__chev { transform: rotate(180deg); }
+.career-past__close, .career-past[open] .career-past__open { display: none; }
+.career-past[open] .career-past__close { display: inline; }
+.career-past[open] .career-past__body { animation: rise-in var(--dur-base) var(--ease-out) both; }
 .activity-media { max-width: 520px; margin-top: 8px; }
 .activity-media .frame { background: transparent; border: 0; }
 @media (min-width: 1200px) { .block--story .editorial { grid-template-columns: 4fr 8fr; } }

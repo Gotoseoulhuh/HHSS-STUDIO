@@ -115,7 +115,8 @@ Cloudflare 대시보드 → `hhss.studio` → **DNS → Records → Add record**
 - 원본: `assets/hhss-filmography/assets/data/filmography.json` — **내 컴퓨터에만** 있음(.gitignore). 수정은 여기서.
 - `npm run build`(또는 `npm run filmography`)를 하면 공개 사본 `src/data/filmography.json`이 새로 만들어짐 → 이 사본을 커밋·푸시.
 - 사본에는 `public: false`·`verified: false` 항목이 빠지고, `todo`·작품 `note`(내부 메모)도 빠짐.
-- 경력 추가: 원본의 `about` 배열에 `{ "status": "현재", "text": "...", "org": "..." }` 한 줄.
+- 경력 추가: 원본의 `about` 배열에 `{ "status": "현재", "text": "... (2023~)", "org": "..." }` 한 줄.
+  - 끝난 경력은 `"status": "이전"` → 소개 페이지에서 '이전 경력 살펴보기' 버튼(접기·펼치기) 안에 들어감. 왼쪽 '경력' 바로가기를 누르면 자동으로 펼쳐짐. 이전 경력이 없으면 버튼도 안 보임.
 - 작품 제목이 작품 상세(`src/data/site.ts`의 works)와 같으면 자동으로 상세 페이지로 연결.
 - 행사에 붙는 설명·이미지(영화제 로고 등)는 `src/data/site.ts`의 `profile.eventExtras`.
 
