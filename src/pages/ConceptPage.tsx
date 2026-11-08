@@ -11,6 +11,12 @@ import type { Concept, ConceptScene } from '../data/types'
 
 const I = (i: number) => ({ ['--i' as string]: i })
 
+/** 마지막 글자에 받침이 있는지 (미장센 → 이란, 편집 → 이란, 사운드 → 란) */
+const hasBatchim = (word: string) => {
+  const code = word.charCodeAt(word.length - 1) - 0xac00
+  return code >= 0 && code <= 11171 && code % 28 !== 0
+}
+
 /**
  * 예시 장면 카드. 실제 HHSS 장면(still)이 있으면 그림 ↔ 장면을 번갈아 본다.
  * - 마우스: 올리면 반대쪽을 미리 보고, 누르면 그 상태로 고정
@@ -36,7 +42,7 @@ function Scene({ s, front }: { s: ConceptScene; front: 'diagram' | 'still' }) {
     )
   }
 
-  const still = <MediaFrame media={s.still.media} className="scene__frame" />
+  const still = <MediaFrame media={s.still.media} className={'scene__frame' + (s.still.paper ? ' scene__frame--paper' : '')} fit={s.still.paper ? 'contain' : 'cover'} />
   const stillCap = (
     <>
       <span className="scene__nm">{s.still.work}</span>
@@ -153,8 +159,25 @@ export function ConceptPage({ c }: { c: Concept }) {
     requestAnimationFrame(() => document.getElementById(`se-item-${no}`)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }))
   }
 
+  // 마무리 문장 + 다음 개념으로 (촬영장 섹션이 있으면 그 끝, 없으면 '직접 해 보기' 끝)
+  const closing = c.closing && (
+    <div className="concept-closing" data-reveal>
+      <p className="concept-closing__wrap"><Rich text={c.closing.text} /></p>
+      <p className="concept-closing__next">
+        {c.closing.teaser && <><Rich text={c.closing.teaser} />{' '}</>}
+        {next ? (
+          <a href={`#se-item-${next.no}`} className="concept-closing__link" onClick={(e) => { e.preventDefault(); openSeries(next.no) }}>
+            다음 개념 {next.label}에 대해 알아봅시다!
+          </a>
+        ) : (
+          <Link to="/works" className="concept-closing__link" viewTransition>HHSS 영화를 여섯 가지 눈으로 다시 봐요!</Link>
+        )}
+      </p>
+    </div>
+  )
+
   const toc: TocItem[] = [
-    { id: 's-def', label: `${c.nameKo}란?` },
+    { id: 's-def', label: `${c.nameKo}${hasBatchim(c.nameKo) ? '이란' : '란'}?` },
     { id: 's-el', label: c.elements.heading },
     { id: 's-ex', label: '예시 장면' },
     ...(c.palette ? [{ id: 's-pal', label: '영화마다 다른 색' }] : []),
@@ -173,7 +196,7 @@ export function ConceptPage({ c }: { c: Concept }) {
         <Link to="/journal?tab=concept" className="concept-back meta" viewTransition>← 글 · 개념</Link>
         <span className="concept-cover__tag" data-reveal>Concept {c.no} · {c.nameEn}</span>
         <h1 className="concept-cover__title" data-reveal style={I(1)}>
-          {c.cover.before}<strong>{c.cover.strong}</strong>
+          {c.cover.before.split('\n').map((line, i) => <span key={i}>{i > 0 && <br />}{line}</span>)}<strong>{c.cover.strong}</strong>
           {c.cover.after.split('\n').map((line, i) => <span key={i}>{i > 0 && <br />}{line}</span>)}
         </h1>
         <p className="concept-pills" data-reveal style={I(2)}>
@@ -289,6 +312,7 @@ export function ConceptPage({ c }: { c: Concept }) {
         <div className="missions">
           {c.missions.items.map((m, i) => <Mission key={m.title} m={m} i={i} storeKey={`hhss-mission-${c.slug}-${i}`} />)}
         </div>
+        {!c.onSet && closing}
       </section>
 
       {/* 5-1. HHSS 촬영장에서 */}
@@ -310,22 +334,7 @@ export function ConceptPage({ c }: { c: Concept }) {
               </li>
             ))}
           </ul>
-          <div className="concept-closing" data-reveal>
-            <p className="concept-closing__wrap"><Rich text={c.onSet.closing} /></p>
-            {c.onSet.teaser && (
-              <p className="concept-closing__next">
-                <Rich text={c.onSet.teaser} />
-                {next && (
-                  <>
-                    {' '}
-                    <a href={`#se-item-${next.no}`} className="concept-closing__link" onClick={(e) => { e.preventDefault(); openSeries(next.no) }}>
-                      다음 개념 {next.label}에 대해 알아봅시다!
-                    </a>
-                  </>
-                )}
-              </p>
-            )}
-          </div>
+          {closing}
         </section>
       )}
 
@@ -351,11 +360,18 @@ export function ConceptPage({ c }: { c: Concept }) {
           }))}
         />
         {next && (
-          <div className="concept-next" data-reveal>
-            <span className="meta">Next · {next.no}</span>
-            <span className="concept-next__title">{next.label}<span className="concept-next__arrow" aria-hidden="true">→</span></span>
-            <span className="caption">{next.slug ? '' : '다음 개념은 준비 중입니다.'}</span>
-          </div>
+          next.slug ? (
+            <Link to={`/journal/${next.slug}`} className="concept-next" data-reveal viewTransition>
+              <span className="meta">Next · {next.no}</span>
+              <span className="concept-next__title">{next.label}<span className="concept-next__arrow" aria-hidden="true">→</span></span>
+            </Link>
+          ) : (
+            <div className="concept-next" data-reveal>
+              <span className="meta">Next · {next.no}</span>
+              <span className="concept-next__title">{next.label}</span>
+              <span className="caption">다음 개념은 준비 중입니다.</span>
+            </div>
+          )
         )}
       </section>
     </article>

@@ -170,14 +170,20 @@ export interface Filmography {
 
 /* ───────── 영화 개념 (src/data/concepts.ts) — 지금은 '글'의 '개념' 탭, 많아지면 별도 메뉴로 ───────── */
 /** 도식 그림 이름 (components/ConceptDiagram.tsx) */
-export type DiagramName = 'light-morning' | 'light-night' | 'blocking-close' | 'blocking-apart'
+export type DiagramName =
+  | 'light-morning' | 'light-night' | 'blocking-close' | 'blocking-apart'
+  | 'shot-long' | 'shot-close' | 'shot-full' | 'shot-medium'
+  | 'angle-high' | 'angle-low' | 'angle-eye' | 'angle-dutch'
+  | 'move-fixed' | 'move-track' | 'move-push' | 'move-handheld'
+  | 'edit-face-cake' | 'edit-face-rain' | 'edit-insert' | 'edit-cross'
+  | 'sound-in' | 'sound-out' | 'sound-offscreen' | 'sound-silence'
 export interface ConceptScene {
   title: string
   caption: string
   /** 직접 그린 도식 */
   diagram: DiagramName
   /** 같은 원리가 보이는 HHSS 작품 장면 (있으면 도식과 번갈아 보기) */
-  still?: { media: MediaRef; work: string; note: string }
+  still?: { media: MediaRef; work: string; note: string; /** 스토리보드처럼 흰 종이 그림: 자르지 않고 종이 바탕에 */ paper?: boolean }
 }
 export interface Concept {
   kind: 'concept'
@@ -207,8 +213,9 @@ export interface Concept {
   palette?: { heading: string; sub: string; films: { title: string; year: number; slug: string; media: MediaRef; colors: { hex: string; pct: number }[]; mood: string }[]; note: string }
   /** HHSS 촬영장 이야기 (선생님 말) */
   onSet?: { heading: string; paragraphs: string[]; values: { label: string; desc: string }[]
-    /** 마무리 문장 + 다음 개념으로 넘어가는 문장 (**굵게** → 하늘색) */
-    closing: string; teaser?: string }
+  }
+  /** 마무리 문장 + 다음 개념 예고. 뒤에 '다음 개념 ○○에 대해 알아봅시다!' 링크가 자동으로 붙는다 */
+  closing?: { text: string; teaser?: string }
   mistakes: { heading: string; items: { wrong: string; why: string; fix: string }[] }
   missions: { heading: string; items: { title: string; desc: string; checks: string[] }[] }
 }

@@ -7,7 +7,7 @@ import { NotFound } from './NotFound'
 export function JournalPost() {
   const { slug = '' } = useParams()
   const concept = getConcept(slug)
-  if (concept) return <ConceptPage c={concept} />
+  if (concept) return <ConceptPage key={concept.slug} c={concept} />
   const post = getPost(slug)
   if (!post) return <NotFound />
 
