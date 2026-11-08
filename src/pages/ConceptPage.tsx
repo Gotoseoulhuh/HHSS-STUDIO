@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ConceptDiagram } from '../components/ConceptDiagram'
 import { Disclosure } from '../components/Disclosure'
@@ -8,18 +8,59 @@ import type { Concept, ConceptScene } from '../data/types'
 
 const I = (i: number) => ({ ['--i' as string]: i })
 
-function Scene({ s }: { s: ConceptScene }) {
+/**
+ * 예시 장면 카드. 실제 HHSS 장면(still)이 있으면 그림 ↔ 장면을 번갈아 본다.
+ * - 마우스: 올리면 반대쪽을 미리 보고, 누르면 그 상태로 고정
+ * - 터치·키보드: 누를 때마다 바뀜
+ */
+function Scene({ s, front }: { s: ConceptScene; front: 'diagram' | 'still' }) {
+  const [flipped, setFlipped] = useState(false)
+  const diagram = (
+    <div className="frame scene__frame"><ConceptDiagram name={s.diagram} label={`그림 — ${s.title}: ${s.caption}`} /></div>
+  )
+  const diagramCap = (
+    <>
+      <span className="scene__nm">{s.title}</span>
+      <span className="scene__desc">{s.caption}</span>
+    </>
+  )
+  if (!s.still) {
+    return (
+      <figure className="scene">
+        {diagram}
+        <figcaption className="scene__cap">{diagramCap}<span className="meta scene__tag">그림</span></figcaption>
+      </figure>
+    )
+  }
+
+  const still = <MediaFrame media={s.still.media} className="scene__frame" />
+  const stillCap = (
+    <>
+      <span className="scene__nm">{s.still.work}</span>
+      <span className="scene__desc">{s.still.note}</span>
+    </>
+  )
+  const [a, b] = front === 'diagram' ? [diagram, still] : [still, diagram]
+  const [capA, capB] = front === 'diagram' ? [diagramCap, stillCap] : [stillCap, diagramCap]
+  const altName = front === 'diagram' ? 'HHSS 장면' : '그림'
+  const mainName = front === 'diagram' ? '그림' : 'HHSS 장면'
+
   return (
-    <figure className="scene">
-      {s.diagram ? (
-        <div className="frame scene__frame"><ConceptDiagram name={s.diagram} label={`${s.title}: ${s.caption}`} /></div>
-      ) : s.media ? (
-        <MediaFrame media={s.media} className="scene__frame" />
-      ) : null}
+    <figure className="scene scene--flip" data-flipped={flipped}>
+      <button type="button" className="scene__toggle" aria-pressed={flipped} onClick={() => setFlipped((v) => !v)}
+        aria-label={`${s.title} — ${flipped ? mainName : altName}으로 바꿔 보기`}>
+        <span className="scene__stack">
+          <span className="scene__side scene__side--a">{a}</span>
+          <span className="scene__side scene__side--b">{b}</span>
+        </span>
+        <span className="scene__badge meta" aria-hidden="true">
+          <span className="scene__side--a">{altName} 보기 ↻</span>
+          <span className="scene__side--b">{mainName}으로 ↻</span>
+        </span>
+      </button>
       <figcaption className="scene__cap">
-        <span className="scene__nm">{s.title}</span>
-        {s.source && <span className="meta">{s.source}</span>}
-        {s.caption && <span className="scene__desc">{s.caption}</span>}
+        <span className="scene__capside scene__side--a">{capA}</span>
+        <span className="scene__capside scene__side--b">{capB}</span>
       </figcaption>
     </figure>
   )
@@ -93,20 +134,41 @@ export function ConceptPage({ c }: { c: Concept }) {
           <div className="scene-pair" key={pair.label} data-reveal style={I(2 + pi)}>
             <span className="sub-label">{pair.label}</span>
             <div className="scene-grid">
-              {pair.scenes.map((s) => <Scene key={s.title} s={s} />)}
+              {pair.scenes.map((s) => <Scene key={s.title} s={s} front={c.examples.front} />)}
             </div>
           </div>
         ))}
         <p className="concept-quote" data-reveal>{c.examples.note}</p>
-        {c.examples.stills.length > 0 && (
-          <div className="scene-pair" data-reveal>
-            <span className="sub-label">HHSS 작품에서 찾아보기</span>
-            <div className="scene-grid">
-              {c.examples.stills.map((s, i) => <Scene key={i} s={{ ...s, title: s.caption, caption: '' }} />)}
-            </div>
-          </div>
-        )}
       </section>
+
+      {/* 3-1. 영화마다 다른 색 */}
+      {c.palette && (
+        <section className="concept-slide" aria-labelledby="c-pal">
+          <header className="bi-head" data-reveal>
+            <h2 className="bi-head__ko" id="c-pal">{c.palette.heading}</h2>
+            <span className="bi-head__en">Color · HHSS Films</span>
+          </header>
+          <p className="concept-lead hand" data-reveal style={I(1)}>{c.palette.sub}</p>
+          <ul className="palettes">
+            {c.palette.films.map((f, i) => (
+              <li key={f.slug} data-reveal style={I(i)}>
+                <Link to={`/works/${f.slug}`} className="palette" viewTransition>
+                  <MediaFrame media={f.media} className="palette__img" />
+                  <span className="palette__swatches" aria-hidden="true">
+                    {f.colors.map((col) => <span key={col} style={{ background: col }} />)}
+                  </span>
+                  <span className="palette__cap">
+                    <span className="palette__title">{f.title}</span>
+                    <span className="meta">{f.year}</span>
+                    <span className="palette__mood">{f.mood}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="caption" data-reveal>{c.palette.note}</p>
+        </section>
+      )}
 
       {/* 4. 자주 하는 실수 */}
       <section className="concept-slide" aria-labelledby="c-mis">
@@ -144,6 +206,29 @@ export function ConceptPage({ c }: { c: Concept }) {
           ))}
         </div>
       </section>
+
+      {/* 5-1. HHSS 촬영장에서 */}
+      {c.onSet && (
+        <section className="concept-slide" aria-labelledby="c-on">
+          <header className="bi-head" data-reveal>
+            <h2 className="bi-head__ko" id="c-on">{c.onSet.heading}</h2>
+            <span className="bi-head__en">On Set · HHSS</span>
+          </header>
+          <div className="concept-def" data-reveal style={I(1)}>
+            {c.onSet.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          </div>
+          <ul className="values">
+            {c.onSet.values.map((v, i) => (
+              <li key={v.label} className="value" data-reveal style={I(i)}>
+                <span className="meta">{String(i + 1).padStart(2, '0')}</span>
+                <span className="value__label">{v.label}</span>
+                <span className="value__desc hand">{v.desc}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="concept-quote concept-quote--hand" data-reveal>{c.onSet.closing}</p>
+        </section>
+      )}
 
       {/* 6. 시리즈 목차 */}
       <section className="concept-slide" aria-labelledby="c-se">

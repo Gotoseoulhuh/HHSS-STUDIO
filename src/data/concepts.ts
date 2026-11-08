@@ -1,4 +1,11 @@
-import type { Concept } from './types'
+import type { Concept, MediaRef } from './types'
+
+/** 작품 사진 (public/assets/works/<작품>/<파일>) — 모두 이미 사이트에 올라가 있는 사진 */
+const cover = (slug: string, alt: string): MediaRef => ({ src: `assets/works/${slug}/cover.jpg`, alt, ratio: 16 / 9 })
+const K = cover('keuge-sorichimyeo', '대숲에서 서로의 손을 붙잡은 세 낭자')
+const T = cover('take-your-mark', '물보라를 일으키며 헤엄치는 준영의 뒷모습')
+const G = cover('geu-yeoreume-meomuneun-neoege', '꽃잎이 흩날리는 강당에서 하늘을 올려다보는 상경과 손을 내민 진영')
+const U = cover('uriga-chatgo-itdeon-byeol', '어두운 방에서 망원경을 들여다보는 로와')
 
 /*
  * 영화 개념. 개념을 하나 더 만들려면 concepts 배열에 객체를 하나 추가하면 된다.
@@ -42,28 +49,60 @@ export const concepts: Concept[] = [
 
     examples: {
       heading: '같은 인물, 다른 이야기',
-      sub: '아래 두 쌍의 그림은 인물도, 대사도 똑같습니다. 바뀐 것은 빛과 자리뿐이에요.',
+      sub: '두 쌍의 그림은 인물도, 대사도 똑같습니다. 바뀐 것은 빛과 자리뿐이에요. 그림을 누르면 같은 원리로 찍은 HHSS 영화 장면이 나옵니다.',
       pairs: [
         {
           label: '빛으로 말하기',
           scenes: [
-            { title: '창가의 아침', caption: '창문으로 넓고 밝은 빛 → 편안하고 희망찬 느낌', diagram: 'light-morning' },
-            { title: '스탠드 하나 켠 밤', caption: '한쪽에서 오는 좁은 빛, 큰 그림자 → 외롭거나 불안한 느낌', diagram: 'light-night' },
+            {
+              title: '창가의 아침', caption: '넓고 밝은 빛 → 편안하고 희망찬 느낌', diagram: 'light-morning',
+              still: { media: G, work: '그 여름에 머무는 너에게 · 2025', note: '강당 창으로 쏟아지는 빛과 흩날리는 꽃잎. 밝은 빛이 "좋은 날"을 말해 줍니다.' },
+            },
+            {
+              title: '스탠드 하나 켠 밤', caption: '한쪽에서 오는 좁은 빛, 큰 어둠 → 외롭거나 비밀스러운 느낌', diagram: 'light-night',
+              still: { media: U, work: '우리가 찾고 있던 별 · 2024', note: '방은 거의 어둡고, 빛은 망원경과 얼굴에만. 로와가 혼자 무언가를 찾고 있다는 게 보입니다.' },
+            },
           ],
         },
         {
           label: '자리로 말하기',
           scenes: [
-            { title: '붙어 앉은 두 사람', caption: '화면 가운데 가까이 → 친한 사이', diagram: 'blocking-close' },
+            {
+              title: '가까이 선 사람들', caption: '서로 붙어 있음 → 친한 사이', diagram: 'blocking-close',
+              still: { media: K, work: '크게 소리치며 · 2026', note: '세 낭자가 손을 맞잡고 한데 모여 섰습니다. 대사가 없어도 "우리는 한편"이라는 게 보이죠.' },
+            },
             { title: '양 끝의 두 사람', caption: '가운데가 텅 빔 → 어색하거나 다툰 사이', diagram: 'blocking-apart' },
           ],
         },
       ],
       note: '감독은 "슬프다"고 말하게 하는 대신, 슬퍼 보이는 방을 만듭니다.',
-      stills: [
-        { title: 'HHSS 작품에서 찾아보기', caption: '우리가 찍은 영화 속 미장센', media: { src: null, alt: 'HHSS 작품 장면 자리', ratio: 16 / 9 }, source: '준비 중' },
-        { title: 'HHSS 작품에서 찾아보기', caption: '이 장면의 빛은 어디서 왔을까?', media: { src: null, alt: 'HHSS 작품 장면 자리', ratio: 16 / 9 }, source: '준비 중' },
+      front: 'diagram',
+    },
+
+    palette: {
+      heading: '영화마다 색이 다릅니다',
+      sub: '같은 선생님과 만든 영화인데도, 작품마다 화면의 색이 전혀 다릅니다. 이야기의 계절과 기분이 다르기 때문이에요. 장소, 옷, 빛을 고를 때 이 색을 함께 정합니다.',
+      films: [
+        { title: '크게 소리치며', year: 2026, slug: 'keuge-sorichimyeo', media: K, colors: ['#273B29', '#3C5A3C', '#7B856C', '#A7A998', '#C0C6B1'], mood: '대숲의 초록, 한복의 옅은 빛' },
+        { title: 'TAKE YOUR MARK', year: 2026, slug: 'take-your-mark', media: T, colors: ['#3A5174', '#4A7EA4', '#5C81A4', '#7A90A5', '#BDB7AF'], mood: '물속의 파랑, 차갑고 맑은' },
+        { title: '그 여름에 머무는 너에게', year: 2025, slug: 'geu-yeoreume-meomuneun-neoege', media: G, colors: ['#5D4635', '#99765E', '#B69680', '#C8A48F', '#F3DDDE'], mood: '여름 강당의 따뜻한 나무색, 꽃잎 분홍' },
+        { title: '우리가 찾고 있던 별', year: 2024, slug: 'uriga-chatgo-itdeon-byeol', media: U, colors: ['#191616', '#2A2726', '#2D2522', '#37312D', '#524A47'], mood: '불 꺼진 방, 밤하늘의 어둠' },
       ],
+      note: '색은 표지 사진에서 많이 쓰인 색을 뽑은 것입니다.',
+    },
+
+    onSet: {
+      heading: '예쁜 화면은 혼자 만들 수 없습니다',
+      paragraphs: [
+        '미장센은 감독 혼자 정하는 게 아닙니다. 소품을 챙기는 친구, 옷을 맞추는 친구, 빛을 살피는 친구가 서로 말을 주고받아야 한 장면이 완성됩니다.',
+      ],
+      values: [
+        { label: '의사소통', desc: '"저 의자, 오른쪽으로 한 뼘만." 보이는 것을 말로 정확하게 나눕니다.' },
+        { label: '협동', desc: '내가 챙긴 소품 하나가 화면의 한 조각이 됩니다.' },
+        { label: '신뢰', desc: '카메라 앞의 친구가 마음 놓고 연기할 수 있게, 뒤에서 믿고 기다립니다.' },
+        { label: '특별한 경험', desc: '교과서 속 장소를 촬영장으로 직접 만나는 일.' },
+      ],
+      closing: '꼭 교훈이 있는 이야기가 아니어도 괜찮습니다. 무서운 이야기도, 우주 이야기도 좋아요. 다만 어른이 되어 다시 봐도 부끄럽지 않도록, 화면 구석까지 정성을 들입니다.',
     },
 
     mistakes: {

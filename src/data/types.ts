@@ -175,10 +175,9 @@ export interface ConceptScene {
   title: string
   caption: string
   /** 직접 그린 도식 */
-  diagram?: DiagramName
-  /** HHSS 작품 스틸 (src 없으면 'SCENE' 자리표시) */
-  media?: MediaRef
-  source?: string
+  diagram: DiagramName
+  /** 같은 원리가 보이는 HHSS 작품 장면 (있으면 도식과 번갈아 보기) */
+  still?: { media: MediaRef; work: string; note: string }
 }
 export interface Concept {
   kind: 'concept'
@@ -199,7 +198,13 @@ export interface Concept {
   definition: string[]
   metaphor: { name: string; desc: string }
   elements: { title: string; heading: string; sub: string; items: { no: string; label: string; en: string; body: string }[] }
-  examples: { heading: string; sub: string; pairs: { label: string; scenes: [ConceptScene, ConceptScene] }[]; note: string; stills: ConceptScene[] }
+  examples: { heading: string; sub: string; pairs: { label: string; scenes: [ConceptScene, ConceptScene] }[]; note: string
+    /** 처음에 보일 쪽. 'diagram': 도식 → 누르면 실제 장면 / 'still': 반대 */
+    front: 'diagram' | 'still' }
+  /** 영화마다 다른 색 */
+  palette?: { heading: string; sub: string; films: { title: string; year: number; slug: string; media: MediaRef; colors: string[]; mood: string }[]; note: string }
+  /** HHSS 촬영장 이야기 (선생님 말) */
+  onSet?: { heading: string; paragraphs: string[]; values: { label: string; desc: string }[]; closing: string }
   mistakes: { heading: string; items: { wrong: string; why: string; fix: string }[] }
   missions: { heading: string; items: { title: string; desc: string; checks: string[] }[] }
 }
