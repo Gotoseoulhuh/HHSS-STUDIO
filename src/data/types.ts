@@ -206,7 +206,9 @@ export interface Concept {
   /** 영화마다 다른 색 */
   palette?: { heading: string; sub: string; films: { title: string; year: number; slug: string; media: MediaRef; colors: { hex: string; pct: number }[]; mood: string }[]; note: string }
   /** HHSS 촬영장 이야기 (선생님 말) */
-  onSet?: { heading: string; paragraphs: string[]; values: { label: string; desc: string }[]; closing: string }
+  onSet?: { heading: string; paragraphs: string[]; values: { label: string; desc: string }[]
+    /** 마무리 문장 + 다음 개념으로 넘어가는 문장 (**굵게** → 하늘색) */
+    closing: string; teaser?: string }
   mistakes: { heading: string; items: { wrong: string; why: string; fix: string }[] }
   missions: { heading: string; items: { title: string; desc: string; checks: string[] }[] }
 }

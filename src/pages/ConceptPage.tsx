@@ -69,6 +69,67 @@ function Scene({ s, front }: { s: ConceptScene; front: 'diagram' | 'still' }) {
   )
 }
 
+/** 자주 하는 실수 — '이렇게 고쳐요'를 눌러 펼친다 */
+function Mistake({ m, i }: { m: Concept['mistakes']['items'][number]; i: number }) {
+  const [open, setOpen] = useState(false)
+  const id = `fix-${i}`
+  return (
+    <li className="mistake" data-open={open} data-reveal style={I(i)}>
+      <p className="mistake__wrong"><span className="mistake__mark" aria-hidden="true">✕</span>{m.wrong}</p>
+      <p className="mistake__why hand">{m.why}</p>
+      <button type="button" className="mistake__toggle" aria-expanded={open} aria-controls={id} onClick={() => setOpen((v) => !v)}>
+        <span className="sub-label sub-label--ko">이렇게 고쳐요</span>
+        <span className="mistake__icon" aria-hidden="true" />
+      </button>
+      <div className="mistake__fix" id={id} inert={!open}>
+        <div><p className="hand">{m.fix}</p></div>
+      </div>
+    </li>
+  )
+}
+
+/** 직접 해 보기 — 체크 상태는 이 브라우저에만 저장 */
+function Mission({ m, i, storeKey }: { m: Concept['missions']['items'][number]; i: number; storeKey: string }) {
+  const [done, setDone] = useState<boolean[]>(() => {
+    try {
+      const v = JSON.parse(localStorage.getItem(storeKey) ?? '[]')
+      return m.checks.map((_, k) => Boolean(v[k]))
+    } catch {
+      return m.checks.map(() => false)
+    }
+  })
+  const toggle = (k: number) =>
+    setDone((prev) => {
+      const next = prev.map((v, j) => (j === k ? !v : v))
+      try { localStorage.setItem(storeKey, JSON.stringify(next)) } catch { /* 저장 불가: 이번 방문만 */ }
+      return next
+    })
+  const count = done.filter(Boolean).length
+  const all = count === m.checks.length
+
+  return (
+    <div className="mission" data-complete={all} data-reveal style={I(i)}>
+      <div className="mission__top">
+        <span className="sub-label">Mission {String(i + 1).padStart(2, '0')}</span>
+        <span className="mission__count meta" aria-live="polite">{all ? '완료!' : `${count} / ${m.checks.length}`}</span>
+      </div>
+      <h3 className="mission__title">{m.title}</h3>
+      <p className="hand">{m.desc}</p>
+      <ul className="mission__checks">
+        {m.checks.map((ch, k) => (
+          <li key={ch}>
+            <label className="mission__check">
+              <input type="checkbox" checked={done[k]} onChange={() => toggle(k)} />
+              <span className="mission__box" aria-hidden="true" />
+              <span className="hand">{ch}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 /** 영화 개념 한 편 — 스크롤하는 슬라이드 묶음 */
 export function ConceptPage({ c }: { c: Concept }) {
   // 이 페이지에서만 스크롤 스냅 (떠나면 풀림)
@@ -125,7 +186,7 @@ export function ConceptPage({ c }: { c: Concept }) {
         </div>
         {c.hook && (
           <div className="concept-hook" data-reveal style={I(3)}>
-            <span className="sub-label">{c.hook.lead}</span>
+            <span className="sub-label sub-label--ko">{c.hook.lead}</span>
             <p className="concept-hook__text"><Rich text={c.hook.text} /></p>
           </div>
         )}
@@ -155,7 +216,7 @@ export function ConceptPage({ c }: { c: Concept }) {
         <p className="concept-lead hand" data-reveal style={I(1)}>{c.examples.sub}</p>
         {c.examples.pairs.map((pair, pi) => (
           <div className="scene-pair" key={pair.label} data-reveal style={I(2 + pi)}>
-            <span className="sub-label">{pair.label}</span>
+            <span className="sub-label sub-label--ko">{pair.label}</span>
             <div className="scene-grid">
               {pair.scenes.map((s) => <Scene key={s.title} s={s} front={c.examples.front} />)}
             </div>
@@ -200,13 +261,7 @@ export function ConceptPage({ c }: { c: Concept }) {
           <span className="bi-head__en">Common Mistakes</span>
         </header>
         <ol className="mistakes">
-          {c.mistakes.items.map((m, i) => (
-            <li key={m.wrong} className="mistake" data-reveal style={I(i)}>
-              <p className="mistake__wrong"><span className="mistake__mark" aria-hidden="true">✕</span>{m.wrong}</p>
-              <p className="mistake__why hand">{m.why}</p>
-              <p className="mistake__fix"><span className="sub-label">이렇게 고쳐요</span><span className="hand">{m.fix}</span></p>
-            </li>
-          ))}
+          {c.mistakes.items.map((m, i) => <Mistake key={m.wrong} m={m} i={i} />)}
         </ol>
       </section>
 
@@ -217,16 +272,7 @@ export function ConceptPage({ c }: { c: Concept }) {
           <span className="bi-head__en">Mission</span>
         </header>
         <div className="missions">
-          {c.missions.items.map((m, i) => (
-            <div key={m.title} className="mission" data-reveal style={I(i)}>
-              <span className="sub-label">Mission {String(i + 1).padStart(2, '0')}</span>
-              <h3 className="mission__title">{m.title}</h3>
-              <p className="hand">{m.desc}</p>
-              <ul className="mission__checks">
-                {m.checks.map((ch) => <li key={ch} className="hand">{ch}</li>)}
-              </ul>
-            </div>
-          ))}
+          {c.missions.items.map((m, i) => <Mission key={m.title} m={m} i={i} storeKey={`hhss-mission-${c.slug}-${i}`} />)}
         </div>
       </section>
 
@@ -249,7 +295,14 @@ export function ConceptPage({ c }: { c: Concept }) {
               </li>
             ))}
           </ul>
-          <p className="concept-quote concept-quote--hand" data-reveal>{c.onSet.closing}</p>
+          <div className="concept-closing" data-reveal>
+            <p className="concept-closing__wrap"><Rich text={c.onSet.closing} /></p>
+            {c.onSet.teaser && (
+              <a className="concept-closing__next" href="#s-se">
+                <Rich text={c.onSet.teaser} /><span className="concept-closing__arrow" aria-hidden="true">↓</span>
+              </a>
+            )}
+          </div>
         </section>
       )}
 

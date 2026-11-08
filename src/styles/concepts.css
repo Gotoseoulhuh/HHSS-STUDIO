@@ -146,7 +146,6 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 .mistake__wrong { display: flex; gap: 12px; align-items: baseline; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--title); }
 .mistake__mark { font-family: var(--font-ui); color: var(--text-dim); }
 .mistake__why { color: var(--text-dim); word-break: keep-all; }
-.mistake__fix { display: grid; gap: 6px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--text); word-break: keep-all; }
 
 /* ── 직접 해 보기 ── */
 .missions { display: grid; gap: 16px; max-width: 1040px; }
@@ -155,8 +154,6 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 .mission__title { font-size: var(--fs-h2); color: var(--title); }
 .mission p { word-break: keep-all; }
 .mission__checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.mission__checks li { position: relative; padding-left: 28px; color: var(--text); }
-.mission__checks li::before { content: ''; position: absolute; left: 0; top: .45em; width: 14px; height: 14px; border: 1px solid var(--brand); }
 
 /* ── 다음 개념 ── */
 .concept-next { display: grid; gap: 8px; padding-top: 24px; border-top: 1px solid var(--line); max-width: 720px; }
@@ -224,3 +221,52 @@ html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
 }
 .concept-hook .sub-label { letter-spacing: .04em; }
 @media (min-width: 900px) { .pv__inner { align-items: center; } .pv__side { align-self: stretch; } }
+
+/* ── 읽기 쉬운 작은 글씨: 손글씨는 작으면 흐려 보여서 최소 크기를 올리고 밝게 ── */
+.concept .concept-lead.hand { font-size: calc(1.125rem * var(--hand-scale)); line-height: 1.75; color: var(--text); }
+.concept .scene__desc, .concept .palette__mood { font-size: calc(1rem * var(--hand-scale)); line-height: 1.6; color: var(--text); opacity: .85; }
+.concept .mistake__why { color: var(--text); opacity: .85; }
+.concept .caption { font-size: calc(1rem * var(--hand-scale)); }
+/* 한글 소제목 라벨: 자간을 좁히고 크게 */
+.sub-label--ko { font-size: 1.05rem; font-weight: 600; letter-spacing: .02em; text-transform: none; }
+
+/* ── 자주 하는 실수: '이렇게 고쳐요' 펼치기 ── */
+.mistake__toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px; padding-top: 12px; border-top: 1px solid var(--line); text-align: left; }
+.mistake__icon { position: relative; flex: none; width: 32px; height: 32px; border: 1px solid var(--brand); border-radius: 50%; transition: background var(--dur-hover) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+.mistake__icon::before, .mistake__icon::after { content: ''; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: var(--title); translate: -50% -50%; transition: background var(--dur-hover) var(--ease-out); }
+.mistake__icon::after { rotate: 90deg; }
+@media (hover: hover) {
+  .mistake__toggle:hover .mistake__icon { background: var(--title); }
+  .mistake__toggle:hover .mistake__icon::before, .mistake__toggle:hover .mistake__icon::after { background: var(--bg); }
+}
+.mistake[data-open="true"] { border-color: var(--brand); }
+.mistake[data-open="true"] .mistake__icon { transform: rotate(45deg); background: var(--title); }
+.mistake[data-open="true"] .mistake__icon::before, .mistake[data-open="true"] .mistake__icon::after { background: var(--bg); }
+.mistake__toggle:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
+.mistake__fix { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-base) var(--ease-out); }
+.mistake__fix > div { overflow: hidden; min-height: 0; }
+.mistake__fix p { padding-top: 4px; color: var(--text); word-break: keep-all; }
+.mistake[data-open="true"] .mistake__fix { grid-template-rows: 1fr; }
+
+/* ── 직접 해 보기: 진짜 체크박스 ── */
+.mission__top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.mission__count { color: var(--text-dim); }
+.mission[data-complete="true"] { border-color: var(--brand); }
+.mission[data-complete="true"] .mission__count { color: var(--title); font-weight: 600; }
+.mission__check { position: relative; display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; padding: 6px 0; cursor: pointer; }
+.mission__check input { position: absolute; opacity: 0; width: 22px; height: 22px; margin: 0; cursor: pointer; }
+.mission__box { position: relative; width: 22px; height: 22px; margin-top: .2em; border: 1.5px solid var(--brand); transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out); }
+.mission__box::after { content: ''; position: absolute; left: 6px; top: 2px; width: 6px; height: 11px; border: solid var(--bg); border-width: 0 2px 2px 0; rotate: 45deg; opacity: 0; transition: opacity var(--dur-fast) var(--ease-out); }
+.mission__check:hover .mission__box { border-color: var(--title); }
+.mission__check input:checked + .mission__box { background: var(--title); border-color: var(--title); }
+.mission__check input:checked + .mission__box::after { opacity: 1; }
+.mission__check input:checked ~ .hand { color: var(--text-dim); text-decoration: line-through; text-decoration-color: var(--brand); }
+.mission__check input:focus-visible + .mission__box { outline: 2px solid var(--title); outline-offset: 3px; }
+.mission__check .hand { color: var(--text); transition: color var(--dur-fast) var(--ease-out); }
+
+/* ── 마무리 + 다음 개념 예고 ── */
+.concept-closing { display: grid; gap: 20px; max-width: 760px; padding-left: 20px; border-left: 2px solid var(--brand); }
+.concept-closing__wrap { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.5; color: var(--text); word-break: keep-all; }
+.concept-closing__next { display: block; font-family: var(--font-hand); font-size: calc(1.25rem * var(--hand-scale)); line-height: 1.6; color: var(--text); word-break: keep-all; }
+.concept-closing__arrow { display: inline-block; margin-left: 10px; color: var(--title); transition: transform var(--dur-hover) var(--ease-out); }
+@media (hover: hover) { .concept-closing__next:hover .concept-closing__arrow { transform: translateY(4px); } }
