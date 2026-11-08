@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { MediaFrame } from '../components/MediaFrame'
 import { PageHead } from '../components/PageHead'
+import { SocialIcon } from '../components/SocialLinks'
 import { findWorkSlugByTitle, getFilmography, getProfile } from '../lib/content'
 import type { FilmWork, MediaRef } from '../data/types'
 
@@ -92,10 +93,19 @@ export function About() {
         <aside className="editorial__aside" data-reveal>
           <h2 style={{ fontSize: 'var(--fs-h2)' }}>{p.name}</h2>
           <p className="hand" style={{ marginTop: 12 }}>{p.shortBio}</p>
-          {p.fields.length > 0 && <p className="meta" style={{ marginTop: 16 }}>{p.fields.join(' · ')}</p>}
+          {p.fields.length > 0 && <p className="meta about-fields" style={{ marginTop: 16 }}>{p.fields.map((x, i) => <span key={x}>{i > 0 && ' · '}<span className="nowrap">{x}</span></span>)}</p>}
           {/* 연락처·외부 링크: 공개로 고른 항목만 */}
-          {p.email && <p style={{ marginTop: 16 }}><a href={`mailto:${p.email}`}>{p.email}</a></p>}
-          {p.links.map((l) => <p key={l.url}><a href={l.url} rel="noopener noreferrer" target="_blank">{l.label} ↗</a></p>)}
+          <ul className="about-contacts">
+            {p.email && <li><a href={'mailto:' + p.email}>{SocialIcon.email}{p.email}</a></li>}
+            {p.links.map((l) => (
+              <li key={l.url}>
+                <a href={l.url} rel="noopener noreferrer" target="_blank">
+                  {/youtube/.test(l.url) ? SocialIcon.youtube : /instagram/.test(l.url) ? SocialIcon.instagram : null}
+                  {l.label} <span aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
           {sections.length > 1 && (
             <nav className="about-jump" aria-label="소개 바로가기">
               {sections.map((s) => <a key={s.id} href={`#${s.id}`} className="meta">{s.label}</a>)}

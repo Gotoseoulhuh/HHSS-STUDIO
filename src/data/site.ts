@@ -346,9 +346,9 @@ export const resources: Resource[] = []
 
 export const profile: Profile = {
   name: '허상경',
-  shortBio: '내포초등학교 교사 · 내포스튜디오 연출',
+  shortBio: '초등학교 교사 · HHSS PRODUCTION 연출',
   longBio: [],
-  fields: ['학생단편영화', '뮤직비디오', '연출'],
+  fields: ['학생단편영화', '뮤직비디오', '홍보영상', '공모전 영상 제작'],
   // 경력·작품·수상·상영은 필모그래피 원본(assets/hhss-filmography)에서 → src/data/filmography.json
   eventExtras: {
     'ev2025-01': {

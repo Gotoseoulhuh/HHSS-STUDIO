@@ -1,6 +1,7 @@
 import { getSettings } from '../lib/content'
 
-const Icon = {
+/** 하단·소개 페이지에서 같이 쓰는 링크 아이콘 */
+export const SocialIcon = {
   youtube: (
     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" strokeWidth="1.6" /><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor" /></svg>
   ),
@@ -16,9 +17,9 @@ const Icon = {
 export function SocialLinks({ withLabel = false }: { withLabel?: boolean }) {
   const { youtube, youtubeName, instagram, instagramId, email } = getSettings().social
   const items = [
-    youtube && { key: 'youtube', href: youtube, label: youtubeName ? `YouTube · ${youtubeName}` : 'YouTube', icon: Icon.youtube, external: true },
-    instagram && { key: 'instagram', href: instagram, label: instagramId ? `Instagram · @${instagramId}` : 'Instagram', icon: Icon.instagram, external: true },
-    email && { key: 'email', href: `mailto:${email}`, label: `이메일 · ${email}`, icon: Icon.email, external: false },
+    youtube && { key: 'youtube', href: youtube, label: youtubeName ? `YouTube · ${youtubeName}` : 'YouTube', icon: SocialIcon.youtube, external: true },
+    instagram && { key: 'instagram', href: instagram, label: instagramId ? `Instagram · @${instagramId}` : 'Instagram', icon: SocialIcon.instagram, external: true },
+    email && { key: 'email', href: `mailto:${email}`, label: `이메일 · ${email}`, icon: SocialIcon.email, external: false },
   ].filter(Boolean) as { key: string; href: string; label: string; icon: React.ReactNode; external: boolean }[]
   if (items.length === 0) return null
 

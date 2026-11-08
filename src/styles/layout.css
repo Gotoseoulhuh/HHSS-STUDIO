@@ -197,6 +197,10 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 .about-section { margin-top: 72px; scroll-margin-top: calc(var(--header-h) + 24px); }
 .about-section:first-child { margin-top: 0; }
 .about-section > .row-list, .film-group__label + .row-list { margin-top: 16px; }
+/* 연락처: 분야 줄과 같은 작은 글씨 + 하단과 같은 아이콘, 글자색은 링크색 그대로 */
+.about-contacts { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 8px; }
+.about-contacts a { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-ui); font-size: var(--fs-caption); letter-spacing: .04em; }
+.about-contacts svg { width: 16px; height: 16px; flex: none; }
 .about-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 .about-jump a { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; transition: color var(--dur-fast), border-color var(--dur-fast); }
 .about-jump a:hover, .about-jump a:active { color: var(--title); border-color: var(--brand); }
