@@ -13,7 +13,6 @@
       "development": "개발 중"
     },
     "year_notes": {
-      "2020": "",
       "2021": "",
       "2022": "",
       "2023": "",
@@ -81,7 +80,7 @@
       "genre": "성장 · 가족 · 드라마 · 스포츠",
       "runtime": "12분 8초",
       "credit": "연출·각본 허상경",
-      "production": "내포스튜디오",
+      "production": "천안시수영회 · HHSS 졸업 제자",
       "client": null,
       "status": null,
       "awards": [],
@@ -101,7 +100,7 @@
       "genre": null,
       "runtime": "4분 14초",
       "credit": "연출 허상경",
-      "production": null,
+      "production": "268NP스튜디오",
       "client": null,
       "status": "released",
       "awards": [
@@ -147,7 +146,7 @@
       "genre": null,
       "runtime": "5분 1초",
       "credit": "연출 허상경",
-      "production": null,
+      "production": "2025_6학년8반",
       "client": null,
       "status": "released",
       "awards": [
@@ -319,187 +318,6 @@
       "genre": null,
       "runtime": null,
       "credit": "연출 허상경",
-      "production": null,
-      "client": null,
-      "status": "released",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "2020-01",
-      "title": "그리고 아무도 없었다",
-      "year": 2020,
-      "month": null,
-      "category": "directing",
-      "type": "단편영화",
-      "genre": null,
-      "runtime": null,
-      "credit": "연출 허상경",
-      "production": "내포스튜디오",
-      "client": null,
-      "status": "released",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "c2026-01",
-      "title": "충남교육청 직속기관 소개 영상",
-      "year": 2026,
-      "month": 10,
-      "category": "commission",
-      "type": "홍보영상",
-      "genre": null,
-      "runtime": null,
-      "credit": "기획·촬영·편집 허상경",
-      "production": null,
-      "client": "충청남도교육청",
-      "status": "released",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "c2026-02",
-      "title": "제2회 홍성국제음악제 기록 영상·사진",
-      "year": 2026,
-      "month": null,
-      "category": "commission",
-      "type": "기록영상",
-      "genre": null,
-      "runtime": null,
-      "credit": "촬영·편집 허상경",
-      "production": null,
-      "client": "에제르",
-      "status": "in_progress",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "c2026-03",
-      "title": "2026 학생맞춤통합지원 학술대회 기록영상",
-      "year": 2026,
-      "month": null,
-      "category": "commission",
-      "type": "기록영상",
-      "genre": null,
-      "runtime": null,
-      "credit": "기록영상 제작 위원",
-      "production": null,
-      "client": null,
-      "status": "in_progress",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "c2026-04",
-      "title": "2027 충남교육 중점사업 및 10대 공약 안내 영상",
-      "year": 2026,
-      "month": null,
-      "category": "commission",
-      "type": "안내영상",
-      "genre": null,
-      "runtime": null,
-      "credit": "제작 참여",
-      "production": null,
-      "client": "충청남도교육청",
-      "status": "released",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "c2021-01",
-      "title": "홍성교육지원청 교육채널 영상",
-      "year": 2021,
-      "month": null,
-      "category": "commission",
-      "type": "교육채널 콘텐츠",
-      "genre": null,
-      "runtime": null,
-      "credit": "영상 관리·탑재 위원",
-      "production": null,
-      "client": "홍성교육지원청",
-      "status": "released",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "c2021-02",
-      "title": "충남소프트웨어교육체험센터 AI 체험 프로그램 지원 동영상",
-      "year": 2021,
-      "month": null,
-      "category": "commission",
-      "type": "교육영상",
-      "genre": null,
-      "runtime": null,
-      "credit": "개발위원",
-      "production": null,
-      "client": "충남소프트웨어교육체험센터",
-      "status": "released",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "e2024-01",
-      "title": "HHSS PRODUCTION — 덕명학습장 방과후 ‘영상 콘텐츠 창작 활동 스튜디오’",
-      "year": 2024,
-      "month": null,
-      "year_to": 2026,
-      "category": "education",
-      "type": "교육 프로그램 · 학생 작품",
-      "genre": null,
-      "runtime": null,
-      "credit": "기획·지도 허상경",
-      "production": "HHSS PRODUCTION",
-      "client": "덕명학습장",
-      "status": "in_progress",
-      "awards": [],
-      "screenings": [],
-      "links": {
-        "trailer": null,
-        "full": null
-      }
-    },
-    {
-      "id": "e2026-01",
-      "title": "행복 그 자체",
-      "year": 2026,
-      "month": null,
-      "category": "education",
-      "type": "음악 프로젝트",
-      "genre": "K-pop (Suno AI, 6학년 학생 창작)",
-      "runtime": "약 3분",
-      "credit": "기획·지도 허상경",
       "production": null,
       "client": null,
       "status": "released",
