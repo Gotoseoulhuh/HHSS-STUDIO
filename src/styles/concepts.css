@@ -1,0 +1,118 @@
+/* 영화 개념 페이지 (pages/ConceptPage.tsx). 색·글꼴·시간은 tokens.css 값만 쓴다. */
+
+/* 한 화면 = 헤더·하단 고정 줄을 뺀 높이 */
+.concept { --slide-h: calc(100svh - var(--header-h) - var(--footer-h)); }
+
+/* ── 이 페이지에서만 스크롤 스냅 (ConceptPage가 <html class="snap">을 붙였다 뗌) ── */
+html.snap { scroll-snap-type: y proximity; scroll-padding-top: var(--header-h); }
+html.snap .concept-cover, html.snap .concept-slide { scroll-snap-align: start; }
+@media (prefers-reduced-motion: reduce) { html.snap { scroll-snap-type: none; } }
+
+/* ── 표지 ── */
+.concept-cover {
+  position: relative; min-height: var(--slide-h);
+  display: grid; place-content: center; justify-items: center; text-align: center; gap: 24px;
+  padding-block: clamp(56px, 8vw, 112px);
+}
+.concept-back { position: absolute; top: 24px; left: 0; transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+.concept-back:hover { color: var(--title); transform: translateX(-2px); }
+.concept-cover__tag { font-family: var(--font-ui); font-size: var(--fs-caption); letter-spacing: .3em; text-transform: uppercase; color: var(--title); }
+.concept-cover__title { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-hero); line-height: 1.12; letter-spacing: -.03em; color: var(--text); word-break: keep-all; }
+.concept-cover__title strong { font-weight: 700; color: var(--title); }
+.concept-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.concept-pill { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px; border: 1px solid var(--line); border-radius: 999px; font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--text-dim); }
+.concept-pill__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); }
+.concept-cover__scroll { position: absolute; bottom: 24px; left: 50%; translate: -50% 0; letter-spacing: .2em; }
+
+/* ── 슬라이드 한 장 ── */
+.concept-slide {
+  min-height: var(--slide-h);
+  display: grid; align-content: center; gap: clamp(24px, 3vw, 40px);
+  padding-block: clamp(64px, 8vw, 120px);
+  border-top: 1px solid var(--line);
+}
+
+/* ── 이중 언어 머리글: 한글 문장 + 영문 분류 라벨 ── */
+.bi-head { display: grid; gap: 8px; }
+@media (min-width: 768px) { .bi-head { grid-template-columns: 1fr auto; align-items: baseline; gap: 24px; } }
+.bi-head__ko { font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h1); line-height: 1.2; letter-spacing: -.02em; color: var(--text); word-break: keep-all; }
+.bi-head__en { font-family: var(--font-ui); font-size: var(--fs-caption); letter-spacing: .2em; text-transform: uppercase; color: var(--text-dim); }
+
+/* ── 개념 이름 + 정의 ── */
+.concept-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.4rem, 1.4rem + 4.6vw, 5rem); line-height: 1.05; letter-spacing: -.03em; color: var(--title); }
+.concept-title small { display: block; margin-top: 12px; font-family: var(--font-ui); font-weight: 300; font-size: clamp(.9rem, .8rem + .4vw, 1.1rem); letter-spacing: .02em; color: var(--text-dim); }
+.concept-def { max-width: 44ch; display: grid; gap: .8em; color: var(--text); line-height: 1.75; word-break: keep-all; }
+.concept-lead { max-width: 48ch; color: var(--text-dim); word-break: keep-all; }
+
+/* ── 포인트색 소제목 라벨 ── */
+.sub-label { display: block; font-family: var(--font-ui); font-size: var(--fs-caption); letter-spacing: .2em; text-transform: uppercase; color: var(--title); }
+
+/* ── 비유 박스 (한 슬라이드에 강조 테두리는 하나만) ── */
+.metaphor { max-width: 720px; padding: clamp(24px, 3vw, 36px); border: 1px solid var(--brand); background: var(--bg-raise); display: grid; gap: 12px; }
+.metaphor__name { font-family: var(--font-display); font-weight: 600; font-size: var(--fs-h2); color: var(--title); }
+.metaphor__desc { font-family: var(--font-hand); font-size: calc(1em * var(--hand-scale)); line-height: 1.8; color: var(--text); word-break: keep-all; }
+
+/* ── 접기/펼치기 카드 — 내용 길이와 무관하게 grid-template-rows로 열림 ── */
+.disc { display: grid; gap: 12px; max-width: 960px; align-items: start; }
+@media (min-width: 640px) { .disc { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .disc { grid-template-columns: repeat(3, 1fr); } }
+.disc__item { display: grid; align-content: start; border: 1px solid var(--line); transition: border-color var(--dur-hover) var(--ease-out), background var(--dur-hover) var(--ease-out); }
+@media (hover: hover) { .disc__item:hover { border-color: var(--brand); } }
+.disc__item[data-open="true"] { border-color: var(--brand); background: var(--bg-raise); }
+.disc__item.is-current .disc__label { color: var(--title); }
+.disc__head { display: flex; align-items: baseline; gap: 14px; width: 100%; padding: 20px 24px; text-align: left; min-height: 44px; }
+.disc__label { font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; color: var(--text); }
+.disc__en { font-family: var(--font-ui); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim); }
+.disc__icon { margin-left: auto; font-family: var(--font-ui); font-size: 1.1rem; line-height: 1; color: var(--text-dim); transition: color var(--dur-hover) var(--ease-out); }
+.disc__icon::before { content: '+'; }
+.disc__item[data-open="true"] .disc__icon { color: var(--title); }
+.disc__item[data-open="true"] .disc__icon::before { content: '−'; }
+.disc__body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-base) var(--ease-out); }
+.disc__body > div { overflow: hidden; min-height: 0; }
+.disc__item[data-open="true"] .disc__body { grid-template-rows: 1fr; }
+.disc__text { margin: 0 24px 20px; padding-top: 14px; border-top: 1px solid var(--line); font-family: var(--font-hand); font-size: calc(1em * var(--hand-scale)); line-height: 1.75; color: var(--text); word-break: keep-all; }
+.disc__status { display: block; margin-top: 10px; }
+.disc__status a { color: var(--title); }
+
+/* ── 예시 장면 ── */
+.scene-pair { display: grid; gap: 16px; }
+.scene-grid { display: grid; gap: 16px; max-width: 1040px; }
+@media (min-width: 768px) { .scene-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+.scene { margin: 0; border: 1px solid var(--line); background: var(--bg-raise); display: grid; transition: border-color var(--dur-hover) var(--ease-out); }
+@media (hover: hover) { .scene:hover { border-color: var(--brand); } }
+.scene .scene__frame { aspect-ratio: 16 / 9; border: 0; }
+.scene__frame svg { display: block; }
+.scene__cap { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; padding: 14px 18px; border-top: 1px solid var(--line); }
+.scene__nm { font-family: var(--font-display); font-weight: 600; color: var(--text); }
+.scene__desc { grid-column: 1 / -1; font-family: var(--font-hand); font-size: calc(var(--fs-caption) * var(--hand-scale)); color: var(--text-dim); word-break: keep-all; }
+.concept-quote { max-width: 32ch; font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h2); line-height: 1.4; color: var(--text); padding-left: 20px; border-left: 2px solid var(--brand); word-break: keep-all; }
+
+/* ── 자주 하는 실수 ── */
+.mistakes { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; max-width: 1040px; }
+@media (min-width: 900px) { .mistakes { grid-template-columns: 1fr 1fr; } }
+.mistake { display: grid; align-content: start; gap: 12px; padding: clamp(20px, 2.4vw, 28px); border: 1px solid var(--line); }
+.mistake__wrong { display: flex; gap: 12px; align-items: baseline; font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; color: var(--text); }
+.mistake__mark { font-family: var(--font-ui); color: var(--text-dim); }
+.mistake__why { color: var(--text-dim); word-break: keep-all; }
+.mistake__fix { display: grid; gap: 6px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--text); word-break: keep-all; }
+
+/* ── 직접 해 보기 ── */
+.missions { display: grid; gap: 16px; max-width: 1040px; }
+@media (min-width: 900px) { .missions { grid-template-columns: 1fr 1fr; } }
+.mission { display: grid; align-content: start; gap: 14px; padding: clamp(24px, 3vw, 36px); border: 1px solid var(--line); background: var(--bg-raise); }
+.mission__title { font-size: var(--fs-h2); color: var(--text); }
+.mission p { word-break: keep-all; }
+.mission__checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.mission__checks li { position: relative; padding-left: 28px; color: var(--text); }
+.mission__checks li::before { content: ''; position: absolute; left: 0; top: .45em; width: 14px; height: 14px; border: 1px solid var(--brand); }
+
+/* ── 다음 개념 ── */
+.concept-next { display: grid; gap: 8px; padding-top: 24px; border-top: 1px solid var(--line); max-width: 720px; }
+.concept-next__title { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h2); color: var(--text); display: inline-flex; gap: 10px; align-items: baseline; }
+.concept-next__arrow { color: var(--title); }
+
+/* ── 글 목록 탭 (pages/Journal.tsx) ── */
+.journal-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.journal-tabs button { min-height: 36px; padding: 6px 16px; border: 1px solid var(--line); border-radius: 999px; transition: color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast); }
+.journal-tabs button:hover { color: var(--title); border-color: var(--brand); }
+.journal-tabs button[aria-pressed="true"] { color: var(--text); border-color: var(--brand); background: var(--bg-raise); }

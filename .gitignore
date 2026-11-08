@@ -13,3 +13,6 @@ Thumbs.db
 
 # 필모그래피 원본(숨김 항목·확인 메모 포함) — 내 컴퓨터에만. 공개 사본은 src/data/filmography.json
 /assets/hhss-filmography/
+
+# 외부 사이트 분석 노트(원작자 허락 전) — 내 컴퓨터에만
+/assets/HHSS_영화개념페이지.md

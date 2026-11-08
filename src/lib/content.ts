@@ -2,6 +2,7 @@
  * 콘텐츠 읽기 창구. 지금은 src/data/site.ts에서 읽고, Supabase 연결 시 이 파일 안쪽만 바꾼다.
  * (페이지 쪽 코드는 이 함수들만 사용)
  */
+import { concepts } from '../data/concepts'
 import filmographyData from '../data/filmography.json'
 import { albums, posts, profile, resources, settings, works } from '../data/site'
 import type { Filmography } from '../data/types'
@@ -21,6 +22,9 @@ export const getAlbum = (slug: string) => albums.find((a) => a.slug === slug)
 
 export const listPosts = () => [...posts].sort(byDateDesc)
 export const getPost = (slug: string) => posts.find((p) => p.slug === slug)
+
+export const listConcepts = () => [...concepts].sort((a, b) => a.no.localeCompare(b.no))
+export const getConcept = (slug: string) => concepts.find((c) => c.slug === slug)
 
 export const listResources = () => [...resources].sort(byOrder)
 export const getResource = (slug: string) => resources.find((r) => r.slug === slug)

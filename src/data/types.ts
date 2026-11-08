@@ -167,3 +167,39 @@ export interface Filmography {
   events: FilmEvent[]
   honors: FilmHonor[]
 }
+
+/* ───────── 영화 개념 (src/data/concepts.ts) — 지금은 '글'의 '개념' 탭, 많아지면 별도 메뉴로 ───────── */
+/** 도식 그림 이름 (components/ConceptDiagram.tsx) */
+export type DiagramName = 'light-morning' | 'light-night' | 'blocking-close' | 'blocking-apart'
+export interface ConceptScene {
+  title: string
+  caption: string
+  /** 직접 그린 도식 */
+  diagram?: DiagramName
+  /** HHSS 작품 스틸 (src 없으면 'SCENE' 자리표시) */
+  media?: MediaRef
+  source?: string
+}
+export interface Concept {
+  kind: 'concept'
+  /** 시리즈 번호 '01' */
+  no: string
+  slug: string
+  nameKo: string
+  nameEn: string
+  /** 글 목록에 보이는 한 줄 */
+  summary: string
+  publishedAt: string
+  /** 첫 화면 큰 제목: 앞 + 강조 + 뒤 */
+  cover: { before: string; strong: string; after: string }
+  /** 첫 화면 아래 작은 정보 (대상·읽는 시간 등) */
+  coverMeta: string[]
+  headline: string
+  tagline: string
+  definition: string[]
+  metaphor: { name: string; desc: string }
+  elements: { title: string; heading: string; sub: string; items: { no: string; label: string; en: string; body: string }[] }
+  examples: { heading: string; sub: string; pairs: { label: string; scenes: [ConceptScene, ConceptScene] }[]; note: string; stills: ConceptScene[] }
+  mistakes: { heading: string; items: { wrong: string; why: string; fix: string }[] }
+  missions: { heading: string; items: { title: string; desc: string; checks: string[] }[] }
+}

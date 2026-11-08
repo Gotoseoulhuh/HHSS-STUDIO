@@ -1,10 +1,13 @@
 import { Link, useParams } from 'react-router-dom'
-import { getPost } from '../lib/content'
+import { getConcept, getPost } from '../lib/content'
 import { formatDate } from '../lib/format'
+import { ConceptPage } from './ConceptPage'
 import { NotFound } from './NotFound'
 
 export function JournalPost() {
   const { slug = '' } = useParams()
+  const concept = getConcept(slug)
+  if (concept) return <ConceptPage c={concept} />
   const post = getPost(slug)
   if (!post) return <NotFound />
 
