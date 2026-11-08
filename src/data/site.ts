@@ -182,7 +182,7 @@ export const works: Work[] = [
     release: '2026년 가을 공개',
     genre: '성장 · 스포츠 드라마',
     runtime: '12분 9초',
-    credits: ['연출 허상경', '제작 내포스튜디오', '천안시 체육회 수영단'],
+    credits: ['연출 허상경', '제작 내포스튜디오(HHSS 졸업 제자)', '천안시 체육회 수영단'],
     roles: ['연출'],
     blocks: [
       {
