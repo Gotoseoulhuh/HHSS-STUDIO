@@ -4,7 +4,14 @@
  */
 import { listAlbums, listConcepts, listWorks } from '../lib/content'
 
-export const GUEST_ROLES = ['학생', '학부모', '관객', '함께 작업하고 싶은 분', '그 밖의 방문자'] as const
+/** 한마디 아래에 놓이는 질문 세 개 (옆 버튼을 눌러야 키워드가 펼쳐짐) */
+export const GUEST_QUESTIONS = {
+  role: '어떤 분이세요?',
+  favorite: '마음에 남은 부분이 있나요?',
+  feeling: '한 단어로 남긴다면?',
+} as const
+
+export const GUEST_ROLES =['학생', '학부모', '관객', '함께 작업하고 싶은 분', '그 밖의 방문자'] as const
 
 export interface FavoriteGroup { label: string; items: string[] }
 
