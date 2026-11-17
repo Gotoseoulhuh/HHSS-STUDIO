@@ -1,4 +1,12 @@
 /* ═════ 방명록 ═════ */
+/* 머리 설명: 손글씨(얇음) 대신 본문 글꼴 + 밝은 색, PC에서는 넓게 두 줄 정도로 */
+.page-head--guestbook .prose {
+  max-width: 62ch; font-family: var(--font-ui); font-size: clamp(1rem, .95rem + .3vw, 1.1875rem);
+  line-height: 1.75; color: var(--text-strong);
+}
+/* 안내 문장·라벨: 키워드 버튼과 같은 글꼴·밝기로 */
+.gb-help { font-family: var(--font-ui); font-size: .9375rem; line-height: 1.6; color: var(--text); }
+.gb-label { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; color: var(--text-strong); }
 /* 왼쪽: 쓰기(한마디 → 골라서 덧붙이기 → 남기기) · 오른쪽: 남겨진 글이 아래에서 위로 흐르는 칸 */
 .gb { display: grid; gap: clamp(48px, 7vw, 96px); }
 @media (min-width: 960px) {
@@ -10,15 +18,15 @@
 /* 기본 방명록: 이름 + 한마디 + 문장 앞부분 */
 .gb-write { display: grid; gap: 20px; }
 .gb-name, .gb-body { display: grid; gap: 8px; }
-.gb-name { max-width: 360px; }
+.gb-name { max-width: 420px; }
 .gb-name__preview b { color: var(--title); font-weight: 400; letter-spacing: .08em; }
 .gb-input {
   width: 100%; padding: 12px 14px; background: var(--bg-raise); border: 1px solid var(--line); border-radius: 0;
   color: var(--text); font-family: var(--font-ui); font-size: 1rem; /* 16px 이상: 휴대폰 확대 방지 */
 }
-.gb-input::placeholder { color: var(--text-dim); }
+.gb-input::placeholder { color: var(--text-dim); opacity: 1; }
 .gb-input:focus { outline: none; border-color: var(--brand); }
-.gb-textarea { resize: vertical; min-height: 160px; line-height: 1.75; font-family: var(--font-hand); font-size: calc(1rem * var(--hand-scale)); }
+.gb-textarea { resize: vertical; min-height: 160px; line-height: 1.75; }
 .gb-count { text-align: right; margin-top: -2px; }
 .gb-starters { display: grid; gap: 10px; margin-top: -6px; }
 
@@ -32,8 +40,8 @@
 .gb-chip:hover, .gb-starter:hover { border-color: var(--brand); color: var(--title); }
 .gb-chip[aria-pressed="true"] { color: var(--title); border-color: var(--title); background: color-mix(in srgb, var(--title) 14%, transparent); }
 .gb-chip[aria-pressed="true"]::before { content: "✓ "; }
-/* 문장 앞부분: 손글씨 + 점선 테두리 → '눌러서 넣는 문장'이라는 걸 구분 */
-.gb-starter { font-family: var(--font-hand); font-size: calc(.9375rem * var(--hand-scale)); border-style: dashed; color: var(--text-dim); }
+/* 문장 앞부분: 키워드 버튼과 같은 글꼴·밝기, 점선 테두리로 '눌러서 넣는 문장'이라는 걸 구분 */
+.gb-starter { border-style: dashed; border-color: color-mix(in srgb, var(--text) 35%, transparent); }
 .gb-starter:active { background: var(--bg-raise); }
 
 /* 골라서 덧붙이기: 질문 한 줄씩, 오른쪽 버튼을 누르면 펼쳐짐 */
@@ -41,10 +49,10 @@
 .gb-ask { border-bottom: 1px solid var(--line); }
 .gb-ask__head { display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 10px 0; }
 .gb-step__no { font-family: var(--font-ui); font-size: var(--fs-caption); letter-spacing: .12em; color: var(--text-dim); }
-.gb-ask__title { flex: 1; min-width: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; color: var(--text); }
+.gb-ask__title { flex: 1; min-width: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; color: var(--text-strong); }
 .gb-ask__btn {
   flex: none; display: inline-flex; align-items: center; gap: 8px; max-width: 55%; min-height: 40px; padding: 6px 14px;
-  border: 1px solid var(--line); border-radius: 999px; font-size: .875rem; color: var(--text-dim);
+  border: 1px solid color-mix(in srgb, var(--text) 35%, transparent); border-radius: 999px; font-size: .9375rem; color: var(--text);
   transition: color var(--dur-fast), border-color var(--dur-fast);
 }
 .gb-ask__btn:hover, .gb-ask__btn[aria-expanded="true"] { color: var(--title); border-color: var(--brand); }
@@ -70,7 +78,7 @@
 @media (min-width: 960px) {
   .gb-board { position: sticky; top: calc(var(--header-h) + 24px); height: calc(100vh - var(--header-h) - var(--footer-h) - 48px); min-height: 420px; }
 }
-.gb-board__title { font-size: 1.125rem; color: var(--text); }
+.gb-board__title { font-size: 1.125rem; color: var(--text-strong); }
 .gb-board__count { color: var(--title); }
 .gb-summary { display: grid; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
 .gb-summary .film-badges { margin-top: 6px; }
@@ -94,9 +102,9 @@
 .gb-ticker .gb-list { border-top: 0; } /* 이어 붙인 두 묶음 사이에 선이 겹치지 않게 */
 .gb-entry { display: grid; gap: 10px; padding: 20px 0; border-bottom: 1px solid var(--line); }
 .gb-entry__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
-.gb-entry__name { font-family: var(--font-display); font-weight: 700; color: var(--text); letter-spacing: .04em; }
+.gb-entry__name { font-family: var(--font-display); font-weight: 700; color: var(--text-strong); letter-spacing: .04em; }
 .gb-entry__date { margin-left: auto; }
-.gb-entry__body { white-space: pre-line; }
+.gb-entry__body { white-space: pre-line; line-height: 1.75; color: var(--text); }
 
 /* ═════ 관리자: 방명록 확인 ═════ */
 .gb-admin { display: grid; gap: 20px; }

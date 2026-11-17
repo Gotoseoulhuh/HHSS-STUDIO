@@ -53,7 +53,7 @@ function GuestbookAdmin() {
     }
   }
 
-  if (!guestbookConfigured) return <p className="hand">Supabase 연결 값이 없어 방명록을 불러올 수 없어요.</p>
+  if (!guestbookConfigured) return <p className="gb-help">Supabase 연결 값이 없어 방명록을 불러올 수 없어요.</p>
 
   if (!rows) {
     return (
@@ -62,7 +62,7 @@ function GuestbookAdmin() {
         <input id="gb-admin-pass" className="gb-input" type="password" autoComplete="current-password"
           placeholder="관리자 비밀번호" value={input} onChange={(e) => setInput(e.target.value)} />
         <button className="btn" type="submit">열기</button>
-        {error && <p className="caption" role="alert" style={{ alignSelf: 'center' }}>{error}</p>}
+        {error && <p className="gb-help" role="alert" style={{ alignSelf: 'center' }}>{error}</p>}
       </form>
     )
   }
@@ -80,9 +80,9 @@ function GuestbookAdmin() {
         ))}
         <button type="button" className="gb-chip" onClick={() => load(pass)}>새로고침</button>
       </div>
-      {error && <p className="caption" role="alert">{error}</p>}
+      {error && <p className="gb-help" role="alert">{error}</p>}
       {shown.length === 0 ? (
-        <p className="hand empty">해당하는 글이 없어요.</p>
+        <p className="gb-help empty">해당하는 글이 없어요.</p>
       ) : (
         <ul className="gb-list">
           {shown.map((e) => (
@@ -100,7 +100,7 @@ function GuestbookAdmin() {
                   {e.feelings.map((f) => <span key={f} className="film-badge gb-badge--dim">{f}</span>)}
                 </p>
               )}
-              <p className="hand gb-entry__body">{e.body}</p>
+              <p className="gb-entry__body">{e.body}</p>
               <div className="gb-admin__actions">
                 {(['approved', 'pending', 'hidden'] as GuestStatus[]).filter((s) => s !== e.status).map((s) => (
                   <button key={s} type="button" className="gb-chip" disabled={busy === e.id} onClick={() => setStatus(e.id, s)}>
@@ -131,7 +131,7 @@ export function AdminHome() {
       <span className="page-head__index">ADMIN</span>
       <h1>관리자</h1>
       <h2 style={{ fontSize: 'var(--fs-h2)', marginTop: 24 }}>방명록 확인</h2>
-      <p className="caption">확인 전 글은 이름 가운데가 *로 보여요. 확인하고 ‘실명 공개’를 누르면 실명으로 바뀌어요.</p>
+      <p className="gb-help">확인 전 글은 이름 가운데가 *로 보여요. 확인하고 ‘실명 공개’를 누르면 실명으로 바뀌어요.</p>
       <GuestbookAdmin />
     </section>
   )

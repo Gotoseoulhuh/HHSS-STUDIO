@@ -61,7 +61,7 @@ function Entry({ e }: { e: GuestEntry }) {
           {e.feelings.map((f) => <span key={f} className="film-badge gb-badge--dim">{f}</span>)}
         </p>
       )}
-      <p className="hand gb-entry__body">{e.body}</p>
+      <p className="gb-entry__body">{e.body}</p>
     </li>
   )
 }
@@ -173,31 +173,31 @@ export function Guestbook() {
   return (
     <>
       <PageHead
-        index="06 — GUESTBOOK" title="방명록"
+        index="06 — GUESTBOOK" title="방명록" className="page-head--guestbook"
         desc="편하게 한마디 남겨 주세요. 무엇을 쓸지 막막하다면 아래 질문에서 키워드를 골라 보세요. 고르지 않아도, 여러 개 골라도 괜찮아요."
       />
       <div className="container gb">
         {!guestbookConfigured ? (
-          <p className="hand empty">방명록은 곧 열려요.</p>
+          <p className="gb-help empty">방명록은 곧 열려요.</p>
         ) : (
           <>
             <form className="gb-form" onSubmit={submit} noValidate data-reveal>
               {/* 기본 방명록: 이름 + 한마디 */}
               <div className="gb-write">
                 <div className="gb-name">
-                  <label className="meta" htmlFor="gb-name">이름</label>
+                  <label className="gb-label" htmlFor="gb-name">이름</label>
                   <input
                     id="gb-name" className="gb-input" type="text" maxLength={20} autoComplete="name"
                     value={name} onChange={(e) => setName(e.target.value)} placeholder="홍길동"
                   />
-                  <p className="caption gb-name__preview">
+                  <p className="gb-help gb-name__preview">
                     {name.trim()
                       ? <>처음에는 <b>{maskName(name)}</b>(으)로 보이고, 확인한 뒤에 실명으로 바뀌어요.</>
                       : <>처음에는 가운데 글자를 *로 가려서 보여 드려요. 확인한 뒤에 실명으로 바뀌어요.</>}
                   </p>
                 </div>
                 <div className="gb-body">
-                  <label className="meta" htmlFor="gb-body">한마디</label>
+                  <label className="gb-label" htmlFor="gb-body">한마디</label>
                   <textarea
                     id="gb-body" ref={bodyRef} className="gb-input gb-textarea" rows={5} maxLength={BODY_MAX}
                     value={body} onChange={(e) => setBody(e.target.value)} placeholder="자유롭게 적어 주세요."
@@ -205,7 +205,7 @@ export function Guestbook() {
                   <p className="meta gb-count" aria-live="polite">{body.length} / {BODY_MAX}</p>
                 </div>
                 <div className="gb-starters">
-                  <span className="caption">이렇게 시작해 볼까요? 누르면 글 칸에 들어가요.</span>
+                  <span className="gb-help">이렇게 시작해 볼까요? 누르면 글 칸에 들어가요.</span>
                   <div className="gb-chips">
                     {starters.map((s) => (
                       <button key={s} type="button" className="gb-starter" onClick={() => addStarter(s)}>{s.trim()} …</button>
@@ -245,7 +245,7 @@ export function Guestbook() {
                 <button className="btn" type="submit" disabled={!canSend} aria-disabled={!canSend}>
                   {sending ? '남기는 중…' : '방명록 남기기'}
                 </button>
-                {notice && <p className={`caption gb-notice${notice.ok ? ' is-ok' : ''}`} role="status">{notice.text}</p>}
+                {notice && <p className={`gb-help gb-notice${notice.ok ? ' is-ok' : ''}`} role="status">{notice.text}</p>}
               </div>
             </form>
 
@@ -271,8 +271,8 @@ export function Guestbook() {
                 </div>
               )}
 
-              {loadError && <p className="hand empty">글을 불러오지 못했어요. 잠시 뒤에 새로고침해 주세요.</p>}
-              {entries && entries.length === 0 && <p className="hand empty">아직 남겨진 글이 없어요. 첫 글을 남겨 주세요.</p>}
+              {loadError && <p className="gb-help empty">글을 불러오지 못했어요. 잠시 뒤에 새로고침해 주세요.</p>}
+              {entries && entries.length === 0 && <p className="gb-help empty">아직 남겨진 글이 없어요. 첫 글을 남겨 주세요.</p>}
               {entries && entries.length > 0 && <Ticker entries={entries} />}
             </section>
           </>
