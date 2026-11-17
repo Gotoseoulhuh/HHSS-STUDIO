@@ -4,4 +4,5 @@ export const NAV = [
   { to: '/journal', label: '글' },
   { to: '/resources', label: '자료' },
   { to: '/about', label: '소개' },
+  { to: '/guestbook', label: '방명록' },
 ] as const

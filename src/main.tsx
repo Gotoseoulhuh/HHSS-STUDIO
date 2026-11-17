@@ -7,6 +7,7 @@ import { Layout } from './components/Layout'
 import { routerBase } from './lib/url'
 import { About } from './pages/About'
 import { AdminHome } from './pages/admin/AdminHome'
+import { Guestbook } from './pages/Guestbook'
 import { Home } from './pages/Home'
 import { Journal } from './pages/Journal'
 import { JournalPost } from './pages/JournalPost'
@@ -22,6 +23,7 @@ import './styles/fonts.css'
 import './styles/base.css'
 import './styles/layout.css'
 import './styles/concepts.css'
+import './styles/guestbook.css'
 import './styles/motion.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -41,6 +43,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="resources" element={<Resources />} />
           <Route path="resources/:slug" element={<ResourceDetail />} />
           <Route path="about" element={<About />} />
+          <Route path="guestbook" element={<Guestbook />} />
           <Route path="admin/*" element={<AdminHome />} />
           <Route path="*" element={<NotFound />} />
         </Route>
