@@ -64,7 +64,26 @@ export interface ListBlock {
   items: string[]
   media?: MediaRef[]
 }
-export type WorkBlock = StoryBlock | CastBlock | GalleryBlock | NoteBlock | ListBlock
+/** Behind the Frame · 프레임 뒤에서 — 그 영화에서 큰 역할을 맡은 사람(1~2명)의 소감·사인·대표 스틸컷 */
+export interface BehindBlock {
+  type: 'behind'
+  label: string
+  heading: string
+  people: {
+    name: string
+    /** 맡은 일 한 줄 (예: 'Storyboard · 스토리보드') */
+    role: string
+    /** 연출이 쓴 소개 */
+    intro?: string
+    /** 대표 스틸컷 */
+    still: MediaRef
+    /** 손글씨 소감 (투명 배경 그림). alt에 글 전문을 적는다 */
+    letter: MediaRef
+    /** 사인 (투명 배경 그림) */
+    sign: MediaRef
+  }[]
+}
+export type WorkBlock = StoryBlock | CastBlock | GalleryBlock | NoteBlock | ListBlock | BehindBlock
 
 export interface Work extends ContentBase {
   kind: 'work'

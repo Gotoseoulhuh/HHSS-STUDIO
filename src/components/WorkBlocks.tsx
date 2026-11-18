@@ -1,5 +1,6 @@
-import type { CastBlock, GalleryBlock, ListBlock, NoteBlock, StoryBlock, WorkBlock } from '../data/types'
+import type { BehindBlock, CastBlock, GalleryBlock, ListBlock, NoteBlock, StoryBlock, WorkBlock } from '../data/types'
 import { pad2 } from '../lib/format'
+import { asset } from '../lib/url'
 import { Gallery } from './Gallery'
 import { MediaFrame } from './MediaFrame'
 
@@ -130,6 +131,35 @@ function List({ b, id }: { b: ListBlock; id: string }) {
   )
 }
 
+/** 프레임 뒤에서: 대표 스틸컷 + 소개 + 손글씨 소감 + 사인 */
+function Behind({ b, id }: { b: BehindBlock; id: string }) {
+  return (
+    <>
+      <BlockHead label={b.label} heading={b.heading} id={id} />
+      {b.people.map((p) => (
+        <div key={p.name} className="behind">
+          <figure className="behind__still" data-reveal>
+            <MediaFrame media={p.still} />
+            {p.still.caption && <figcaption className="caption">{p.still.caption}</figcaption>}
+          </figure>
+          <div className="behind__body">
+            <div className="behind__who" data-reveal>
+              <span className="meta">{p.role}</span>
+              <h3 className="behind__name">{p.name}</h3>
+            </div>
+            {p.intro && <p className="hand prose" data-reveal>{p.intro}</p>}
+            {/* 손글씨는 좁은 화면에서 글자가 작아지지 않게 옆으로 밀어 본다 */}
+            <div className="behind__letter" data-reveal tabIndex={0} role="group" aria-label={`${p.name}의 손글씨 소감`}>
+              <img src={asset(p.letter.src ?? '')} alt={p.letter.alt} loading="lazy" decoding="async" style={{ aspectRatio: String(p.letter.ratio) }} />
+            </div>
+            <img className="behind__sign" data-reveal src={asset(p.sign.src ?? '')} alt={p.sign.alt} loading="lazy" decoding="async" style={{ aspectRatio: String(p.sign.ratio) }} />
+          </div>
+        </div>
+      ))}
+    </>
+  )
+}
+
 export function WorkBlocks({ blocks }: { blocks: WorkBlock[] }) {
   return (
     <>
@@ -142,6 +172,7 @@ export function WorkBlocks({ blocks }: { blocks: WorkBlock[] }) {
             {b.type === 'gallery' && <GalleryB b={b} id={id} />}
             {b.type === 'note' && <Note b={b} id={id} />}
             {b.type === 'list' && <List b={b} id={id} />}
+            {b.type === 'behind' && <Behind b={b} id={id} />}
           </section>
         )
       })}

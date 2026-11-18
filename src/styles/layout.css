@@ -187,6 +187,22 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 .thanks-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .thanks-list li { display: grid; grid-template-columns: 4ch 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
 
+/* 프레임 뒤에서 — 스틸컷 + 소개 + 손글씨 소감 + 사인 */
+.behind { display: grid; gap: clamp(24px, 3vw, 40px); align-items: start; }
+.behind + .behind { margin-top: clamp(40px, 6vw, 80px); padding-top: clamp(40px, 6vw, 80px); border-top: 1px solid var(--line); }
+.behind__still { margin: 0; display: grid; gap: 10px; }
+.behind__body { display: grid; gap: clamp(18px, 2vw, 28px); min-width: 0; }
+.behind__who { display: grid; gap: 6px; }
+.behind__name { font-size: var(--fs-h2); }
+.behind__letter { overflow-x: auto; padding-top: 8px; }
+.behind__letter img { display: block; width: 100%; min-width: 620px; height: auto; }
+.behind__letter img, .behind__sign { filter: brightness(1.3); } /* 어두운 바탕에서 가는 획이 묻히지 않게 */
+.behind__sign { display: block; width: clamp(140px, 22vw, 220px); height: auto; justify-self: end; }
+@media (min-width: 1200px) {
+  .behind { grid-template-columns: 5fr 7fr; column-gap: 64px; }
+  .behind__still { position: sticky; top: calc(var(--header-h) + 32px); }
+}
+
 /* 다음 작품 */
 .next-work { padding-top: clamp(64px, 9vw, 128px); }
 .next-work a { padding-top: 32px; }
