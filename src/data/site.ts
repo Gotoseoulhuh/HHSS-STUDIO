@@ -17,6 +17,7 @@ const K = 'keuge-sorichimyeo'
 const T = 'take-your-mark'
 const G = 'geu-yeoreume-meomuneun-neoege'
 const U = 'uriga-chatgo-itdeon-byeol'
+const S = 'sigan-sogui-geu-ai'
 
 const kCover = img(K, 'cover.jpg', 1920, 1080, '대숲에서 서로의 손을 붙잡은 세 낭자')
 
@@ -353,6 +354,60 @@ export const works: Work[] = [
     credits: ['연출 허상경', '제작 내포스튜디오'],
     roles: ['연출'],
     blocks: [],
+  },
+  {
+    kind: 'work',
+    slug: S,
+    title: '시간 속의 그 아이',
+    titleLines: ['시간 속의', '그 아이'],
+    summary: '선명해지는 초등학생 때의 꿈, 그리고 의문의 할머니가 건넨 열쇠.',
+    featured: false,
+    order: 5,
+    publishedAt: '2021-11-18T00:00:00Z',
+    cover: img(S, 'cover.jpg', 2000, 1500, '시간 속의 그 아이 대개봉 현수막 앞에 모여 손가락으로 브이를 그리는 제작진 (삽화)'),
+    workType: '학생단편영화',
+    year: 2021,
+    release: '2021년 11월 18일 개봉',
+    genre: '미스터리',
+    runtime: '21분 48초',
+    credits: ['연출 허상경', '제작 갈산스튜디오'],
+    roles: ['연출'],
+    blocks: [
+      {
+        type: 'story',
+        label: 'Story · 줄거리',
+        heading: '꿈이었는지,\n진짜였는지',
+        paragraphs: [
+          '나는 요즘 초등학생 때의 꿈이 종종 나오곤 한다. 이 꿈에 나온 일들이 꿈이었는지 진짜였는지는 제대로 기억나지 않는다.',
+          '어느 날 꿈이 선명해지기 시작했고, 의문의 할머니가 열쇠를 준 후로 겪게 되는 미스터리한 이야기.',
+        ],
+        media: [
+          img(S, 'still-entrance.jpg', 1636, 673, '학교 현관을 나서는 두 아이. 흑백으로 그린 영화 속 장면 (삽화)', '영화 속 장면 — 학교 현관'),
+        ],
+      },
+      {
+        type: 'gallery',
+        label: 'Making · 촬영 기록',
+        heading: '4학년 동아리의\n100일',
+        sub: '학생들이 직접 참여해 100일 동안 만든 단편영화. 출연자와 제작진의 초상권을 지키기 위해 사진 속 인물을 삽화로 옮겼다.',
+        layout: 'photo',
+        groups: [
+          {
+            title: '촬영 현장',
+            items: [
+              img(S, 'making-set.jpg', 2000, 1500, '숲속에 세운 작은 집 세트와 카메라 옆에 모인 제작진 (삽화)', '숲속 세트 옆에 모인 제작진'),
+              img(S, 'making-park.jpg', 1636, 908, '공원에서 삼각대에 올린 화면을 함께 들여다보는 제작진 (삽화)', '촬영한 화면을 함께 확인하는 제작진'),
+            ],
+          },
+          {
+            title: '개봉 · 2021.11.18.',
+            items: [
+              { ...img(S, 'cover.jpg', 2000, 1500, '시간 속의 그 아이 대개봉 현수막 앞에 모여 손가락으로 브이를 그리는 제작진 (삽화)'), caption: '개봉 현수막 앞에 선 제작진' },
+            ],
+          },
+        ],
+      },
+    ],
   },
 ]
 

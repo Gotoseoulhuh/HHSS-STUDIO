@@ -5,8 +5,8 @@ import { listWorks, SHOW_DRAFTS } from '../lib/content'
 import { pad2 } from '../lib/format'
 import { asset } from '../lib/url'
 
-/** 아직 어느 작품 것인지 정하지 않은 삽화 (public/assets/illust/01~19.jpg). 개발 화면에서만 번호와 함께 보인다 */
-const UNSORTED_ILLUST = Array.from({ length: 19 }, (_, i) => pad2(i + 1))
+/** 아직 어느 작품 것인지 정하지 않은 삽화 (public/assets/illust/05~19.jpg). 개발 화면에서만 번호와 함께 보인다 */
+const UNSORTED_ILLUST = Array.from({ length: 15 }, (_, i) => pad2(i + 5))
 
 export function Works() {
   const works = listWorks()
