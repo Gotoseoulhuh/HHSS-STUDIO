@@ -349,16 +349,44 @@ export const works: Work[] = [
     summary: '별자리를 건넨 의문의 소년, 그 별을 찾아 떠나는 소녀.',
     featured: true,
     order: 4,
-    publishedAt: '2024-12-01T00:00:00Z',
+    publishedAt: '2024-12-07T00:00:00Z',
     cover: img(U, 'cover.jpg', 1920, 1080, '어두운 방에서 망원경을 들여다보는 로와'),
     workType: '학생단편영화',
     year: 2024,
-    release: '2024년 12월 공개',
+    release: '2024년 12월 7일 개봉',
     genre: '미스터리 · 성장 드라마',
-    runtime: '22분 59초',
+    runtime: '22분 58초',
     credits: ['연출 허상경', '제작 내포스튜디오'],
     roles: ['연출'],
-    blocks: [],
+    blocks: [
+      {
+        type: 'note',
+        label: "Director's Note · 기획 의도",
+        heading: '홍성의 밤하늘을\n영화에 담다',
+        paragraphs: [
+          '충남 홍성의 밤하늘을 직접 찍어 영화에 담아보고 싶어 별이라는 주제를 정했습니다. 이 영화를 통해 어렸을 때 자주 올려다보았던 별, 어렸을 때 꾸었던 순수한 꿈들을 생각해 보는 시간이 되었으면 좋겠습니다.',
+        ],
+        signature: '연출 허상경',
+        media: img(U, 'still-railing.jpg', 2000, 1124, '학교 앞 난간에 기대어 웃으며 이야기하는 두 아이 (삽화)'),
+      },
+      {
+        type: 'gallery',
+        label: 'Making · 촬영 기록',
+        heading: '별을 찾던 날들',
+        sub: '출연자와 제작진의 초상권을 지키기 위해 사진 속 인물을 삽화로 옮겼다.',
+        layout: 'photo',
+        groups: [
+          {
+            title: '촬영과 녹음',
+            items: [
+              img(U, 'making-night.jpg', 1440, 1081, '밤, 아파트 불빛을 뒤로하고 팔로 하트를 만든 두 아이 (삽화)', '밤 촬영 날의 두 배우'),
+              img(U, 'making-recording.jpg', 2000, 1500, '파란 배경 앞, 마이크와 녹음기가 놓인 책상에 앉은 두 아이와 연출 (삽화)', '녹음하는 날'),
+              img(U, 'making-monitor.jpg', 1636, 923, '녹음실 안을 비추는 화면 속에서 마주 보고 선 두 아이 (삽화)', '화면으로 보이는 녹음실'),
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     kind: 'work',
