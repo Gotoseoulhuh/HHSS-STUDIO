@@ -12,7 +12,7 @@ const ROWS = 2
 /** 한 작품에서 가져오는 사진 수 (한 작품이 줄을 독차지하지 않게) */
 const PER_WORK = 6
 /** 사진 한 장이 지나가는 데 걸리는 시간(초). 클수록 느리다 */
-const SECONDS_PER_PHOTO = 9
+const SECONDS_PER_PHOTO = 10
 
 /** 작품 상세에 쓰인 사진들 (등장인물 포스터·스토리보드·손글씨·사인은 뺌) */
 function photosOf(w: Work): MediaRef[] {
