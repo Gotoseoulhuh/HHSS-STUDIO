@@ -384,6 +384,35 @@ export const profile: Profile = {
   name: '허상경',
   shortBio: '초등학교 교사 · HHSS PRODUCTION 연출',
   longBio: [],
+  teachingSince: '2016-03', // 병휴직은 빼지 않고 계산
+
+  /*
+   * ── 아래 세 묶음(생각 · 이야기 나눌 것들 · 영향을 준 사람들)은 '틀'만 있는 상태 ──
+   * draft: true 인 항목은 개발 화면(npm run dev)에서만 보이고 공개 사이트에는 나오지 않음.
+   * 글을 채운 뒤 draft 줄을 지우면 공개됨. 항목은 늘리거나 줄여도 됨.
+   */
+  thoughts: [
+    { draft: true, title: '여기에 한 줄 제목.\n두 줄까지 괜찮아요.', lead: '제목 바로 아래, 밝은 글씨로 나오는 한두 문장.', body: ['풀어 쓰는 글 첫 문단. 왜 그렇게 생각하게 되었는지, 어떤 경험에서 나온 생각인지.', '둘째 문단(없어도 됨).'] },
+    { draft: true, title: '둘째 생각의 제목.', lead: '한두 문장.', body: ['풀어 쓰는 글.'] },
+    { draft: true, title: '셋째 생각의 제목.', lead: '한두 문장.', body: ['풀어 쓰는 글.'] },
+  ],
+  topics: {
+    draft: true,
+    heading: '이런 이야기로 시작해도 좋습니다.',
+    intro: '직접 해 본 일, 공부해 온 것, 더 알아보고 싶은 것을 한데 모으는 자리. 설명 문장은 두세 줄.',
+    items: ['키워드 1', '키워드 2', '키워드 3', '키워드 4', '키워드 5', '키워드 6'],
+  },
+  people: [
+    { draft: true, tag: '관계 한 줄 (예: 영화 동료)', name: 'OSNS.studio', url: 'https://osns.studio', intro: '홈페이지가 있는 사람의 예. 카드 전체가 링크가 되고 이름 옆에 ↗가 붙어요. 소개는 두세 줄.' },
+    { draft: true, tag: '관계 한 줄', name: '이름 2', intro: '홈페이지가 없는 사람의 예. url 줄을 빼면 링크 없이 소개만 나와요. 소개는 두세 줄.' },
+    { draft: true, tag: '관계 한 줄', name: '이름 3', intro: '두세 줄 소개.' },
+    { draft: true, tag: '관계 한 줄', name: '이름 4', intro: '두세 줄 소개.' },
+    { draft: true, tag: '관계 한 줄', name: '이름 5', intro: '두세 줄 소개.' },
+  ],
+  // 연혁: 작품·수상·표창·행사·현재 경력은 필모그래피에서 자동으로 들어감. 그 밖의 일(발령·전입·연수 등)만 여기에
+  history: [
+    { year: 2016, title: '초등학교 교사 첫 발령', sub: '3월' },
+  ],
   fields: ['학생단편영화', '뮤직비디오', '홍보영상', '공모전 영상 제작'],
   // 경력·작품·수상·상영은 필모그래피 원본(assets/hhss-filmography)에서 → src/data/filmography.json
   eventExtras: {

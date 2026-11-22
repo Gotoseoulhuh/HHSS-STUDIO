@@ -32,3 +32,23 @@ export const getResource = (slug: string) => resources.find((r) => r.slug === sl
 export const getFilmography = () => filmographyData as Filmography
 /** 필모그래피 제목과 같은 작품 상세가 있으면 그 주소(slug) */
 export const findWorkSlugByTitle = (title: string) => works.find((w) => w.title === title)?.slug
+
+/** 초안(draft)은 개발 화면에서만 보임 */
+export const SHOW_DRAFTS = import.meta.env.DEV
+export const shown = <T extends { draft?: boolean }>(x: T) => !x.draft || SHOW_DRAFTS
+
+/** 홈 첫 화면 아래 요약 숫자. 작품·수상은 필모그래피에서, 교직 연차는 발령일에서 자동 계산 */
+export function getRecords(now = new Date()): { value: string; label: string }[] {
+  const f = getFilmography()
+  const awards = f.works.flatMap((w) => w.awards)
+  const best = awards.filter((a) => a.name.includes('충남 학생단편영화제') && a.name.includes('최우수작')).length
+  const [y, m] = profile.teachingSince.split('-').map(Number)
+  // 3월 발령 → 그해가 1년차, 해마다 3월에 한 해씩 늘어남
+  const nth = now.getFullYear() - y + (now.getMonth() + 1 >= m ? 1 : 0)
+  return [
+    { value: `${f.works.length}편`, label: '연출 작품' },
+    { value: `${awards.length}회`, label: '영상제·공모전 수상' },
+    ...(best > 0 ? [{ value: `최우수작 ${best}회`, label: '충남 학생단편영화제' }] : []),
+    { value: `${nth}년차`, label: `교직 · ${y}년 발령` },
+  ]
+}

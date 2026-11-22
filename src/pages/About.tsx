@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { MediaFrame } from '../components/MediaFrame'
 import { PageHead } from '../components/PageHead'
 import { SocialIcon } from '../components/SocialLinks'
-import { findWorkSlugByTitle, getFilmography, getProfile } from '../lib/content'
+import { findWorkSlugByTitle, getFilmography, getProfile, shown } from '../lib/content'
 import type { FilmWork, MediaRef } from '../data/types'
 
 const SCREENING_TYPE: Record<string, string> = { premiere: '시사회', festival: '영화제', broadcast: '방영', screening: '상영', online: '공개' }
@@ -40,6 +40,11 @@ function Row(props: { left?: string; live?: boolean; title: string; sub?: string
   )
 }
 
+/** 초안 묶음 표시 — 개발 화면에서만 나옴 */
+function DraftNote({ on }: { on: boolean }) {
+  return on ? <p className="draft-note">초안 · 개발 화면에서만 보여요. 글을 채우고 site.ts에서 draft 줄을 지우면 공개됩니다.</p> : null
+}
+
 function Badges({ items }: { items: string[] }) {
   if (items.length === 0) return null
   return <p className="row-sub film-badges">{items.map((b) => <span key={b} className="film-badge">{b}</span>)}</p>
@@ -48,6 +53,7 @@ function Badges({ items }: { items: string[] }) {
 export function About() {
   const p = getProfile()
   const pastRef = useRef<HTMLDetailsElement>(null)
+  const historyRef = useRef<HTMLDetailsElement>(null)
   const f = getFilmography()
   const labels = f.meta.status_labels
   const workUrl = (title: string) => { const slug = findWorkSlugByTitle(title); return slug ? `/works/${slug}` : undefined }
@@ -86,11 +92,39 @@ export function About() {
   const pastCareer = f.about.filter((a) => a.status !== '현재')
   const careerSide = (a: { text: string; org: string | null }) => (a.org && !a.text.includes(a.org) ? a.org : null)
 
+  // 틀만 있는 묶음: 초안(draft)은 개발 화면에서만
+  const thoughts = p.thoughts.filter(shown)
+  const topics = p.topics && shown(p.topics) ? p.topics : null
+  const people = p.people.filter(shown)
+
+  // 연혁: 발령한 해부터 올해까지, 해마다 있었던 일을 필모그래피에서 자동으로 모음 + 손으로 넣은 항목(profile.history)
+  const startYear = Number(p.teachingSince.slice(0, 4))
+  const historyRows: { year: number; order: number; kind: string; title: string; sub?: string }[] = [
+    ...p.history.filter(shown).map((h) => ({ year: h.year, order: 0, kind: '', title: h.title, sub: h.sub })),
+    // 현재 경력: '… (2023~)'의 시작 연도
+    ...f.about.flatMap((a) => {
+      const m = a.text.match(/\s*\((\d{4})\s*~[^)]*\)\s*$/)
+      return m ? [{ year: Number(m[1]), order: 1, kind: '시작', title: a.text.replace(m[0], '') }] : []
+    }),
+    ...awards.map((a) => ({ year: a.year, order: 3, kind: '수상', title: a.name, sub: `〈${a.title}〉` })),
+    ...f.honors.map((h) => ({ year: h.year, order: 4, kind: '표창', title: h.name, sub: h.org ?? undefined })),
+    ...f.events.map((e) => ({ year: e.year, order: 5, kind: SCREENING_TYPE[e.type] ?? '행사', title: e.name, sub: e.venue ?? undefined })),
+  ]
+  const worksByYear = new Map<number, string[]>()
+  for (const w of f.works) if (w.year != null) worksByYear.set(w.year, [...(worksByYear.get(w.year) ?? []), w.title])
+  for (const [year, titles] of worksByYear) historyRows.push({ year, order: 2, kind: '작품', title: `작품 ${titles.length}편`, sub: titles.map((t) => `〈${t}〉`).join(' ') })
+  const historyYears = [...new Set(historyRows.map((r) => r.year))].filter((y) => y >= startYear).sort((a, b) => a - b)
+    .map((year) => ({ year, rows: historyRows.filter((r) => r.year === year).sort((a, b) => a.order - b.order) }))
+
   const sections = [
+    thoughts.length > 0 && { id: 'about-thoughts', label: '생각' },
     f.about.length > 0 && { id: 'about-career', label: '경력' },
+    historyYears.length > 0 && { id: 'about-history', label: '연혁' },
     groups.length > 0 && { id: 'about-filmography', label: '필모그래피' },
     (awards.length > 0 || f.honors.length > 0) && { id: 'about-awards', label: '수상' },
     screenings.length > 0 && { id: 'about-screenings', label: '상영·방영' },
+    topics && { id: 'about-topics', label: '이야기' },
+    people.length > 0 && { id: 'about-people', label: '사람들' },
   ].filter(Boolean) as { id: string; label: string }[]
 
   return (
@@ -117,8 +151,9 @@ export function About() {
             <nav className="about-jump" aria-label="소개 바로가기">
               {sections.map((s) => (
                 <a key={s.id} href={`#${s.id}`} className="meta"
-                  // '경력' 바로가기로 오면 이전 경력도 펼쳐서 함께 보여 줌
-                  onClick={s.id === 'about-career' ? () => { if (pastRef.current) pastRef.current.open = true } : undefined}>{s.label}</a>
+                  // '경력' 바로가기로 오면 이전 경력도, '연혁' 바로가기로 오면 연혁도 펼쳐서 보여 줌
+                  onClick={s.id === 'about-career' ? () => { if (pastRef.current) pastRef.current.open = true }
+                    : s.id === 'about-history' ? () => { if (historyRef.current) historyRef.current.open = true } : undefined}>{s.label}</a>
               ))}
             </nav>
           )}
@@ -128,6 +163,23 @@ export function About() {
             <div className="prose hand" data-reveal>
               {p.longBio.map((para, i) => <p key={i}>{para}</p>)}
             </div>
+          )}
+
+          {thoughts.length > 0 && (
+            <section id="about-thoughts" className="about-section" aria-labelledby="about-thoughts-h">
+              <h2 id="about-thoughts-h" className="page-head__index" data-reveal>생각</h2>
+              <DraftNote on={thoughts.some((t) => t.draft)} />
+              <ol className="thoughts">
+                {thoughts.map((t, i) => (
+                  <li key={i} className="thought" data-reveal>
+                    <span className="thought__no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                    <h3 className="thought__title">{t.title}</h3>
+                    {t.lead && <p className="thought__lead">{t.lead}</p>}
+                    {t.body.length > 0 && <div className="thought__body hand">{t.body.map((para, j) => <p key={j}>{para}</p>)}</div>}
+                  </li>
+                ))}
+              </ol>
+            </section>
           )}
 
           {f.about.length > 0 && (
@@ -154,6 +206,24 @@ export function About() {
                     <h3 className="film-group__label film-group__label--dim">이전</h3>
                     <ul className="row-list film-list">
                       {pastCareer.map((a, i) => <Row key={a.text} i={i} reveal={false} title={a.text} side={careerSide(a)} />)}
+                    </ul>
+                  </div>
+                </details>
+              )}
+              {historyYears.length > 0 && (
+                // 연혁: 경력 틀은 그대로 두고, 버튼을 눌렀을 때만 발령한 해부터 올해까지 펼쳐 보임
+                <details ref={historyRef} id="about-history" className="career-past career-history">
+                  <summary className="career-past__toggle meta">
+                    <span className="career-past__open">{startYear}년부터 연혁 살펴보기</span>
+                    <span className="career-past__close">연혁 접기</span>
+                    <span className="career-past__chev" aria-hidden="true">↓</span>
+                  </summary>
+                  <div className="film-group career-past__body">
+                    <ul className="row-list film-list">
+                      {historyYears.flatMap(({ year, rows }) => [
+                        <li key={`y-${year}`} className="film-year"><span className="film-year__num">{year}</span></li>,
+                        ...rows.map((r, i) => <Row key={`${year}-${i}`} i={i} reveal={false} left={r.kind} title={r.title} sub={r.sub} />),
+                      ])}
                     </ul>
                   </div>
                 </details>
@@ -230,6 +300,45 @@ export function About() {
                     {s.media && <div className="row-sub activity-media"><MediaFrame media={s.media} fit="contain" /></div>}
                   </Row>
                 ))}
+              </ul>
+            </section>
+          )}
+
+          {topics && (
+            <section id="about-topics" className="about-section" aria-labelledby="about-topics-h">
+              <h2 id="about-topics-h" className="page-head__index" data-reveal>이야기 나눌 것들 <span className="nowrap">/ {topics.items.length}</span></h2>
+              <DraftNote on={!!topics.draft} />
+              <div className="topics" data-reveal>
+                <h3 className="topics__heading">{topics.heading}</h3>
+                {topics.intro && <p className="topics__intro hand">{topics.intro}</p>}
+                <ul className="topics__list">
+                  {topics.items.map((it) => <li key={it}>{it}</li>)}
+                </ul>
+              </div>
+            </section>
+          )}
+
+          {people.length > 0 && (
+            <section id="about-people" className="about-section" aria-labelledby="about-people-h">
+              <h2 id="about-people-h" className="page-head__index" data-reveal>영향을 준 사람들</h2>
+              <DraftNote on={people.some((x) => x.draft)} />
+              <ul className="people">
+                {people.map((x, i) => {
+                  const body = (
+                    <>
+                      {x.tag && <span className="person__tag">{x.tag}</span>}
+                      <h3 className="person__name">{x.name}{x.url && <span className="person__arrow" aria-hidden="true"> ↗</span>}</h3>
+                      <p className="person__intro hand">{x.intro}</p>
+                    </>
+                  )
+                  return (
+                    <li key={x.name} data-reveal style={{ ['--i' as string]: Math.min(i, 4) }}>
+                      {x.url
+                        ? <a className="person" href={x.url} target="_blank" rel="noopener noreferrer">{body}</a>
+                        : <div className="person">{body}</div>}
+                    </li>
+                  )
+                })}
               </ul>
             </section>
           )}

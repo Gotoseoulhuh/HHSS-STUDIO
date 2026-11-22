@@ -346,3 +346,54 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 .pill--solid:hover { background: color-mix(in srgb, var(--brand) 85%, #FFFFFF); color: #FFFFFF; }
 .pill:active { transform: scale(.97); }
 @media (max-width: 767px) { .pill { height: 46px; padding: 0 18px; font-size: .95rem; } }
+
+/* ═════ 홈: 요약 숫자 (첫 화면 바로 아래) — 휴대폰 2칸, PC 4칸, 칸 사이는 가는 선 ═════ */
+.records { padding-top: clamp(8px, 2vw, 24px); }
+.records__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+.records__cell { display: grid; align-content: start; gap: 10px; padding: clamp(24px, 3.4vw, 44px) clamp(14px, 2vw, 28px); border-bottom: 1px solid var(--line); min-width: 0; }
+.records__cell:nth-child(odd) { padding-left: 0; }
+.records__cell:nth-child(even) { border-left: 1px solid var(--line); }
+.records__no { font-family: var(--font-ui); font-size: .75rem; letter-spacing: .2em; color: var(--text-dim); }
+.records__value { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 1.1rem + 1.9vw, 2.5rem); line-height: 1.15; letter-spacing: -.01em; color: var(--text-strong); word-break: keep-all; }
+.records__label { font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--text); word-break: keep-all; }
+@media (min-width: 960px) {
+  .records__grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+  .records__cell:nth-child(n) { padding-left: clamp(14px, 2vw, 28px); border-left: 1px solid var(--line); }
+  .records__cell:first-child { padding-left: 0; border-left: 0; }
+}
+
+/* ═════ 소개: 생각 · 연혁 · 이야기 나눌 것들 · 영향을 준 사람들 ═════ */
+.draft-note { margin-top: 12px; padding: 8px 12px; border: 1px dashed color-mix(in srgb, var(--text) 35%, transparent); font-family: var(--font-ui); font-size: .8125rem; color: var(--text-dim); }
+/* 생각: 흐린 큰 번호 + 제목 + 밝은 한 문장 + 풀어 쓴 글 */
+.thoughts { list-style: none; margin: 16px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.thought { display: grid; gap: 14px; padding: clamp(28px, 4vw, 48px) 0; border-bottom: 1px solid var(--line); }
+.thought__no { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.4rem, 1.8rem + 2.4vw, 4rem); line-height: 1; color: color-mix(in srgb, var(--title) 26%, transparent); }
+.thought__title { font-size: var(--fs-h2); line-height: 1.35; color: var(--text-strong); white-space: pre-line; word-break: keep-all; }
+.thought__lead { font-family: var(--font-ui); font-size: clamp(1.05rem, 1rem + .3vw, 1.25rem); line-height: 1.7; color: var(--text-strong); max-width: 34em; word-break: keep-all; }
+.thought__body { max-width: 34em; color: var(--text); word-break: keep-all; }
+.thought__body p + p { margin-top: 1em; }
+@media (min-width: 768px) {
+  .thought { grid-template-columns: 9ch minmax(0, 1fr); column-gap: 20px; }
+  .thought__no { grid-row: 1 / span 3; }
+  .thought > :not(.thought__no) { grid-column: 2; }
+}
+/* 연혁: 경력 아래 접어 둔 버튼. 펼치면 필모그래피와 같은 줄 모양 */
+.career-history { scroll-margin-top: calc(var(--header-h) + 24px); }
+.career-past + .career-history { margin-top: 12px; }
+/* 이야기 나눌 것들: 제목 + 설명 + ' / '로 이어지는 키워드 */
+.topics { display: grid; gap: 16px; margin-top: 20px; }
+.topics__heading { font-size: var(--fs-h2); color: var(--text-strong); word-break: keep-all; }
+.topics__intro { max-width: 34em; color: var(--text); word-break: keep-all; }
+.topics__list { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 0; font-family: var(--font-ui); font-size: .9375rem; line-height: 1.9; color: var(--text); }
+.topics__list li + li::before { content: "/"; margin: 0 .6em; color: var(--text-dim); }
+/* 영향을 준 사람들: 카드. 홈페이지가 있으면 카드 전체가 링크 */
+.people { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 12px; }
+@media (min-width: 768px) { .people { grid-template-columns: 1fr 1fr; gap: 16px; } }
+.people > li { display: grid; }
+.person { display: grid; align-content: start; gap: 10px; padding: clamp(20px, 2.6vw, 30px); background: var(--bg-raise); border: 1px solid var(--line); border-radius: 12px; transition: border-color var(--dur-hover) var(--ease-out); }
+a.person:hover, a.person:active { border-color: var(--brand); }
+.person__tag { font-family: var(--font-ui); font-size: .8125rem; letter-spacing: .08em; color: var(--title); }
+.person__name { font-size: clamp(1.25rem, 1.1rem + .6vw, 1.6rem); color: var(--text-strong); word-break: keep-all; transition: color var(--dur-hover) var(--ease-out); }
+a.person:hover .person__name { color: var(--title); }
+.person__arrow { color: var(--text-dim); font-size: .8em; }
+.person__intro { color: var(--text); word-break: keep-all; }

@@ -129,10 +129,54 @@ export interface EventExtra {
   media?: MediaRef
 }
 
+/**
+ * 초안 표시: draft가 true인 항목은 개발 화면(npm run dev)에서만 보이고 공개 사이트에는 나오지 않는다.
+ * 내용을 채운 뒤 draft 줄을 지우면 공개된다.
+ */
+interface Draftable { draft?: boolean }
+
+/** 소개 '생각': 번호 + 한 줄 제목 + 굵은 한 문장 + 풀어 쓴 글 */
+export interface Thought extends Draftable {
+  title: string
+  /** 제목 바로 아래 밝은 글씨로 나오는 한두 문장 */
+  lead?: string
+  body: string[]
+}
+
+/** 소개 '이야기 나눌 것들': 제목 + 설명 + ' / '로 이어지는 키워드 */
+export interface TalkTopics extends Draftable {
+  heading: string
+  intro?: string
+  items: string[]
+}
+
+/** 소개 '영향을 준 사람들': 홈페이지가 있으면 url을 넣고(카드 전체가 링크), 없으면 비워 둠 */
+export interface Person extends Draftable {
+  name: string
+  /** 이름 위 작은 글씨 (예: '영화 동료 · 팀메이트') */
+  tag?: string
+  /** 두세 줄 소개 */
+  intro: string
+  url?: string
+}
+
+/** 연혁에 손으로 넣는 항목. 작품·수상·표창·행사·현재 경력은 필모그래피에서 자동으로 들어감 */
+export interface HistoryItem extends Draftable {
+  year: number
+  title: string
+  sub?: string
+}
+
 export interface Profile {
   name: string
   shortBio: string
   longBio: string[]
+  /** 교직 첫 발령(연-월). 홈 요약의 'N년차'와 연혁의 시작점 */
+  teachingSince: string
+  thoughts: Thought[]
+  topics: TalkTopics | null
+  people: Person[]
+  history: HistoryItem[]
   fields: string[]
   /** 필모그래피 행사(id)별 추가 설명·이미지 */
   eventExtras: Record<string, EventExtra>

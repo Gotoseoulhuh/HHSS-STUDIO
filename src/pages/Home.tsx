@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Card } from '../components/Card'
 import { MediaFrame } from '../components/MediaFrame'
-import { getSettings, listFeaturedWorks, listPosts } from '../lib/content'
+import { getRecords, getSettings, listFeaturedWorks, listPosts } from '../lib/content'
 import { formatDate, pad2 } from '../lib/format'
 import { asset } from '../lib/url'
 
@@ -11,6 +11,7 @@ export function Home() {
   const lead = featured[0]
   const rest = featured.slice(1)
   const posts = listPosts().slice(0, 3)
+  const records = getRecords()
 
   return (
     <>
@@ -39,6 +40,19 @@ export function Home() {
         <a href="#home-works-start" className="home-hero__scroll meta" aria-label="대표 작품으로 내려가기">SCROLL <span aria-hidden="true">↓</span></a>
       </section>
       <span id="home-works-start" />
+
+      {/* 요약 숫자: 첫 화면 바로 아래. 값은 필모그래피·발령일에서 자동 계산(lib/content.ts getRecords) */}
+      <section className="container records" aria-label="한눈에 보는 기록">
+        <ul className="records__grid">
+          {records.map((r, i) => (
+            <li key={r.label} className="records__cell" data-reveal style={{ ['--i' as string]: i }}>
+              <span className="records__no">{pad2(i + 1)} / RECORD</span>
+              <strong className="records__value">{r.value}</strong>
+              <span className="records__label">{r.label}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {!lead ? (
         <p className="container empty hand">아직 공개된 작품이 없습니다.</p>
