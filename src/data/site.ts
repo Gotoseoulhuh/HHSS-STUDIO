@@ -18,6 +18,9 @@ const T = 'take-your-mark'
 const G = 'geu-yeoreume-meomuneun-neoege'
 const U = 'uriga-chatgo-itdeon-byeol'
 const S = 'sigan-sogui-geu-ai'
+const N = 'geu-narui-geu-bam'
+
+const nCover = img(N, 'cover.jpg', 1636, 923, '해 질 무렵 학교 앞길에서 슬레이트를 들고 선 아이, 아래에 그 날의 그 밤 제목 (삽화)')
 
 const kCover = img(K, 'cover.jpg', 1920, 1080, '대숲에서 서로의 손을 붙잡은 세 낭자')
 
@@ -357,12 +360,59 @@ export const works: Work[] = [
   },
   {
     kind: 'work',
+    slug: N,
+    title: '그 날의 그 밤',
+    titleLines: ['그 날의', '그 밤'],
+    summary: '익숙한 학교의 낯선 저녁.',
+    featured: false,
+    order: 5,
+    publishedAt: '2022-01-24T00:00:00Z',
+    cover: nCover,
+    workType: '학생단편영화',
+    year: 2022,
+    release: '2022년 1월 24일 개봉',
+    runtime: '11분 6초',
+    credits: ['연출 허상경', '제작 갈산스튜디오'],
+    roles: ['연출'],
+    blocks: [
+      {
+        type: 'note',
+        label: 'About · 작품 소개',
+        heading: '익숙한 학교의\n낯선 저녁',
+        paragraphs: [
+          '작년 가을 〈시간 속의 그 아이(The Time With You, 2021)〉로 본격 데뷔한 HHSS 감독의 신작으로, 〈시간 속의 그 아이〉를 공동 제작한 ‘갈산 스튜디오’와 다시 한 번 손을 잡게 되었다.',
+          '〈그 날의 그 밤〉에서는 학생들에게 익숙한 학교의 풍경을 ‘시간’이라는 환경을 바꾸어 저녁 시간 학교의 낯선 모습들을 담고자 하였다.',
+          '이번 영화에서는 다시 한 번 손잡은 ‘갈산 스튜디오’ 제작진들의 역할 변화가 큰 화제가 될 것으로 예상된다. 단역으로 나왔던 아이들이 주조연을 맡거나 배우를 맡았던 아이들이 조명팀을 맡는 등 대변신이 표현되는 부분들을 영화 뒷부분 HHSS 감독 특유의 메이킹 필름을 통해 바라보는 것도 이 영화의 관전 포인트가 될 것이다.',
+          '〈시간 속의 그 아이(The Time With You, 2021)〉를 본 관객이라면 이번 신작 또한 즐겁게 볼 것이다.',
+        ],
+        media: img(N, 'still-girl.jpg', 1636, 923, '어두운 복도에서 고개를 들어 위를 올려다보는 아이 (삽화)'),
+      },
+      {
+        type: 'gallery',
+        label: 'Making · 촬영 기록',
+        heading: '하루 동안의\n야간 촬영',
+        sub: '학생들과 함께 하루 동안 찍은 단편영화 〈그 날의 그 밤(That Night of That Day)〉. 출연자와 제작진의 초상권을 지키기 위해 사진 속 인물을 삽화로 옮겼다.',
+        layout: 'photo',
+        groups: [
+          {
+            title: '메이킹 필름',
+            items: [
+              { ...nCover, caption: '해 질 무렵, 슬레이트를 든 제작진' },
+              img(N, 'making-title.jpg', 950, 533, '저녁 교실 책상에 앉은 배우와 슬레이트를 든 제작진, 그 날의 그 밤 메이킹필름이라는 제목 (삽화)', '메이킹 필름의 첫 화면'),
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    kind: 'work',
     slug: S,
     title: '시간 속의 그 아이',
     titleLines: ['시간 속의', '그 아이'],
     summary: '선명해지는 초등학생 때의 꿈, 그리고 의문의 할머니가 건넨 열쇠.',
     featured: false,
-    order: 5,
+    order: 6,
     publishedAt: '2021-11-18T00:00:00Z',
     cover: img(S, 'cover.jpg', 2000, 1500, '시간 속의 그 아이 대개봉 현수막 앞에 모여 손가락으로 브이를 그리는 제작진 (삽화)'),
     workType: '학생단편영화',
