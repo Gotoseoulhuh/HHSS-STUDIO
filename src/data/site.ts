@@ -19,7 +19,9 @@ const G = 'geu-yeoreume-meomuneun-neoege'
 const U = 'uriga-chatgo-itdeon-byeol'
 const S = 'sigan-sogui-geu-ai'
 const N = 'geu-narui-geu-bam'
+const L = 'susanghan-doseogwan'
 
+const lCover = img(L, 'cover.jpg', 2000, 1500, '불 꺼진 도서관에서 고양이 가면을 쓰고 책 한 권을 든 배우들과 연출 (삽화)')
 const nCover = img(N, 'cover.jpg', 1636, 923, '해 질 무렵 학교 앞길에서 슬레이트를 들고 선 아이, 아래에 그 날의 그 밤 제목 (삽화)')
 
 const kCover = img(K, 'cover.jpg', 1920, 1080, '대숲에서 서로의 손을 붙잡은 세 낭자')
@@ -360,12 +362,60 @@ export const works: Work[] = [
   },
   {
     kind: 'work',
+    slug: L,
+    title: '수상한 도서관',
+    titleLines: ['수상한', '도서관'],
+    summary: '도서관에 숨겨진 막대기, 그리고 푸르스름한 묘한 책 한 권.',
+    featured: false,
+    order: 5,
+    publishedAt: '2023-11-19T00:00:00Z',
+    cover: lCover,
+    workType: '학생단편영화',
+    year: 2023,
+    release: '2023년 11월 19일 개봉',
+    runtime: '21분 45초',
+    credits: ['연출·각본 허상경', '제작 내포스튜디오'],
+    roles: ['연출'],
+    blocks: [
+      {
+        type: 'story',
+        label: 'Story · 줄거리',
+        heading: '도서관에 내려오는\n수상한 이야기',
+        paragraphs: [
+          '도서관에 내려오는 수상한 이야기가 있었다. 그 수상한 이야기는 바로 ‘어떤 소녀가 귀신을 봉인하기 위해 특별한 막대기를 사용했고, 그 막대기를 도서관에 숨겨두었다.’는 것이다.',
+          '2023년 홍성에 있는 한 학교의 여학생, 서윤은 꿈 속의 귀신들이 보여주었던 푸르스름한 묘한 책을 도서관에서 발견하게 되고 그 책의 페이지를 넘기게 되는데...',
+        ],
+        media: [
+          img(L, 'still-floor.jpg', 1636, 790, '어두운 도서관 바닥에 밧줄에 묶여 누운 아이와 그 옆에 놓인 고양이 가면. 흑백으로 그린 영화 속 장면 (삽화)', '영화 속 장면'),
+        ],
+      },
+      {
+        type: 'gallery',
+        label: 'Making · 촬영 기록',
+        heading: '불 꺼진 도서관에서',
+        sub: 'HHSS의 세 번째 학생단편영화 〈수상한 도서관(A Suspicious Library)〉 감독판. 출연자와 제작진의 초상권을 지키기 위해 사진 속 인물을 삽화로 옮겼다.',
+        layout: 'photo',
+        groups: [
+          {
+            title: '촬영 현장',
+            items: [
+              img(L, 'making-briefing.jpg', 2000, 1500, '도서관에서 연출이 가리키는 화면을 함께 올려다보는 제작진 (삽화)', '연출의 설명을 듣는 제작진'),
+              img(L, 'making-light.jpg', 1170, 644, '커다란 조명 갓을 들어 올리고 조명 받침대를 붙잡은 아이들 (삽화)', '조명을 설치하는 조명팀'),
+              { ...lCover, caption: '고양이 가면을 쓴 배우들과 연출' },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    kind: 'work',
     slug: N,
     title: '그 날의 그 밤',
     titleLines: ['그 날의', '그 밤'],
     summary: '익숙한 학교의 낯선 저녁.',
     featured: false,
-    order: 5,
+    order: 6,
     publishedAt: '2022-01-24T00:00:00Z',
     cover: nCover,
     workType: '학생단편영화',
@@ -412,7 +462,7 @@ export const works: Work[] = [
     titleLines: ['시간 속의', '그 아이'],
     summary: '선명해지는 초등학생 때의 꿈, 그리고 의문의 할머니가 건넨 열쇠.',
     featured: false,
-    order: 6,
+    order: 7,
     publishedAt: '2021-11-18T00:00:00Z',
     cover: img(S, 'cover.jpg', 2000, 1500, '시간 속의 그 아이 대개봉 현수막 앞에 모여 손가락으로 브이를 그리는 제작진 (삽화)'),
     workType: '학생단편영화',
