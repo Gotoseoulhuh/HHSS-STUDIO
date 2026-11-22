@@ -13,3 +13,11 @@
 .scene__shaft { width: 100vmin; height: 10vmin; transform-origin: 0 50%; transform: translate(0, -50%) scale(0); background: linear-gradient(#7a5a3c, #4a3320); clip-path: polygon(0 0, 100% 36%, 100% 64%, 0 100%); }
 .scene__head { width: 60vmin; height: 60vmin; background: var(--bg); transform: translate(-50%, -50%) rotate(45deg) scale(0); }
 .scene__facets { position: absolute; inset: 0; background: conic-gradient(from 45deg, #55635b 0 25%, #2c3631 0 50%, #1a211e 0 75%, #3c4841 0); }
+
+/* 영화 장면 전환 (components/ClipScene.tsx): 화면 폭 전체, 고정된 채 재생 → 어두워지며 다음 블록 */
+.scene--clip { height: 280vh; width: 100vw; margin-left: calc(50% - 50vw); }
+.scene__pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; place-items: center; overflow: hidden; }
+/* 영화 화면비 그대로(자르지 않음). 위아래 남는 곳은 배경색 */
+.scene__video { display: block; width: 100%; height: 100%; object-fit: contain; opacity: 0; will-change: transform, opacity; pointer-events: none; }
+/* 세로 화면(휴대폰): 가로로 긴 영화 화면이 너무 작아지지 않게, 화면 높이의 절반을 채우고 좌우를 자른다 */
+@media (orientation: portrait) { .scene__video { height: 50%; object-fit: cover; } }

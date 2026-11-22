@@ -83,8 +83,13 @@ export interface BehindBlock {
     sign: MediaRef
   }[]
 }
-/** 블록에 들어가기 직전에 재생되는 장면 전환 (components/ArrowScene.tsx 등). 'arrow': 화살이 날아와 화면을 덮음 */
-export type BlockEnter = 'arrow'
+/**
+ * 블록에 들어가기 직전에 재생되는 장면 전환.
+ *  - 'arrow': 화살이 날아와 화면을 덮음 (components/ArrowScene.tsx)
+ *  - { type: 'clip' }: 영화의 한 장면이 화면 가득 재생된 뒤 어두워짐 (components/ClipScene.tsx)
+ *    src·poster는 public/ 기준 경로. 영상은 소리 없는 mp4, poster는 그 첫 장면 사진
+ */
+export type BlockEnter = 'arrow' | { type: 'clip'; src: string; poster: string; label?: string }
 export type WorkBlock = (StoryBlock | CastBlock | GalleryBlock | NoteBlock | ListBlock | BehindBlock) & { enter?: BlockEnter }
 
 export interface Work extends ContentBase {
