@@ -20,6 +20,7 @@ const U = 'uriga-chatgo-itdeon-byeol'
 const S = 'sigan-sogui-geu-ai'
 const N = 'geu-narui-geu-bam'
 const L = 'susanghan-doseogwan'
+const H = 'namgyeojin-hakgyo'
 
 const lCover = img(L, 'cover.jpg', 2000, 1500, '불 꺼진 도서관에서 고양이 가면을 쓰고 책 한 권을 든 배우들과 연출 (삽화)')
 const nCover = img(N, 'cover.jpg', 1636, 923, '해 질 무렵 학교 앞길에서 슬레이트를 들고 선 아이, 아래에 그 날의 그 밤 제목 (삽화)')
@@ -390,12 +391,57 @@ export const works: Work[] = [
   },
   {
     kind: 'work',
+    slug: H,
+    title: '남겨진 학교',
+    titleLines: ['남겨진', '학교'],
+    summary: '실제 폐교에 남은 오래된 학교의 흔적.',
+    featured: false,
+    order: 5,
+    publishedAt: '2024-12-07T00:00:00Z',
+    cover: img(H, 'cover.jpg', 2000, 1125, '해 질 무렵 불 켜진 학교 앞에서 손을 잡고 뒤를 돌아보는 두 아이 (삽화)'),
+    workType: '학생단편영화',
+    year: 2024,
+    release: '2024년 12월 7일 개봉',
+    genre: '공포',
+    runtime: '15분 43초',
+    credits: ['연출·각본 허상경', '제작 덕명학습장'],
+    roles: ['연출'],
+    blocks: [
+      {
+        type: 'note',
+        label: "Director's Note · 기획 의도",
+        heading: '폐교에 남은\n학교의 흔적',
+        paragraphs: [
+          '덕명학습장은 실제 폐교를 새롭게 개관한 곳입니다. 오래된 학교의 흔적들을 영화 곳곳에 활용하였습니다. 이 영화를 보면서 폐교들의 새로운 활용에 대해 생각해 보시면 좋겠습니다.',
+        ],
+        signature: '연출 허상경',
+        media: img(H, 'still-two.jpg', 2000, 2667, '해 질 무렵 불 켜진 학교 앞에서 손을 잡고 뒤를 돌아보는 두 아이 (삽화)'),
+      },
+      {
+        type: 'gallery',
+        label: 'Making · 촬영 기록',
+        heading: '덕명학습장에서',
+        sub: '출연자와 제작진의 초상권을 지키기 위해 사진 속 인물을 삽화로 옮겼다.',
+        layout: 'photo',
+        groups: [
+          {
+            title: '촬영 현장',
+            items: [
+              img(H, 'making-entrance.jpg', 2000, 2667, '위험 안내 띠가 둘러진 옛 학교 현관 앞, 둥근 지붕 아래 모여 선 배우와 제작진 (삽화)', '옛 학교 현관 앞에 모인 배우와 제작진'),
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    kind: 'work',
     slug: L,
     title: '수상한 도서관',
     titleLines: ['수상한', '도서관'],
     summary: '도서관에 숨겨진 막대기, 그리고 푸르스름한 묘한 책 한 권.',
     featured: false,
-    order: 5,
+    order: 6,
     publishedAt: '2023-11-19T00:00:00Z',
     cover: lCover,
     workType: '학생단편영화',
@@ -443,7 +489,7 @@ export const works: Work[] = [
     titleLines: ['그 날의', '그 밤'],
     summary: '익숙한 학교의 낯선 저녁.',
     featured: false,
-    order: 6,
+    order: 7,
     publishedAt: '2022-01-24T00:00:00Z',
     cover: nCover,
     workType: '학생단편영화',
@@ -490,7 +536,7 @@ export const works: Work[] = [
     titleLines: ['시간 속의', '그 아이'],
     summary: '선명해지는 초등학생 때의 꿈, 그리고 의문의 할머니가 건넨 열쇠.',
     featured: false,
-    order: 7,
+    order: 8,
     publishedAt: '2021-11-18T00:00:00Z',
     cover: img(S, 'cover.jpg', 2000, 1500, '시간 속의 그 아이 대개봉 현수막 앞에 모여 손가락으로 브이를 그리는 제작진 (삽화)'),
     workType: '학생단편영화',
