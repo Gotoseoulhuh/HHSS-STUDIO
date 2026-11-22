@@ -398,7 +398,7 @@ export const works: Work[] = [
     featured: false,
     order: 5,
     publishedAt: '2024-12-07T00:00:00Z',
-    cover: img(H, 'cover.jpg', 2000, 1125, '해 질 무렵 불 켜진 학교 앞에서 손을 잡고 뒤를 돌아보는 두 아이 (삽화)'),
+    cover: img(H, 'cover.jpg', 2000, 1125, '해 질 무렵 학교 앞에서 뒤를 돌아보는 두 아이 (삽화)'),
     workType: '학생단편영화',
     year: 2024,
     release: '2024년 12월 7일 개봉',
