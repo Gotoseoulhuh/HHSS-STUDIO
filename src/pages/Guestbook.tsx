@@ -40,11 +40,45 @@ function Ask({ no, title, picked, children }: { no: string; title: string; picke
   )
 }
 
-/** 많이 고른 키워드 위에서 5개 */
+/** 많이 고른 키워드 위에서 3개만 보여 줌 (글 목록이 아래로 밀리지 않게. 전체 데이터는 그대로 남아 있음) */
+const TOP_N = 3
 function topCounts(entries: GuestEntry[], pick: (e: GuestEntry) => string[]) {
   const m = new Map<string, number>()
   for (const e of entries) for (const k of pick(e)) m.set(k, (m.get(k) ?? 0) + 1)
-  return [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5)
+  return [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, TOP_N)
+}
+
+/**
+ * 머리 부분 배경에 흐릿하게 떠다니는 후기 카드. 세 줄이 서로 다른 방향·속도로 옆으로 흐름.
+ * 꾸밈용이라 화면 낭독기에는 숨김(같은 글이 아래 '남겨 주신 글'에 있음).
+ * 글이 적어도 줄이 비지 않게 같은 글을 되풀이해 채우고, 묶음을 두 번 이어 붙여 끊김 없이 반복.
+ */
+const WALL_ROWS = 3
+const WALL_MIN = 8 // 한 줄을 채우는 최소 카드 수
+function ReviewWall({ entries }: { entries: GuestEntry[] }) {
+  const rows = useMemo(() => {
+    if (entries.length === 0) return []
+    return Array.from({ length: WALL_ROWS }, (_, r) => {
+      // 글이 줄 수보다 적으면 모든 줄이 같은 글을 쓰되 시작 위치를 다르게
+      const own = entries.length >= WALL_ROWS ? entries.filter((_, i) => i % WALL_ROWS === r) : entries
+      return Array.from({ length: Math.max(WALL_MIN, own.length) }, (_, i) => own[(i + r) % own.length])
+    })
+  }, [entries])
+  if (rows.length === 0) return null
+  return (
+    <div className="gb-wall" aria-hidden="true">
+      {rows.map((row, r) => (
+        <div key={r} className="gb-wall__row" style={{ animationDuration: `${row.length * (11 + r * 2)}s` }}>
+          {[0, 1].map((copy) => row.map((e, i) => (
+            <div key={`${copy}-${i}`} className="gb-wall__card">
+              <span className="gb-wall__name">{e.name}</span>
+              <p className="gb-wall__body">{e.body.replace(/\s+/g, ' ')}</p>
+            </div>
+          )))}
+        </div>
+      ))}
+    </div>
+  )
 }
 
 function Entry({ e }: { e: GuestEntry }) {
@@ -175,6 +209,7 @@ export function Guestbook() {
       <PageHead
         index="06 — GUESTBOOK" title="방명록" className="page-head--guestbook"
         desc="편하게 한마디 남겨 주세요. 무엇을 쓸지 막막하다면 아래 질문에서 키워드를 골라 보세요. 고르지 않아도, 여러 개 골라도 괜찮아요."
+        backdrop={entries && entries.length > 0 ? <ReviewWall entries={entries} /> : undefined}
       />
       <div className="container gb">
         {!guestbookConfigured ? (
