@@ -401,3 +401,26 @@ a.person:hover, a.person:active { border-color: var(--brand); }
 a.person:hover .person__name { color: var(--title); }
 .person__arrow { color: var(--text-dim); font-size: .8em; }
 .person__intro { color: var(--text); word-break: keep-all; }
+
+/* 작품 목록 머리 배경: 두 줄로 떠다니는 작품 사진 (components/WorkPhotoWall.tsx). 글자가 있는 왼쪽은 더 옅게, 오른쪽으로 갈수록 또렷하게 */
+.page-head--works { position: relative; isolation: isolate; }
+.photo-wall {
+  position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; user-select: none;
+  display: flex; flex-direction: column; justify-content: center; gap: 12px;
+  opacity: .22; animation: photo-wall-in 1.2s var(--ease-out) both;
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent); mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+}
+@media (min-width: 960px) {
+  .photo-wall {
+    opacity: .6;
+    -webkit-mask-image: linear-gradient(to right, transparent, rgb(0 0 0 / .25) 30%, #000 68%, #000 92%, transparent), linear-gradient(transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(to right, transparent, rgb(0 0 0 / .25) 30%, #000 68%, #000 92%, transparent), linear-gradient(transparent, #000 14%, #000 86%, transparent);
+    -webkit-mask-composite: source-in; mask-composite: intersect;
+  }
+}
+.photo-wall__row { display: flex; gap: 12px; width: max-content; padding-right: 12px; animation: photo-wall-drift linear infinite; }
+.photo-wall__row:nth-child(even) { animation-direction: reverse; }
+.photo-wall__row img { flex: none; display: block; height: clamp(72px, 5vw + 44px, 104px); width: auto; object-fit: cover; border-radius: 8px; background: var(--bg-raise); }
+@keyframes photo-wall-drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes photo-wall-in { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .photo-wall, .photo-wall__row { animation: none; } }

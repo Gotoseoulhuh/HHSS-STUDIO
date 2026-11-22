@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Card } from '../components/Card'
 import { PageHead } from '../components/PageHead'
+import { WorkPhotoWall } from '../components/WorkPhotoWall'
 import { listWorks } from '../lib/content'
 import { pad2 } from '../lib/format'
 
@@ -8,7 +9,7 @@ export function Works() {
   const works = listWorks()
   return (
     <>
-      <PageHead index="01 — WORKS" title="작품" desc="학생들과 함께 만든 단편영화와 뮤직비디오." />
+      <PageHead index="01 — WORKS" title="작품" desc="학생들과 함께 만든 단편영화와 뮤직비디오." className="page-head--works" backdrop={<WorkPhotoWall />} />
       <div className="container editorial">
         <aside className="editorial__aside" aria-label="작품 목차">
           <ul className="index-list">
