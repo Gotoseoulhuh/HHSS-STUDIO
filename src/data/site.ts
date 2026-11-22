@@ -86,6 +86,7 @@ export const works: Work[] = [
       },
       {
         type: 'cast',
+        enter: { type: 'clip', src: `assets/works/${K}/scene-ring-pouch.mp4`, poster: `assets/works/${K}/scene-ring-pouch.jpg`, label: '옥반지가 든 주머니를 만지작거리는 손' },
         label: 'Cast · 등장인물',
         heading: '인연을 약속한 세 낭자',
         credit: '촬영 ｜ 포스터 디자인 · 황찬범 작가',
