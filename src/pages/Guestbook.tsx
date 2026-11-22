@@ -49,12 +49,12 @@ function topCounts(entries: GuestEntry[], pick: (e: GuestEntry) => string[]) {
 }
 
 /**
- * 머리 부분 배경에 흐릿하게 떠다니는 후기 카드. 세 줄이 서로 다른 방향·속도로 옆으로 흐름.
+ * 머리 부분 배경에 흐릿하게 떠다니는 후기 카드. 두 줄이 서로 다른 방향·속도로 옆으로 흐름.
  * 꾸밈용이라 화면 낭독기에는 숨김(같은 글이 아래 '남겨 주신 글'에 있음).
  * 글이 적어도 줄이 비지 않게 같은 글을 되풀이해 채우고, 묶음을 두 번 이어 붙여 끊김 없이 반복.
  */
-const WALL_ROWS = 3
-const WALL_MIN = 8 // 한 줄을 채우는 최소 카드 수
+const WALL_ROWS = 2 // 글이 적은 동안은 2줄(되풀이 줄이기). 글이 많아지면 3으로
+const WALL_MIN = 5 // 한 줄을 채우는 최소 카드 수 (카드 5장 ≈ 1420px ≥ 본문 최대 너비)
 function ReviewWall({ entries }: { entries: GuestEntry[] }) {
   const rows = useMemo(() => {
     if (entries.length === 0) return []
