@@ -71,7 +71,7 @@ export function About() {
 
   // 상영·방영: 행사(events) + 작품별 방영. 같은 이름이 행사에 있으면 한 번만
   const titleOf = (id: string) => f.works.find((w) => w.id === id)?.title ?? ''
-  const screenings: { key: string; year: number; name: string; sub: string; venue: string | null; detail?: string; media?: MediaRef }[] = [
+  const screenings: { key: string; year: number; name: string; sub: string; venue: string | null; detail?: string; media?: MediaRef; photos?: MediaRef[] }[] = [
     ...f.events.map((e) => ({
       key: e.id,
       year: e.year,
@@ -298,6 +298,16 @@ export function About() {
                   <Row key={s.key} i={i} left={String(s.year)} live title={s.name} sub={s.sub} side={s.venue}>
                     {s.detail && <p className="caption row-sub">{s.detail}</p>}
                     {s.media && <div className="row-sub activity-media"><MediaFrame media={s.media} fit="contain" /></div>}
+                    {s.photos && (
+                      <div className="row-sub activity-photos">
+                        {s.photos.map((ph) => (
+                          <figure key={ph.src}>
+                            <MediaFrame media={ph} />
+                            {ph.caption && <figcaption className="caption">{ph.caption}</figcaption>}
+                          </figure>
+                        ))}
+                      </div>
+                    )}
                   </Row>
                 ))}
               </ul>

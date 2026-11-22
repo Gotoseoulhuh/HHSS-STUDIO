@@ -262,6 +262,10 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 .career-past[open] .career-past__body { animation: rise-in var(--dur-base) var(--ease-out) both; }
 .activity-media { max-width: 520px; margin-top: 8px; }
 .activity-media .frame { background: transparent; border: 0; }
+/* 행사 사진 여러 장: 좁은 화면 1칸, 넓으면 2칸 */
+.activity-photos { display: grid; gap: 12px; max-width: 720px; margin-top: 8px; }
+.activity-photos figure { margin: 0; display: grid; gap: 6px; align-content: start; }
+@media (min-width: 560px) { .activity-photos { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1200px) { .block--story .editorial { grid-template-columns: 4fr 8fr; } }
 .block > .btn, p.block { justify-self: start; }
 
@@ -397,10 +401,3 @@ a.person:hover, a.person:active { border-color: var(--brand); }
 a.person:hover .person__name { color: var(--title); }
 .person__arrow { color: var(--text-dim); font-size: .8em; }
 .person__intro { color: var(--text); word-break: keep-all; }
-
-/* 작품 목록 아래: 아직 작품을 정하지 않은 삽화 (개발 화면에서만) */
-.illust-sort { margin-top: clamp(48px, 8vw, 120px); }
-.illust-sort__grid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-.illust-sort__grid li { position: relative; border: 1px solid var(--line); background: var(--bg-raise); }
-.illust-sort__grid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
-.illust-sort__no { position: absolute; left: 0; top: 0; z-index: 1; padding: 4px 10px; background: #000; color: #fff; font-family: var(--font-ui); font-size: 1.25rem; font-weight: 700; line-height: 1.2; }

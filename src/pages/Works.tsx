@@ -1,12 +1,8 @@
 import { Link } from 'react-router-dom'
 import { Card } from '../components/Card'
 import { PageHead } from '../components/PageHead'
-import { listWorks, SHOW_DRAFTS } from '../lib/content'
+import { listWorks } from '../lib/content'
 import { pad2 } from '../lib/format'
-import { asset } from '../lib/url'
-
-/** 아직 어느 작품 것인지 정하지 않은 삽화 (public/assets/illust/18~19.jpg). 개발 화면에서만 번호와 함께 보인다 */
-const UNSORTED_ILLUST = Array.from({ length: 2 }, (_, i) => pad2(i + 18))
 
 export function Works() {
   const works = listWorks()
@@ -33,19 +29,6 @@ export function Works() {
           </ul>
         )}
       </div>
-      {SHOW_DRAFTS && (
-        <section className="container illust-sort" aria-label="작품을 정하지 않은 삽화">
-          <p className="draft-note">초안 · 개발 화면에서만 보여요. 번호마다 어느 작품인지 알려 주시면 그 작품으로 옮깁니다.</p>
-          <ul className="illust-sort__grid">
-            {UNSORTED_ILLUST.map((n) => (
-              <li key={n}>
-                <span className="illust-sort__no">{n}</span>
-                <img src={asset(`assets/illust/${n}.jpg`)} alt={`삽화 ${n}번`} loading="lazy" decoding="async" />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
     </>
   )
 }

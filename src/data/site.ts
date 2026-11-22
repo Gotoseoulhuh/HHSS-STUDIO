@@ -646,6 +646,13 @@ export const profile: Profile = {
   fields: ['학생단편영화', '뮤직비디오', '홍보영상', '공모전 영상 제작'],
   // 경력·작품·수상·상영은 필모그래피 원본(assets/hhss-filmography)에서 → src/data/filmography.json
   eventExtras: {
+    'ev2024-01': {
+      // 출연자의 초상권을 지키기 위해 사진 속 인물을 삽화로 옮긴 그림
+      photos: [
+        { src: 'assets/files/festival/1st-hhss-film-festival-pretest.jpg', alt: '빈 상영관 스크린에 영화 속 장면이 비치고 있는 모습 (삽화)', caption: '영화제 전 사전 방문 — 화질·음향 테스트', ratio: 2000 / 1500 },
+        { src: 'assets/files/festival/1st-hhss-film-festival-stage.jpg', alt: '상영관 스크린 앞에 나란히 서서 무대인사를 하는 연출과 출연진 (삽화)', caption: '출연진과 함께한 무대인사', ratio: 1182 / 886 },
+      ],
+    },
     'ev2025-01': {
       detail: '총괄 · 로고 디자인 정서윤 — 영화관 메인 화면에 띄운 워드마크, 영화제 이후 HHSS 채널 로고로 사용 중',
       media: { src: 'assets/files/festival/2nd-hhss-film-festival-logo.webp', alt: '2nd HHSS Film Festival 로고', ratio: 3331 / 464 },

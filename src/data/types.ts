@@ -133,6 +133,8 @@ export interface Resource extends ContentBase {
 export interface EventExtra {
   detail?: string
   media?: MediaRef
+  /** 행사 사진 여러 장 (사진마다 caption) */
+  photos?: MediaRef[]
 }
 
 /**
