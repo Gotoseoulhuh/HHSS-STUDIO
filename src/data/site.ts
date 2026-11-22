@@ -127,6 +127,7 @@ export const works: Work[] = [
       },
       {
         type: 'note',
+        enter: 'arrow',
         label: "Director's Note · 기획 의도",
         heading: '함께한 시간이 끝난 뒤,\n관계는 어디에 남을까',
         paragraphs: [

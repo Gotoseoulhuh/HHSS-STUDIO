@@ -83,7 +83,9 @@ export interface BehindBlock {
     sign: MediaRef
   }[]
 }
-export type WorkBlock = StoryBlock | CastBlock | GalleryBlock | NoteBlock | ListBlock | BehindBlock
+/** 블록에 들어가기 직전에 재생되는 장면 전환 (components/ArrowScene.tsx 등). 'arrow': 화살이 날아와 화면을 덮음 */
+export type BlockEnter = 'arrow'
+export type WorkBlock = (StoryBlock | CastBlock | GalleryBlock | NoteBlock | ListBlock | BehindBlock) & { enter?: BlockEnter }
 
 export interface Work extends ContentBase {
   kind: 'work'

@@ -25,6 +25,7 @@ import './styles/layout.css'
 import './styles/concepts.css'
 import './styles/guestbook.css'
 import './styles/motion.css'
+import './styles/scenes.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

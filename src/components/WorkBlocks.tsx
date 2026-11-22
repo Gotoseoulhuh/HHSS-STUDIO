@@ -1,6 +1,8 @@
+import { Fragment } from 'react'
 import type { BehindBlock, CastBlock, GalleryBlock, ListBlock, NoteBlock, StoryBlock, WorkBlock } from '../data/types'
 import { pad2 } from '../lib/format'
 import { asset } from '../lib/url'
+import { ArrowScene } from './ArrowScene'
 import { Gallery } from './Gallery'
 import { MediaFrame } from './MediaFrame'
 
@@ -166,7 +168,9 @@ export function WorkBlocks({ blocks }: { blocks: WorkBlock[] }) {
       {blocks.map((b, i) => {
         const id = `block-${i}`
         return (
-          <section key={i} className={`block block--${b.type}`} aria-labelledby={id}>
+          <Fragment key={i}>
+          {b.enter === 'arrow' && <ArrowScene />}
+          <section className={`block block--${b.type}`} aria-labelledby={id}>
             {b.type === 'story' && <Story b={b} id={id} />}
             {b.type === 'cast' && <Cast b={b} id={id} />}
             {b.type === 'gallery' && <GalleryB b={b} id={id} />}
@@ -174,6 +178,7 @@ export function WorkBlocks({ blocks }: { blocks: WorkBlock[] }) {
             {b.type === 'list' && <List b={b} id={id} />}
             {b.type === 'behind' && <Behind b={b} id={id} />}
           </section>
+          </Fragment>
         )
       })}
     </>
