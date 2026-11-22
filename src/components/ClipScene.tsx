@@ -117,7 +117,7 @@ export function ClipScene({ src, poster, label }: { src: string; poster: string;
   if (!live) return null
 
   return (
-    <div ref={section} className="scene scene--clip" role="img" aria-label={label ?? '영화의 한 장면'}>
+    <div ref={section} className="scene--clip" role="img" aria-label={label ?? '영화의 한 장면'}>
       <div className="scene__pin">
         <video ref={video} className="scene__video" src={asset(src)} poster={asset(poster)} muted playsInline preload="none" disablePictureInPicture tabIndex={-1} />
       </div>

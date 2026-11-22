@@ -1,18 +1,8 @@
 /*
  * 장면 전환(스크롤 연출). 작품 상세에서 블록 사이에 끼워 쓴다.
- * 원칙: transform·opacity만 움직인다. 덮는 요소가 화면을 다 채웠을 때의 색 = 배경색(--bg) → 다음 내용과 이어진다.
- * 값은 src/components/ArrowScene.tsx 위쪽 상수와 이 파일에서만 고친다.
+ * 원칙: transform·opacity만 움직인다.
+ * 값은 src/components/ClipScene.tsx 위쪽 상수와 이 파일에서만 고친다.
  */
-.scene { height: 70vh; }
-.scene__stage { position: fixed; inset: 0; z-index: 35; /* 본문 위, 하단 줄(40)·머리줄(50) 아래 */ overflow: hidden; pointer-events: none; visibility: hidden; contain: layout paint style; }
-
-/* 화살: 화면 한가운데에서 커진다 */
-.scene__fletch, .scene__shaft, .scene__head { position: absolute; left: 50%; top: 50%; will-change: transform; }
-.scene__fletch { width: 120vmin; height: 120vmin; transform: translate(-50%, -50%) scale(0); }
-/* 살대: 화살촉 쪽(왼쪽)이 굵고 깃 쪽이 가늘다 */
-.scene__shaft { width: 100vmin; height: 10vmin; transform-origin: 0 50%; transform: translate(0, -50%) scale(0); background: linear-gradient(#7a5a3c, #4a3320); clip-path: polygon(0 0, 100% 36%, 100% 64%, 0 100%); }
-.scene__head { width: 60vmin; height: 60vmin; background: var(--bg); transform: translate(-50%, -50%) rotate(45deg) scale(0); }
-.scene__facets { position: absolute; inset: 0; background: conic-gradient(from 45deg, #55635b 0 25%, #2c3631 0 50%, #1a211e 0 75%, #3c4841 0); }
 
 /* 영화 장면 전환 (components/ClipScene.tsx): 화면 폭 전체, 고정된 채 재생 → 위로 올라가며 어두워짐 → 다음 블록이 흐림에서 선명으로 */
 .scene--clip { height: 260vh; width: 100vw; margin-left: calc(50% - 50vw); }
