@@ -138,18 +138,29 @@ function Behind({ b, id }: { b: BehindBlock; id: string }) {
   return (
     <>
       <BlockHead label={b.label} heading={b.heading} id={id} />
-      {b.people.map((p) => (
-        <div key={p.name} className="behind">
-          <figure className="behind__still" data-reveal>
-            <MediaFrame media={p.still} />
-            {p.still.caption && <figcaption className="caption">{p.still.caption}</figcaption>}
-          </figure>
-          <div className="behind__body">
+      {b.people.map((p) => {
+        const who = (
+          <>
             <div className="behind__who" data-reveal>
               <span className="meta">{p.role}</span>
               <h3 className="behind__name">{p.name}</h3>
             </div>
             {p.intro && <p className="hand prose" data-reveal>{p.intro}</p>}
+          </>
+        )
+        return (
+        <div key={p.name} className="behind">
+          {/* 스틸컷이 없으면 그 자리에 이름·소개가 온다 */}
+          {p.still ? (
+            <figure className="behind__still" data-reveal>
+              <MediaFrame media={p.still} />
+              {p.still.caption && <figcaption className="caption">{p.still.caption}</figcaption>}
+            </figure>
+          ) : (
+            <div className="behind__aside">{who}</div>
+          )}
+          <div className="behind__body">
+            {p.still && who}
             {/* 손글씨는 좁은 화면에서 글자가 작아지지 않게 옆으로 밀어 본다 */}
             <div className="behind__letter" data-reveal tabIndex={0} role="group" aria-label={`${p.name}의 손글씨 소감`}>
               <img src={asset(p.letter.src ?? '')} alt={p.letter.alt} loading="lazy" decoding="async" style={{ aspectRatio: String(p.letter.ratio) }} />
@@ -157,7 +168,8 @@ function Behind({ b, id }: { b: BehindBlock; id: string }) {
             <img className="behind__sign" data-reveal src={asset(p.sign.src ?? '')} alt={p.sign.alt} loading="lazy" decoding="async" style={{ aspectRatio: String(p.sign.ratio) }} />
           </div>
         </div>
-      ))}
+        )
+      })}
     </>
   )
 }

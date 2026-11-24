@@ -191,7 +191,7 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 .behind { display: grid; gap: clamp(24px, 3vw, 40px); align-items: start; }
 .behind + .behind { margin-top: clamp(40px, 6vw, 80px); padding-top: clamp(40px, 6vw, 80px); border-top: 1px solid var(--line); }
 .behind__still { margin: 0; display: grid; gap: 10px; }
-.behind__body { display: grid; gap: clamp(18px, 2vw, 28px); min-width: 0; }
+.behind__body, .behind__aside { display: grid; gap: clamp(18px, 2vw, 28px); min-width: 0; }
 .behind__who { display: grid; gap: 6px; }
 .behind__name { font-size: var(--fs-h2); }
 .behind__letter { overflow-x: auto; padding-top: 8px; }
@@ -200,7 +200,7 @@ body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom, 0px));
 .behind__sign { display: block; width: clamp(140px, 22vw, 220px); height: auto; justify-self: end; }
 @media (min-width: 1200px) {
   .behind { grid-template-columns: 5fr 7fr; column-gap: 64px; }
-  .behind__still { position: sticky; top: calc(var(--header-h) + 32px); }
+  .behind__still, .behind__aside { position: sticky; top: calc(var(--header-h) + 32px); }
 }
 
 /* 다음 작품 */

@@ -21,7 +21,7 @@ function photosOf(w: Work): MediaRef[] {
     if (b.type === 'story' || b.type === 'list') out.push(...(b.media ?? []))
     else if (b.type === 'note') { if (b.media) out.push(b.media) }
     else if (b.type === 'gallery') { if (b.layout === 'photo') out.push(...b.groups.flatMap((g) => g.items)) }
-    else if (b.type === 'behind') out.push(...b.people.map((p) => p.still))
+    else if (b.type === 'behind') out.push(...b.people.flatMap((p) => (p.still ? [p.still] : [])))
   }
   return out
 }

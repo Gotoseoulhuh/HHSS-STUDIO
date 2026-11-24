@@ -75,8 +75,8 @@ export interface BehindBlock {
     role: string
     /** 연출이 쓴 소개 */
     intro?: string
-    /** 대표 스틸컷 */
-    still: MediaRef
+    /** 대표 스틸컷. 없으면 그 자리에 이름·소개가 온다 */
+    still?: MediaRef
     /** 손글씨 소감 (투명 배경 그림). alt에 글 전문을 적는다 */
     letter: MediaRef
     /** 사인 (투명 배경 그림) */
