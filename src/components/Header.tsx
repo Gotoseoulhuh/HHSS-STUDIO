@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
+import { isFestivalSeason } from '../lib/festival'
 import { NAV } from '../lib/nav'
 import { Logo } from './Logo'
 
@@ -46,6 +47,12 @@ export function Header() {
         </button>
         <nav id="site-nav" className={`nav${open ? ' is-open' : ''}`} aria-label="주 메뉴">
           <ul>
+            {/* 영화제 시즌에만 보이는 메뉴 */}
+            {isFestivalSeason() && (
+              <li>
+                <NavLink to="/festival" className="nav__fest" viewTransition>영화제</NavLink>
+              </li>
+            )}
             {NAV.map((item) => (
               <li key={item.to}>
                 <NavLink to={item.to} viewTransition>

@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { Card } from '../components/Card'
 import { MediaFrame } from '../components/MediaFrame'
 import { getRecords, getSettings, listFeaturedWorks, listPosts } from '../lib/content'
+import { festival } from '../data/festival'
+import { isFestivalSeason } from '../lib/festival'
 import { formatDate, pad2 } from '../lib/format'
 import { asset } from '../lib/url'
 
@@ -29,6 +31,10 @@ export function Home() {
             <strong>{settings.heroEmphasis}</strong>
           </p>
           <div className="home-hero__actions hero-line" style={{ ['--i' as string]: 3 }}>
+            {/* 영화제 시즌에만 보이는 단추 */}
+            {isFestivalSeason() && (
+              <Link to="/festival" className="pill pill--solid" viewTransition>{festival.name} <span aria-hidden="true">→</span></Link>
+            )}
             <Link to="/works" className="pill pill--solid" viewTransition>작품 보기 <span aria-hidden="true">→</span></Link>
             <Link to="/photography" className="pill pill--solid" viewTransition>촬영 기록 <span aria-hidden="true">→</span></Link>
             <Link to="/about" className="pill" viewTransition>소개 <span aria-hidden="true">→</span></Link>

@@ -7,6 +7,7 @@ import { Layout } from './components/Layout'
 import { routerBase } from './lib/url'
 import { About } from './pages/About'
 import { AdminHome } from './pages/admin/AdminHome'
+import { Festival } from './pages/Festival'
 import { Guestbook } from './pages/Guestbook'
 import { Home } from './pages/Home'
 import { Journal } from './pages/Journal'
@@ -24,6 +25,7 @@ import './styles/base.css'
 import './styles/layout.css'
 import './styles/concepts.css'
 import './styles/guestbook.css'
+import './styles/festival.css'
 import './styles/motion.css'
 import './styles/scenes.css'
 
@@ -45,6 +47,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="resources/:slug" element={<ResourceDetail />} />
           <Route path="about" element={<About />} />
           <Route path="guestbook" element={<Guestbook />} />
+          <Route path="festival" element={<Festival />} />
           <Route path="admin/*" element={<AdminHome />} />
           <Route path="*" element={<NotFound />} />
         </Route>

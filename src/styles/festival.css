@@ -1,0 +1,51 @@
+/* ═════ HHSS 연합영화제: 시즌 한정 이벤트창 + 영화제 페이지 (내용은 src/data/festival.ts) ═════ */
+
+/* ── 이벤트창 ── */
+.fest-pop { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 16px; border: 0; background: transparent; color: inherit;
+  display: grid; place-items: center; overflow-y: auto; overscroll-behavior: contain; }
+.fest-pop::backdrop { background: rgb(5 8 7 / .78); animation: fade-in 240ms var(--ease-out) both; }
+.fest-pop__panel { width: min(100%, 420px); background: var(--bg-raise); border: 1px solid var(--line); box-shadow: 0 24px 80px rgb(0 0 0 / .5); animation: lb-in 320ms var(--ease-out) both; }
+.fest-pop__cover { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--line); }
+.fest-pop__cover img { width: 100%; height: 100%; object-fit: cover; }
+.fest-pop__body { display: grid; justify-items: start; gap: 10px; padding: 22px 22px 24px; }
+.fest-pop__label { font-family: var(--font-ui); font-size: .75rem; letter-spacing: .2em; color: var(--text-dim); }
+.fest-pop__title { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 1.9rem); }
+.fest-pop__when { font-family: var(--font-display); font-weight: 600; color: var(--text-strong); line-height: 1.5; }
+.fest-pop__films { font-family: var(--font-hand); font-size: calc(1rem * var(--hand-scale)); color: var(--text); }
+.fest-pop__go { margin-top: 8px; }
+.fest-pop__foot { display: flex; justify-content: space-between; border-top: 1px solid var(--line); }
+.fest-pop__foot button { min-height: 48px; padding: 0 18px; font-family: var(--font-ui); font-size: var(--fs-caption); color: var(--text-dim); transition: color var(--dur-fast); }
+.fest-pop__foot button:hover { color: var(--text-strong); }
+/* 낮은 화면(가로로 든 휴대폰): 사진을 빼고 글만 */
+@media (max-height: 560px) { .fest-pop__cover { display: none; } }
+
+/* ── 메뉴·홈의 시즌 표시 ── */
+.nav a.nav__fest { color: var(--title); }
+.nav a.nav__fest::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: var(--title); vertical-align: middle; translate: 0 -1px; }
+
+/* ── 영화제 페이지 ── */
+.fest-head__when { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.1rem, 1rem + .7vw, 1.5rem); color: var(--text-strong); }
+.fest-badge { display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; font-family: var(--font-ui); font-weight: 400; font-size: var(--fs-caption); color: var(--text); letter-spacing: .04em; }
+.fest-badge--during { border-color: var(--brand); background: var(--brand); color: #FFFFFF; font-weight: 600; }
+.fest-badge--after { color: var(--text-dim); }
+
+.fest-section { display: grid; gap: clamp(24px, 3vw, 40px); padding-top: clamp(24px, 4vw, 56px); }
+.fest-section + .fest-section { padding-top: clamp(56px, 8vw, 112px); }
+.fest-films { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(40px, 6vw, 72px) clamp(24px, 3vw, 48px); }
+@media (min-width: 768px) { .fest-films { grid-template-columns: 1fr 1fr; } }
+.fest-film { display: grid; gap: 14px; align-content: start; }
+.fest-film .hand { color: var(--text); }
+.fest-film__plain { display: grid; gap: 14px; padding: 24px; border: 1px solid var(--line); }
+.fest-film__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.fest-days { display: grid; gap: clamp(24px, 3vw, 48px); }
+@media (min-width: 768px) { .fest-days { grid-template-columns: 1fr 1fr; } }
+.fest-day { display: grid; gap: 12px; align-content: start; }
+.fest-day__title { font-size: 1.25rem; color: var(--text-strong); }
+.fest-day__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.fest-day__list li { display: grid; grid-template-columns: 5.5ch 1fr; gap: 2px 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.fest-day__time { font-family: var(--font-ui); color: var(--title); font-variant-numeric: tabular-nums; }
+.fest-day__film { color: var(--text-strong); }
+.fest-day__list .caption { grid-column: 2; }
+
+.fest-more__actions { display: flex; flex-wrap: wrap; gap: 10px; }
